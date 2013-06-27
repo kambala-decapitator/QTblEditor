@@ -739,7 +739,7 @@ DWORD QTblEditor::writeAsTbl(QByteArray &bytesToWrite)
 	DWORD currentOffset = dataStartOffset, maxCollisionsNumber = 0;
 	for (WORD i = 0; i < entriesNumber; i++)
 	{
-		QByteArray currentKey = _currentTableWidget->item(i, 0)->text().toUtf8(),
+		QByteArray currentKey = _currentTableWidget->item(i, 0)->text().toLatin1(),
 		currentVal = stringValsWithModifiedColors.at(i).toUtf8();
 		DWORD hashValue = TblStructure::hashValue(currentKey.data(), entriesNumber), hashIndex = hashValue,
 		currentCollisionsNumber = 0;
@@ -774,7 +774,7 @@ DWORD QTblEditor::writeAsTbl(QByteArray &bytesToWrite)
 
 	for (WORD i = 0; i < entriesNumber; i++)
 	{
-		QByteArray currentKey = _currentTableWidget->item(i, 0)->text().toUtf8(),
+		QByteArray currentKey = _currentTableWidget->item(i, 0)->text().toLatin1(),
 			currentVal = stringValsWithModifiedColors.at(i).toUtf8();
 		out.writeRawData(currentKey.constData(), qstrlen(currentKey.constData()) + 1);
 		out.writeRawData(currentVal.constData(), qstrlen(currentVal.constData()) + 1);

@@ -75,7 +75,7 @@ void TblStructure::getStringTable(QDataStream &in)
 				val.replace(beginReplacePos, colorHeaderSize + 1, colorStrings.at(index)); // replacing with user-readable color string
 			}
 		}
-		_data.push_back(DataNode(keyOffset, QString::fromUtf8(buf + keyOffset), val));
+		_data.push_back(DataNode(keyOffset, QString::fromLatin1(buf + keyOffset), val));
 	}
 	qSort(_data.begin(), _data.end(), DataNodeLessThan);
 	for (WORD i = 0; i < _header.NodesNumber; i++)
