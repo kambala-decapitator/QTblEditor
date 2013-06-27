@@ -1,0 +1,8 @@
+- 0xB7 character is written as unicode (c2b7) instead of latin1
+- show warning if there're more than 255 characters - it doesn't work in 1.10
+- rewrite search
+- display all white space in HTML preview
+- different colors on one line mustn't be reversed, e.g. '\gold;Median XL by \dgreen;BrotherLaz'
+- allow 'almost' synced tables (there can be a number of rows that doesn't match, but all others must match)
+- allow Cut
+- d'n'd in the editor

@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/QTblEditor">
+        <file>Resources/Add.png</file>
+        <file>Resources/Close.png</file>
+        <file>Resources/Down.png</file>
+        <file>Resources/Erase.png</file>
+        <file>Resources/Modify.png</file>
+        <file>Resources/New document.png</file>
+        <file>Resources/Remove.png</file>
+        <file>Resources/Save.png</file>
+        <file>Resources/Search.png</file>
+        <file>Resources/Up.png</file>
+        <file>Resources/Baal.png</file>
+        <file>Resources/Qt.png</file>
+        <file>Resources/Swap.png</file>
+        <file>Resources/Goto.png</file>
+        <file>Resources/Open.png</file>
+        <file>Resources/Copy.png</file>
+        <file>Resources/Paste.png</file>
+    </qresource>
+</RCC>
