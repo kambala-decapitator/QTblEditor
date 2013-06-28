@@ -53,3 +53,5 @@ SOURCES += editstringcell.cpp \
 RESOURCES += qtbleditor.qrc
 
 TRANSLATIONS += qtbleditor_ru.ts
+
+OTHER_FILES += TODO.txt

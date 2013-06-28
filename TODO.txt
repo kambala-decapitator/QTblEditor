@@ -1,4 +1,8 @@
-- 0xB7 character is written as unicode (c2b7) instead of latin1
+MarcoNecroX:
+3) Save user's table parameters - for example; everytime I load the program I have the key column covering all screen, and string column is not visible so I have to fix the columns everytime I open the program.
+4) Quick-Edit: right click on string and edit it without the pop up window (for fast edits). Many of us don't really need a preview, so this would be nice.
+5) Allow up to 3 string files at same time - so you can have the 3 opened. After this, 'Search in All' feature  pure win.
+
 - show warning if there're more than 255 characters - it doesn't work in 1.10
 - rewrite search
 - display all white space in HTML preview

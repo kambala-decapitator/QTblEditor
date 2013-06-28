@@ -23,6 +23,10 @@
 #include <QTextStream>
 #include <QMimeData>
 
+#ifndef QT_NO_DEBUG
+#include <QDebug>
+#endif
+
 
 static const QString newTblFileName("!newstring!.tbl"), customColorsFileName("customcolors.ini"), releaseDate("23.01.2012");
 const int maxRecentFiles = 10;
@@ -123,11 +127,6 @@ QTblEditor::QTblEditor(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(par
     connect(_rightTableWidget, SIGNAL(tableGotFocus(QWidget *)), SLOT(changeCurrentTable(QWidget *)));
     connect(_rightTableWidget, SIGNAL(itemWasDropped(QTableWidgetItem *)), SLOT(updateItem(QTableWidgetItem *)));
 
-    connect(_leftTableWidget, SIGNAL(currentCellChanged(int, int, int, int)), _rightTableWidget, SLOT(changeCurrentCell(int, int)));
-    connect(_rightTableWidget, SIGNAL(currentCellChanged(int, int, int, int)), _leftTableWidget, SLOT(changeCurrentCell(int, int)));
-    connect(_leftTableWidget->verticalScrollBar(), SIGNAL(valueChanged(int)), _rightTableWidget->verticalScrollBar(), SLOT(setValue(int)));
-    connect(_rightTableWidget->verticalScrollBar(), SIGNAL(valueChanged(int)), _leftTableWidget->verticalScrollBar(), SLOT(setValue(int)));
-
     connect(ui.actionShowHexInRow, SIGNAL(toggled(bool)), _leftTableWidget, SLOT(toggleDisplayHex(bool)));
     connect(ui.actionShowHexInRow, SIGNAL(toggled(bool)), _rightTableWidget, SLOT(toggleDisplayHex(bool)));
     connect(ui.actionStartNumberingFrom1, SIGNAL(toggled(bool)), _leftTableWidget, SLOT(changeRowNumberingTo1(bool)));
@@ -178,6 +177,7 @@ void QTblEditor::connectActions()
     CONNECT_ACTION_TO_SLOT(ui.actionStrings, SLOT(showDifferences()));
     CONNECT_ACTION_TO_SLOT(ui.actionBoth, SLOT(showDifferences()));
     CONNECT_ACTION_TO_SLOT(ui.actionSameStrings, SLOT(showDifferences()));
+    connect(ui.actionSyncScrolling, SIGNAL(toggled(bool)), SLOT(syncScrollingChanged(bool)));
 
     CONNECT_ACTION_TO_SLOT(ui.actionAbout, SLOT(aboutApp()));
     connect(ui.actionAboutQt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
@@ -875,7 +875,7 @@ void QTblEditor::editString(QTableWidgetItem *itemToEdit)
         itemsPair = KeyValueItemsPair(itemToEdit, itemToEdit->tableWidget()->item(row, 1));
 
     EditStringCellDialog *editStringCellDlg = 0;
-    if (_openedTables == 1 || row >= inactiveTableWidget(_currentTableWidget)->rowCount())
+    if (_openedTables == 1 || row >= inactiveTableWidget(_currentTableWidget)->rowCount() || !ui.actionSyncScrolling->isChecked())
         editStringCellDlg = new EditStringCellDialog(this, itemsPair);
     else
     {
@@ -888,10 +888,10 @@ void QTblEditor::editString(QTableWidgetItem *itemToEdit)
     }
 
     connect(editStringCellDlg, SIGNAL(sendingText(KeyValueItemsPair, KeyValueItemsPair)), SLOT(recievingText(KeyValueItemsPair, KeyValueItemsPair)));
-    connect(editStringCellDlg, SIGNAL(editorClosedAt(int)), _leftTableWidget, SLOT(changeCurrentCell(int)));
-    if (_openedTables == 2)
+    connect(editStringCellDlg, SIGNAL(editorClosedAt(int)), _currentTableWidget, SLOT(changeCurrentCell(int)));
+    if (_openedTables == 2 && ui.actionSyncScrolling->isChecked())
     {
-        connect(editStringCellDlg, SIGNAL(editorClosedAt(int)), _rightTableWidget, SLOT(changeCurrentCell(int)));
+        connect(editStringCellDlg, SIGNAL(editorClosedAt(int)), inactiveTableWidget(_currentTableWidget), SLOT(changeCurrentCell(int)));
         connect(this, SIGNAL(tablesWereSwapped()), editStringCellDlg, SLOT(swapEditors()));
     }
 
@@ -993,7 +993,6 @@ void QTblEditor::writeSettings()
     settings.setValue("splitterState", _tableSplitter->saveState());
     settings.endGroup();
 
-
     settings.beginGroup("options");
     settings.setValue("isCsvSeparatorComma", ui.actionCsvComma->isChecked());
     settings.setValue("restoreOpenedFiles", ui.actionRestoreLastOpenedFiles->isChecked());
@@ -1002,12 +1001,10 @@ void QTblEditor::writeSettings()
     settings.setValue("startNumberingFrom", _startNumberingGroup->checkedAction()->text());
     settings.endGroup();
 
-
     settings.beginGroup("recentItems");
     settings.setValue("lastPath", _lastPath);
     settings.setValue("recentFiles", _recentFilesList);
     settings.endGroup();
-
 
     if (ui.actionRestoreLastOpenedFiles->isChecked() && _openedTables)
     {
@@ -1029,6 +1026,8 @@ void QTblEditor::writeSettings()
     }
     else
         settings.remove("lastSession");
+
+    settings.setValue("syncScrolling", ui.actionSyncScrolling->isChecked());
 
 
     // write custom colors to file
@@ -1082,12 +1081,12 @@ void QTblEditor::readSettings()
             _currentTableWidget->setCurrentCell(settings.value(keys.at(1)).toInt(), 1);
 
         if (keys.length() == 4)
-        {
             if (loadFile(settings.value(keys.at(2)).toString(), false))
                 _currentTableWidget->setCurrentCell(settings.value(keys.at(3)).toInt(), 1);
-        }
     }
     settings.endGroup();
+
+    ui.actionSyncScrolling->setChecked(settings.value("syncScrolling", true).toBool());
 
 
     // read custom colors from file
@@ -1339,4 +1338,26 @@ void QTblEditor::refreshDifferences(TablesDifferencesWidget *w)
 {
     w->clear();
     w->addRows(differentStrings(w->diffType()));
+}
+
+void QTblEditor::syncScrollingChanged(bool isSyncing)
+{
+    QScrollBar *leftScrollbar = _leftTableWidget->verticalScrollBar(), *rightScrollbar = _rightTableWidget->verticalScrollBar();
+    const char *changeCellSlot = SLOT(changeCurrentCell(int, int));
+    if (isSyncing)
+    {
+        connect(leftScrollbar,  SIGNAL(valueChanged(int)), rightScrollbar, SLOT(setValue(int)));
+        connect(rightScrollbar, SIGNAL(valueChanged(int)), leftScrollbar,  SLOT(setValue(int)));
+
+        connect(_leftTableWidget,  SIGNAL(currentCellChanged(int, int, int, int)), _rightTableWidget, changeCellSlot);
+        connect(_rightTableWidget, SIGNAL(currentCellChanged(int, int, int, int)), _leftTableWidget,  changeCellSlot);
+    }
+    else
+    {
+        leftScrollbar->disconnect(rightScrollbar);
+        rightScrollbar->disconnect(leftScrollbar);
+
+        _leftTableWidget->disconnect(_rightTableWidget, changeCellSlot);
+        _rightTableWidget->disconnect(_leftTableWidget, changeCellSlot);
+    }
 }

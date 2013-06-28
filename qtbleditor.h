@@ -59,6 +59,7 @@ private slots:
     void swapTables();
     void activateAnotherTable();
     void showDifferences();
+    void syncScrollingChanged(bool isSyncing);
 
     void editString(QTableWidgetItem *itemToEdit);
     void recievingText(KeyValueItemsPair leftItemsPair, KeyValueItemsPair rightItemsPair = emptyKeyValuePair);

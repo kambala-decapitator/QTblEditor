@@ -105,6 +105,7 @@
     <addaction name="actionSwap"/>
     <addaction name="actionChangeActive"/>
     <addaction name="menuDifferences"/>
+    <addaction name="actionSyncScrolling"/>
    </widget>
    <widget class="QMenu" name="menuOptions">
     <property name="title">
@@ -735,6 +736,20 @@
    </property>
    <property name="text">
     <string>Show hex values in row numbers</string>
+   </property>
+  </action>
+  <action name="actionSyncScrolling">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Sync scrolling and selection</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true">F4</string>
    </property>
   </action>
  </widget>
