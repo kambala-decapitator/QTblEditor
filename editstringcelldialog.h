@@ -12,39 +12,39 @@ class EditorsSplitter;
 
 class EditStringCellDialog : public QDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit EditStringCellDialog(QWidget *parent, KeyValueItemsPair leftItemsPairToEdit, KeyValueItemsPair rightItemsPairToEdit = emptyKeyValuePair);
+    explicit EditStringCellDialog(QWidget *parent, KeyValueItemsPair leftItemsPairToEdit, KeyValueItemsPair rightItemsPairToEdit = emptyKeyValuePair);
 
 public slots:
-	void swapEditors();
+    void swapEditors();
 
 signals:
-	void sendingText(KeyValueItemsPair leftItemsPair, KeyValueItemsPair rightItemsPair);
-	void editorClosedAt(int row);
+    void sendingText(KeyValueItemsPair leftItemsPair, KeyValueItemsPair rightItemsPair);
+    void editorClosedAt(int row);
 
 protected:
-	void closeEvent(QCloseEvent *e);
-	void keyPressEvent(QKeyEvent *e);
+    void closeEvent(QCloseEvent *e);
+    void keyPressEvent(QKeyEvent *e);
 
 private slots:
-	void saveText();
+    void saveText();
 
-	void previous() { changeRecord(false); }
-	void next()     { changeRecord(true);  }
+    void previous() { changeRecord(false); }
+    void next()     { changeRecord(true);  }
 
-	void replaceText();
-	void appendText();
+    void replaceText();
+    void appendText();
 
 private:
-	Ui::EditStringCellDialog ui;
-	EditorsSplitter *_editorsSplitter;
-	EditStringCell *_leftEditor, *_rightEditor;
+    Ui::EditStringCellDialog ui;
+    EditorsSplitter *_editorsSplitter;
+    EditStringCell *_leftEditor, *_rightEditor;
 
-	void updateLocation();
-	void changeRecord(bool isNext);
-	QPlainTextEdit *targetTextEditAndText(bool toRight, QString *outText);
+    void updateLocation();
+    void changeRecord(bool isNext);
+    QPlainTextEdit *targetTextEditAndText(bool toRight, QString *outText);
 };
 
 #endif // EDITSTRINGCELLDIALOG_H

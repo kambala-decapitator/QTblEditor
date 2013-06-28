@@ -14,39 +14,39 @@ static const KeyValueItemsPair emptyKeyValuePair(0, 0);
 
 class EditStringCell : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	enum SaveResult {NothingChanged = 0, KeyChanged, ValueChanged};
+    enum SaveResult {NothingChanged = 0, KeyChanged, ValueChanged};
 
-	EditStringCell(QWidget *parent, KeyValueItemsPair keyValueItemsPairToEdit);
+    EditStringCell(QWidget *parent, KeyValueItemsPair keyValueItemsPairToEdit);
 
-	SaveResult saveChanges();
-	KeyValueItemsPair itemsPair() const { return _keyValueItemsPair; }
-	void setItem(KeyValueItemsPair newKeyValueItemsPair);
-	void changeItem(bool toNext);
+    SaveResult saveChanges();
+    KeyValueItemsPair itemsPair() const { return _keyValueItemsPair; }
+    void setItem(KeyValueItemsPair newKeyValueItemsPair);
+    void changeItem(bool toNext);
 
-	QPlainTextEdit *textEdit() const { return ui.stringEdit; }
+    QPlainTextEdit *textEdit() const { return ui.stringEdit; }
 
 public slots:
-	void resetText();
-	void updateColorsMenu();
+    void resetText();
+    void updateColorsMenu();
 
 signals:
-	void colorMenuChanged();
+    void colorMenuChanged();
 
 private slots:
-	void wrapModeChanged(bool state);
-	void insertText();
-	void updateCharsEditCounter() { ui.charsEditCountLabel->setText(QString::number(ui.stringEdit->toPlainText().length())); }
-	void calculateKeyHashValue();
-	void setPreviewText();
-	void showEditColorsDialog();
+    void wrapModeChanged(bool state);
+    void insertText();
+    void updateCharsEditCounter() { ui.charsEditCountLabel->setText(QString::number(ui.stringEdit->toPlainText().length())); }
+    void calculateKeyHashValue();
+    void setPreviewText();
+    void showEditColorsDialog();
 
 private:
-	Ui::EditStringCellClass ui;
-	QMenu *_colorMenu;
-	KeyValueItemsPair _keyValueItemsPair;
+    Ui::EditStringCellClass ui;
+    QMenu *_colorMenu;
+    KeyValueItemsPair _keyValueItemsPair;
 };
 
 #endif // EDITSTRINGCELL_H

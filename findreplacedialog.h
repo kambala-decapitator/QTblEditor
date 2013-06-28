@@ -10,45 +10,45 @@ class QCloseEvent;
 
 class FindReplaceDialog : public QDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	FindReplaceDialog(QWidget *parent = 0);
+    FindReplaceDialog(QWidget *parent = 0);
 
-	void show(bool isTwoTablesOpened);
+    void show(bool isTwoTablesOpened);
 
 public slots:
-	void getFoundStrings(QList<QTableWidgetItem *> foundItems);
-	void needsRefind() { _findConditionChanged = true; }
+    void getFoundStrings(QList<QTableWidgetItem *> foundItems);
+    void needsRefind() { _findConditionChanged = true; }
 
 private slots:
-	void enableButtons();
-	void getNextString(bool isPrevious);
-	void findNext();
-	void findPrevious();
-	void replaceNext();
-	void replaceAll();
+    void enableButtons();
+    void getNextString(bool isPrevious);
+    void findNext();
+    void findPrevious();
+    void replaceNext();
+    void replaceAll();
 
 signals:
-	void getStrings(const QString &query, bool isCaseSensitive, bool isExactString, bool isSearchBothTables);
-	void sendingText(QTableWidgetItem *);
-	void currentItemChanged(QTableWidgetItem *newItem);
+    void getStrings(const QString &query, bool isCaseSensitive, bool isExactString, bool isSearchBothTables);
+    void sendingText(QTableWidgetItem *);
+    void currentItemChanged(QTableWidgetItem *newItem);
 
 protected:
-	void closeEvent(QCloseEvent *e);
+    void closeEvent(QCloseEvent *e);
 
 private:
-	Ui::FindReplaceDialogClass ui;
-	QString _query;
-	bool _findConditionChanged, _searchFailed;
-	QList<QTableWidgetItem *> _foundStrings;
-	QList<QTableWidgetItem *>::iterator _currentStringIterator;
+    Ui::FindReplaceDialogClass ui;
+    QString _query;
+    bool _findConditionChanged, _searchFailed;
+    QList<QTableWidgetItem *> _foundStrings;
+    QList<QTableWidgetItem *>::iterator _currentStringIterator;
 
-	void readSettings();
-	void writeSettings();
-	bool areResultsObsolete();
-	void replaceInCurrentString();
-	void changeCurrentTableCell();
+    void readSettings();
+    void writeSettings();
+    bool areResultsObsolete();
+    void replaceInCurrentString();
+    void changeCurrentTableCell();
 };
 
 #endif // FINDREPLACEDIALOG_H

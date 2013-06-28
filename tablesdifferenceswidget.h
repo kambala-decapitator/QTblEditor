@@ -9,24 +9,24 @@ class TablesDifferencesWidget : public QWidget
     Q_OBJECT
 
 public:
-	enum DiffType {Keys, Strings, KeysOrStrings, SameStrings};
+    enum DiffType {Keys, Strings, KeysOrStrings, SameStrings};
 
-	explicit TablesDifferencesWidget(QWidget *parent, DiffType diffType);
+    explicit TablesDifferencesWidget(QWidget *parent, DiffType diffType);
 
-	DiffType diffType() const { return _diffType; }
-	void clear() { ui.rowsListWidget->clear(); }
-	void addRows(QStringList rowStrings);
+    DiffType diffType() const { return _diffType; }
+    void clear() { ui.rowsListWidget->clear(); }
+    void addRows(QStringList rowStrings);
 
 signals:
-	void refreshRequested(TablesDifferencesWidget *w);
-	void rowDoubleClicked(QListWidgetItem *rowItem);
+    void refreshRequested(TablesDifferencesWidget *w);
+    void rowDoubleClicked(QListWidgetItem *rowItem);
 
 private slots:
-	void refreshButtonClicked() { emit refreshRequested(this); }
+    void refreshButtonClicked() { emit refreshRequested(this); }
 
 private:
     Ui::TablesDifferencesWidget ui;
-	DiffType _diffType;
+    DiffType _diffType;
 };
 
 #endif // TABLESDIFFERENCESWIDGET_H

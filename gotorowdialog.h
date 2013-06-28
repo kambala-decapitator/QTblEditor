@@ -9,20 +9,20 @@ class GoToRowDialog : public QDialog
     Q_OBJECT
 
 public:
-	explicit GoToRowDialog(QWidget *parent, int rowCount);
+    explicit GoToRowDialog(QWidget *parent, int rowCount);
 
-	int row();
+    int row();
 
 public slots:
-	void accept();
+    void accept();
 
 private slots:
-	void changeMode(bool isHex);
-	void enableOkButton();
+    void changeMode(bool isHex);
+    void enableOkButton();
 
 private:
     Ui::GoToRowDialog ui;
-	int _maxRow;
+    int _maxRow;
 };
 
 #endif // GOTOROWDIALOG_H
