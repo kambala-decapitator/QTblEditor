@@ -22,7 +22,7 @@ public:
     QPushButton *appendLeftButton()   const { return _appendLeft;   }
 
 protected:
-    virtual void showEvent(QShowEvent *e) { if (_w) _w->resize(size()); }
+    virtual void showEvent(QShowEvent *e);
 
 private:
     QWidget *_w;

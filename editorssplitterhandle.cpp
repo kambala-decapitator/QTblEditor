@@ -26,3 +26,11 @@ EditorsSplitterHandle::EditorsSplitterHandle(Qt::Orientation orientation, QSplit
     layout->addWidget(_appendLeft);
     layout->addStretch();
 }
+
+void EditorsSplitterHandle::showEvent(QShowEvent *e)
+{
+    Q_UNUSED(e);
+
+    if (_w)
+        _w->resize(size());
+}

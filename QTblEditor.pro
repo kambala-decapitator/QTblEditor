@@ -6,47 +6,50 @@ TEMPLATE = app
 TARGET = QTblEditor
 DEPENDPATH += .
 INCLUDEPATH += .
-greaterThan(QT_MAJOR_VERSION, 4) {
-    QT += widgets
-    DEFINES += IS_QT5
-}
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 macx {
     ICON = File_icons/Baal.icns
-	QMAKE_MAC_SDK = /Developer/SDKs/MacOSX10.5.sdk
-	CONFIG += x86 ppc
+    QMAKE_MAC_SDK = /Developer/SDKs/MacOSX10.5.sdk
+    CONFIG += x86 ppc
 }
 
 # Input
 HEADERS += editstringcell.h \
            qtbleditor.h \
            tblstructure.h \
-		   editstringcelldialog.h \
-		   findreplacedialog.h \
-    gotorowdialog.h \
-    tablepanelwidget.h \
-    d2stringtablewidget.h \
-	tablesdifferenceswidget.h \
-    editcolorsdialog.h
+           editstringcelldialog.h \
+           findreplacedialog.h \
+           gotorowdialog.h \
+           tablepanelwidget.h \
+           d2stringtablewidget.h \
+           tablesdifferenceswidget.h \
+           editcolorsdialog.h \
+           editorssplitterhandle.h
+
 FORMS += editstringcell.ui \
-		 qtbleditor.ui \
-		 editstringcelldialog.ui \
-		 findreplacedialog.ui \
-    gotorowdialog.ui \
-    tablepanelwidget.ui \
-    tablesdifferenceswidget.ui \
-    editcolorsdialog.ui
+         qtbleditor.ui \
+         editstringcelldialog.ui \
+         findreplacedialog.ui \
+         gotorowdialog.ui \
+         tablepanelwidget.ui \
+         tablesdifferenceswidget.ui \
+         editcolorsdialog.ui
+
 SOURCES += editstringcell.cpp \
            main.cpp \
            qtbleditor.cpp \
-		   tblstructure.cpp \
-		   editstringcelldialog.cpp \
-		   findreplacedialog.cpp \
-    gotorowdialog.cpp \
-    tablepanelwidget.cpp \
-    d2stringtablewidget.cpp \
-    tablesdifferenceswidget.cpp \
-	editcolorsdialog.cpp \
-    colors.cpp
+           tblstructure.cpp \
+           editstringcelldialog.cpp \
+           findreplacedialog.cpp \
+           gotorowdialog.cpp \
+           tablepanelwidget.cpp \
+           d2stringtablewidget.cpp \
+           tablesdifferenceswidget.cpp \
+           editcolorsdialog.cpp \
+           colors.cpp \
+           editorssplitterhandle.cpp
+
 RESOURCES += qtbleditor.qrc
+
 TRANSLATIONS += qtbleditor_ru.ts
