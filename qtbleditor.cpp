@@ -10,7 +10,6 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QSpinBox>
-#include <QLabel>
 #include <QTextEdit>
 #include <QInputDialog>
 #include <QScrollBar>
@@ -20,16 +19,16 @@
 #include <QTextStream>
 #include <QSettings>
 #include <QFileInfo>
-#include <QTextStream>
 #include <QMimeData>
+#include <QDateTime>
 
 #ifndef QT_NO_DEBUG
 #include <QDebug>
 #endif
 
 
-static const QString newTblFileName("!newstring!.tbl"), customColorsFileName("customcolors.ini"), releaseDate("23.01.2012");
-const int maxRecentFiles = 10;
+static const QString kNewTblFileName("!newstring!.tbl"), kCustomColorsFileName("customcolors.ini");
+const int kMaxRecentFiles = 10;
 
 
 // global auxiliary functions
@@ -133,7 +132,6 @@ QTblEditor::QTblEditor(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(par
     connect(ui.actionStartNumberingFrom1, SIGNAL(toggled(bool)), _rightTableWidget, SLOT(changeRowNumberingTo1(bool)));
 
     connect(_findReplaceDlg, SIGNAL(getStrings(QString, bool, bool, bool)), SLOT(findNextString(QString, bool, bool, bool)));
-    connect(this, SIGNAL(searchFinished(QList<QTableWidgetItem *>)), _findReplaceDlg, SLOT(getFoundStrings(QList<QTableWidgetItem *>)));
     connect(_findReplaceDlg, SIGNAL(currentItemChanged(QTableWidgetItem *)), SLOT(changeCurrentTableItem(QTableWidgetItem *)));
     connect(_findReplaceDlg, SIGNAL(sendingText(QTableWidgetItem *)), SLOT(recievingTextFromSingleItem(QTableWidgetItem *)));
     
@@ -247,7 +245,7 @@ void QTblEditor::newTable()
         if (result && !currentTablePanelWidget()->absoluteFileName().isEmpty() && !closeTable())
             return;
 
-        if (!result || result == -1 && areTwoTablesOpened)
+        if (!result || (result == -1 && areTwoTablesOpened))
         {
             activateAnotherTable();
             currentTablePanelWidget()->show();
@@ -256,14 +254,14 @@ void QTblEditor::newTable()
             closeAllDialogs();
         }
 
-        if (!_openedTables || _openedTables == 1 && (!result || result == -1))
+        if (!_openedTables || (_openedTables == 1 && (!result || result == -1)))
             _openedTables++;
 
         _currentTableWidget->setRowCount(rowsNum);
         currentTablePanelWidget()->updateRowCountLabel();
         for (int i = 0; i < rowsNum; i++)
             _currentTableWidget->createNewEntry(i, QString(), QString());
-        currentTablePanelWidget()->setFilePath(newTblFileName);
+        currentTablePanelWidget()->setFilePath(kNewTblFileName);
         currentTablePanelWidget()->setActive(true);
         _currentTableWidget->setCurrentCell(0, 0, QItemSelectionModel::Select);
 
@@ -295,7 +293,7 @@ void QTblEditor::addToRecentFiles(const QString &fileName)
         _recentFilesList.move(index, 0);
     else
     {
-        if (_recentFilesList.length() == maxRecentFiles)
+        if (_recentFilesList.length() == kMaxRecentFiles)
             _recentFilesList.removeLast();
         _recentFilesList.prepend(fileName);
     }
@@ -338,7 +336,7 @@ bool QTblEditor::loadFile(const QString &fileName, bool shouldShowOpenOptions)
         return false;
 
     int row = 0, column = 0;
-    if (!result || result == -1 && areTwoTablesOpened)
+    if (!result || (result == -1 && areTwoTablesOpened))
     {
         row = _currentTableWidget->currentRow();
         column = _currentTableWidget->currentColumn();
@@ -348,7 +346,7 @@ bool QTblEditor::loadFile(const QString &fileName, bool shouldShowOpenOptions)
     }
     if (processTable(fileName))
     {
-        if (!_openedTables || _openedTables == 1 && (!result || result == -1))
+        if (!_openedTables || (_openedTables == 1 && (!result || result == -1)))
             _openedTables++;
 
         currentTablePanelWidget()->setFilePath(fileName);
@@ -369,7 +367,7 @@ bool QTblEditor::loadFile(const QString &fileName, bool shouldShowOpenOptions)
     }
     else
     {
-        if (!result || result == -1 && areTwoTablesOpened)
+        if (!result || (result == -1 && areTwoTablesOpened))
         {
             currentTablePanelWidget()->hide();
             activateAnotherTable();
@@ -541,14 +539,14 @@ bool QTblEditor::closeTable(bool hideTable)
 
         int row = _currentTableWidget->currentRow(), column = _currentTableWidget->currentColumn();
         QString filePath = currentTablePanelWidget()->absoluteFileName();
-        if (hideTable || filePath == newTblFileName)
+        if (hideTable || filePath == kNewTblFileName)
         {
             currentTablePanelWidget()->clearContents();
             _openedTables--;
         }
         if (_openedTables)
         {
-            if (hideTable || filePath == newTblFileName)
+            if (hideTable || filePath == kNewTblFileName)
                 currentTablePanelWidget()->hide();
             activateAnotherTable();
             currentTablePanelWidget()->setActive(true);
@@ -613,7 +611,7 @@ bool QTblEditor::wasSaved()
 void QTblEditor::save()
 {
     QString fileName = currentTablePanelWidget()->absoluteFileName();
-    if (fileName == newTblFileName)
+    if (fileName == kNewTblFileName)
         saveAs();
     else
         saveFile(fileName);
@@ -846,7 +844,7 @@ void QTblEditor::findNextString(const QString &query, bool isCaseSensitive, bool
     QList<QTableWidgetItem *> foundItems = _currentTableWidget->findItems(query, searchOptions);
     if (isSearchBothTables && _openedTables == 2)
         foundItems.append(inactiveTableWidget(_currentTableWidget)->findItems(query, searchOptions));
-    emit searchFinished(foundItems);
+    _findReplaceDlg->getFoundStrings(foundItems);
 }
 
 void QTblEditor::goTo()
@@ -911,7 +909,7 @@ void QTblEditor::updateItem(QTableWidgetItem *item)
         setWindowModified(true);
         ui.actionSave->setEnabled(true);
         ui.actionSaveAll->setEnabled(true);
-        ui.actionReopen->setEnabled(w->absoluteFileName() != newTblFileName);
+        ui.actionReopen->setEnabled(w->absoluteFileName() != kNewTblFileName);
     }
 }
 
@@ -951,7 +949,7 @@ void QTblEditor::updateWindow(bool isModified)
     currentTablePanelWidget()->setWindowModified(isModified);
 
     ui.actionSave->setEnabled(isModified);
-    if (currentTablePanelWidget()->absoluteFileName() == newTblFileName)
+    if (currentTablePanelWidget()->absoluteFileName() == kNewTblFileName)
         ui.actionReopen->setEnabled(false);
     else
         ui.actionReopen->setEnabled(isModified);
@@ -1035,7 +1033,7 @@ void QTblEditor::writeSettings()
 #ifdef Q_OS_MAC
             qApp->applicationDirPath() + "/../Resources/" +
 #endif
-            customColorsFileName);
+            kCustomColorsFileName);
     if (f.open(QIODevice::WriteOnly))
     {
         QTextStream out(&f);
@@ -1094,7 +1092,7 @@ void QTblEditor::readSettings()
 #ifdef Q_OS_MAC
             qApp->applicationDirPath() + "/../Resources/" +
 #endif
-            customColorsFileName);
+            kCustomColorsFileName);
     if (f.exists())
     {
         if (f.open(QIODevice::ReadOnly))
@@ -1126,10 +1124,17 @@ void QTblEditor::readSettings()
 
 void QTblEditor::aboutApp()
 {
-    QMessageBox::about(this, tr("About %1").arg(qApp->applicationName()),
-                       tr("%1 %2 (Special 'WarlordOfBlood' version)\nReleased: %3\n\nAuthor: Filipenkov Andrey (kambala)", "args 1 & 2 are app name and app version respectively")
-                       .arg(qApp->applicationName(), qApp->applicationVersion(), releaseDate) +
-                       "\nICQ: 287764961\nE-mail: decapitator@ukr.net");
+    const QString appFullName = qApp->applicationName() + " v" + qApp->applicationVersion(), email("decapitator@ukr.net");
+
+    QMessageBox aboutBox(this);
+    aboutBox.setWindowTitle(tr("About %1").arg(qApp->applicationName()));
+    aboutBox.setIconPixmap(windowIcon().pixmap(64));
+    aboutBox.setTextFormat(Qt::RichText);
+    aboutBox.setText(QString("<b>%1</b><br />").arg(appFullName)
+                     + tr("Compiled on: %1").arg(QLocale(QLocale::C).toDateTime(QString(__TIMESTAMP__).simplified(), "ddd MMM d hh:mm:ss yyyy").toString("dd.MM.yyyy hh:mm:ss")));
+    aboutBox.setInformativeText(tr("<i>Author:</i> Filipenkov Andrey (<b>kambala</b>)")
+                                + QString("<br /><i>ICQ:</i> 287764961<br /><i>E-mail:</i> <a href=\"mailto:%2?subject=%3\">%2</a>").arg(email, appFullName));
+    aboutBox.exec();
 }
 
 TablePanelWidget *QTblEditor::currentTablePanelWidget() const
@@ -1292,11 +1297,14 @@ QStringList QTblEditor::differentStrings(TablesDifferencesWidget::DiffType diffT
     {
         bool areDifferentKeys = _leftTableWidget->item(i, 0)->text() != _rightTableWidget->item(i, 0)->text();
         bool areDifferentStrings = !areDifferentKeys && _leftTableWidget->item(i, 1)->text() != _rightTableWidget->item(i, 1)->text();
-        if (diffType == TablesDifferencesWidget::Keys && areDifferentKeys ||
-            diffType == TablesDifferencesWidget::Strings && areDifferentStrings ||
-            diffType == TablesDifferencesWidget::KeysOrStrings && (areDifferentKeys || areDifferentStrings) ||
-            diffType == TablesDifferencesWidget::SameStrings && !areDifferentKeys && !areDifferentStrings)
-                differenceRows.append(QString("%1 (0x%2)").arg(i + 1).arg(i + 1, 0, 16));
+        bool areDifferentEither = areDifferentKeys || areDifferentStrings;
+        if ((diffType == TablesDifferencesWidget::Keys          && areDifferentKeys) ||
+            (diffType == TablesDifferencesWidget::Strings       && areDifferentStrings) ||
+            (diffType == TablesDifferencesWidget::KeysOrStrings && areDifferentEither) ||
+            (diffType == TablesDifferencesWidget::SameStrings   && !areDifferentEither))
+        {
+            differenceRows.append(QString("%1 (0x%2)").arg(i + 1).arg(i + 1, 0, 16));
+        }
     }
     return differenceRows;
 }

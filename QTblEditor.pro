@@ -4,14 +4,19 @@
 
 TEMPLATE = app
 TARGET = QTblEditor
-DEPENDPATH += .
-INCLUDEPATH += .
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-macx {
-    ICON = File_icons/Baal.icns
-    QMAKE_MAC_SDK = /Developer/SDKs/MacOSX10.5.sdk
-    CONFIG += x86 ppc
+greaterThan(QT_MAJOR_VERSION, 4): {
+    DEFINES += IS_QT5
+    IS_QT5 = 1
+
+    QT += widgets
+    *-clang*: cache()
+}
+
+CONFIG(release, debug|release): {
+    IS_RELEASE_BUILD = 1
+    DEFINES += QT_NO_DEBUG_OUTPUT \
+               QT_NO_WARNING_OUTPUT
 }
 
 # Input
@@ -55,3 +60,15 @@ RESOURCES += qtbleditor.qrc
 TRANSLATIONS += qtbleditor_ru.ts
 
 OTHER_FILES += TODO.txt
+
+macx {
+    ICON = File_icons/Baal.icns
+
+    # Qt 5 uses new approach to QMAKE_MAC_SDK, so default value is usually ok
+#    !isEmpty(IS_QT5): QMAKE_MAC_SDK = macosx10.8
+
+    !isEmpty(IS_RELEASE_BUILD) {
+        QMAKE_MAC_SDK = /Developer/SDKs/MacOSX10.5.sdk
+        CONFIG += x86 ppc
+    }
+}

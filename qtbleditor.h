@@ -23,7 +23,6 @@ public:
 public slots:
 
 signals:
-    void searchFinished(QList<QTableWidgetItem *>);
     void tablesWereSwapped();
 
 protected:
