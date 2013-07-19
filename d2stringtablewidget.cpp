@@ -5,6 +5,10 @@
 #include <QListWidgetItem>
 #include <QAction>
 
+#ifndef QT_NO_DEBUG
+#include <QDebug>
+#endif
+
 
 D2StringTableWidget::D2StringTableWidget(QWidget *parent) : QTableWidget(parent), _displayRowHex(false), _addToRowValue(true)
 {
@@ -110,6 +114,9 @@ void D2StringTableWidget::dropEvent(QDropEvent *event)
     QString oldString = item->text();
 
     QTableWidget::dropEvent(event);
+    const QMimeData *mimeData = event->mimeData();
+    qDebug() << mimeData->formats(); // application/x-qabstractitemmodeldatalist
+    qDebug() << mimeData->text();
     if (item->text() != oldString)
         emit itemWasDropped(item);
 }

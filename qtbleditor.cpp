@@ -1117,8 +1117,7 @@ void QTblEditor::readSettings()
             }
         }
         else
-            QMessageBox::critical(this, qApp->applicationName(),
-                                  tr("Error opening file \"%1\"\nReason: %2").arg(f.fileName(), f.errorString()));
+            QMessageBox::critical(this, qApp->applicationName(), tr("Error opening file \"%1\"\nReason: %2").arg(f.fileName(), f.errorString()));
     }
 }
 
