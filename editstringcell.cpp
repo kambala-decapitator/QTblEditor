@@ -117,16 +117,15 @@ void EditStringCell::resetText()
 
 void EditStringCell::calculateKeyHashValue()
 {
-    ui.hashValueLineEdit->setText(QString("0x%1").arg(TblStructure::hashValue(TblStructure::encodeKey(ui.keyLineEdit->text()).data(),
-                                                                              _keyValueItemsPair.first->tableWidget()->rowCount()), 0, 16));
+    ui.hashValueLineEdit->setText(QString("0x%1").arg(TblStructure::hashValue(TblStructure::encodeKey(ui.keyLineEdit->text()).data(), _keyValueItemsPair.first->tableWidget()->rowCount()), 0, 16));
 }
 
 void EditStringCell::setPreviewText()
 {
     ui.stringPreview->clear();
 
-    // text is white by default + stupid HTML with its newlines
-    QString text = "\\white;" + ui.stringEdit->toPlainText().replace('\n', "<br>");
+    // text is white by default + stupid HTML with its newlines and spaces
+    QString text = "\\white;" + ui.stringEdit->toPlainText().replace('\n', "<br>").replace(' ', "&nbsp;");
     if (ui.reversePreviewTextCheckBox->isChecked())
     {
         QList<QPair<int, int> > colorStringsIndeces; // <index_of_color_string_in_array, position_in_string>

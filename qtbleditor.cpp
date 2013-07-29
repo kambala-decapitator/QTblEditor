@@ -696,17 +696,15 @@ bool QTblEditor::saveFile(const QString &fileName)
                 ui.actionSaveAll->setDisabled(true);
 
             updateWindow(false);
-            ui.statusBar->showMessage(tr("File \"%1\" successfully saved").arg(fileName), 3000);
+            ui.statusBar->showMessage(tr("File \"%1\" successfully saved").arg(QDir::toNativeSeparators(fileName)), 3000);
 
             return true;
         }
         else
-            QMessageBox::critical(this, qApp->applicationName(), tr("Error writing file \"%1\"\nReason: %2")
-                                  .arg(fileName, output.errorString()));
+            QMessageBox::critical(this, qApp->applicationName(), tr("Error writing file \"%1\"\nReason: %2").arg(QDir::toNativeSeparators(fileName), output.errorString()));
     }
     else
-        QMessageBox::critical(this, qApp->applicationName(), tr("Error creating file \"%1\"\nReason: %2")
-                              .arg(fileName, output.errorString()));
+        QMessageBox::critical(this, qApp->applicationName(), tr("Error creating file \"%1\"\nReason: %2").arg(QDir::toNativeSeparators(fileName), output.errorString()));
     return false;
 }
 

@@ -23,13 +23,7 @@ QString TablePanelWidget::absoluteFileName() const
 void TablePanelWidget::setFilePath(const QString &newFilePath)
 {
     bool isLabelBold = ui.filePathLabel->text().contains("<b>");
-    ui.filePathLabel->setText(
-#ifdef Q_OS_WIN32
-            QDir::toNativeSeparators(newFilePath)
-#else
-            newFilePath
-#endif
-            );
+    ui.filePathLabel->setText(QDir::toNativeSeparators(newFilePath));
     if (isLabelBold)
         setActive(true);
 }
