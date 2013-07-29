@@ -117,7 +117,7 @@ void EditStringCell::resetText()
 
 void EditStringCell::calculateKeyHashValue()
 {
-    ui.hashValueLineEdit->setText(QString("0x%1").arg(TblStructure::hashValue(ui.keyLineEdit->text().toLatin1().data(),
+    ui.hashValueLineEdit->setText(QString("0x%1").arg(TblStructure::hashValue(TblStructure::encodeKey(ui.keyLineEdit->text()).data(),
                                                                               _keyValueItemsPair.first->tableWidget()->rowCount()), 0, 16));
 }
 

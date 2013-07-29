@@ -1,21 +1,20 @@
 #include "tblstructure.h"
 
-#include <QtAlgorithms>
 #include <QStringList>
+#include <QTextCodec>
+#include <QtAlgorithms>
 
 
 //global auxiliary functions
 
 QDataStream &operator >>(QDataStream &in, TblHeader &th)
 {
-    return in >> th.CRC >> th.NodesNumber >> th.HashTableSize >> th.Version
-        >> th.DataStartOffset >> th.HashMaxTries >> th.FileSize;
+    return in >> th.CRC >> th.NodesNumber >> th.HashTableSize >> th.Version >> th.DataStartOffset >> th.HashMaxTries >> th.FileSize;
 }
 
 QDataStream &operator >>(QDataStream &in, TblHashNode &tn)
 {
-    return in >> tn.Active >> tn.Index >> tn.HashValue
-        >> tn.StringKeyOffset >> tn.StringValOffset >> tn.StringValLength;
+    return in >> tn.Active >> tn.Index >> tn.HashValue >> tn.StringKeyOffset >> tn.StringValOffset >> tn.StringValLength;
 }
 
 bool DataNodeLessThan(const DataNode &a, const DataNode &b) // predicate for sorting the string table
@@ -47,12 +46,12 @@ void TblStructure::getStringTable(QDataStream &in)
 {
     in.skipRawData(_header.NodesNumber * sizeof(WORD)); // we don't need indices
 
-    QVector<TblHashNode> hashNodes;
+    QList<TblHashNode> hashNodes;
     for (DWORD i = 0; i < _header.HashTableSize; i++)
     {
         TblHashNode currentNode;
         in >> currentNode;
-        hashNodes.push_back(currentNode);
+        hashNodes += currentNode;
     }
 
     QByteArray byteArray = in.device()->readAll();
@@ -78,7 +77,7 @@ void TblStructure::getStringTable(QDataStream &in)
         }
 
         DWORD keyOffset = hashNodes.at(i).StringKeyOffset - _header.DataStartOffset;
-        _data.push_back(DataNode(keyOffset, QString::fromLatin1(buf + keyOffset), val));
+        _data += DataNode(keyOffset, TblStructure::decodeKey(buf + keyOffset), val);
     }
     qSort(_data.begin(), _data.end(), DataNodeLessThan);
     for (WORD i = 0; i < _header.NodesNumber; i++)
@@ -133,4 +132,17 @@ WORD TblStructure::getCRC(const char *stringData, DWORD size)
         CRCValue = CRCTable[charvalue] ^ temp;
     }
     return CRCValue;
+}
+
+
+const QTextCodec *TblStructure::keyCodec = QTextCodec::codecForName("Windows-1252");
+
+QByteArray TblStructure::encodeKey(const QString &key)
+{
+    return keyCodec->fromUnicode(key);
+}
+
+QString TblStructure::decodeKey(const QByteArray &key)
+{
+    return keyCodec->toUnicode(key);
 }

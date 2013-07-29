@@ -514,7 +514,7 @@ bool QTblEditor::processTxtOrCsvFile(QFile *inputFile)
             return false;
         }
 
-        QString key = QString::fromLatin1(currentLine.left(separatorIndex));
+        QString key = TblStructure::decodeKey(currentLine.left(separatorIndex));
         _currentTableWidget->createNewEntry(i, key, QString::fromUtf8(currentLine.mid(separatorIndex + keyValueSeparator.length()).replace("\\n", "\n")));
 
         int currentKeyWidth = QFontMetrics(_currentTableWidget->item(i, 0)->font()).width(key);
@@ -734,7 +734,7 @@ DWORD QTblEditor::writeAsTbl(QByteArray &bytesToWrite)
     DWORD currentOffset = dataStartOffset, maxCollisionsNumber = 0;
     for (WORD i = 0; i < entriesNumber; i++)
     {
-        QByteArray currentKey = _currentTableWidget->item(i, 0)->text().toLatin1(),
+        QByteArray currentKey = TblStructure::encodeKey(_currentTableWidget->item(i, 0)->text()),
         currentVal = stringValsWithModifiedColors.at(i).toUtf8();
         DWORD hashValue = TblStructure::hashValue(currentKey.data(), entriesNumber), hashIndex = hashValue,
         currentCollisionsNumber = 0;
@@ -769,7 +769,7 @@ DWORD QTblEditor::writeAsTbl(QByteArray &bytesToWrite)
 
     for (WORD i = 0; i < entriesNumber; i++)
     {
-        QByteArray keyLatin1 = _currentTableWidget->item(i, 0)->text().toLatin1(), valUtf8 = stringValsWithModifiedColors.at(i).toUtf8();
+        QByteArray keyLatin1 = TblStructure::encodeKey(_currentTableWidget->item(i, 0)->text()), valUtf8 = stringValsWithModifiedColors.at(i).toUtf8();
         out.writeRawData(keyLatin1.constData(), keyLatin1.size() + 1);
         out.writeRawData(valUtf8.constData(), qstrlen(valUtf8.constData()) + 1);
     }
@@ -794,10 +794,10 @@ DWORD QTblEditor::writeAsText(QByteArray &bytesToWrite, bool isCsv)
     else if (!ui.actionWrapStrings->isChecked())
         wrappingChar = 0;
 
-    QDataStream out(&bytesToWrite, QIODevice::WriteOnly/* | QIODevice::Text*/);
+    QDataStream out(&bytesToWrite, QIODevice::WriteOnly);
     for (WORD i = 0, n = _currentTableWidget->rowCount(); i < n; ++i)
     {
-        QByteArray keyLatin1 = _currentTableWidget->item(i, 0)->text().toLatin1();
+        QByteArray keyLatin1 = TblStructure::encodeKey(_currentTableWidget->item(i, 0)->text());
         if (wrappingChar)
             out << wrappingChar;
         out.writeRawData(keyLatin1.constData(), keyLatin1.size());
@@ -963,13 +963,12 @@ void QTblEditor::updateLocationLabel(int newRow)
     int row = newRow + 1, rows = _currentTableWidget->rowCount();
     _locationLabel->setText(QString("%1 (0x%2) / %3 (0x%4)").arg(row).arg(row, 0, 16).arg(rows).arg(rows, 0, 16));
 
-    QString keyHash = QString("0x%1").arg(TblStructure::hashValue(_currentTableWidget->item(newRow, 0)->text().toLatin1().data(), rows), 0, 16);
+    QString keyHash = QString("0x%1").arg(TblStructure::hashValue(TblStructure::encodeKey(_currentTableWidget->item(newRow, 0)->text()).data(), rows), 0, 16);
     D2StringTableWidget *otherTableWidget = inactiveTableWidget(_currentTableWidget);
     int inactiveRows = otherTableWidget->rowCount();
     if (_openedTables == 2 && newRow < inactiveRows)
     {
-        QString otherKeyHash = QString("0x%1").arg(TblStructure::hashValue(otherTableWidget->item(newRow, 0)->text().toLatin1().data(),
-                                                                           inactiveRows), 0, 16);
+        QString otherKeyHash = QString("0x%1").arg(TblStructure::hashValue(TblStructure::encodeKey(otherTableWidget->item(newRow, 0)->text()).data(), inactiveRows), 0, 16);
         if (keyHash != otherKeyHash)
         {
             if (_currentTableWidget == _leftTableWidget)

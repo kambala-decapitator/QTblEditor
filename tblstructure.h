@@ -1,14 +1,13 @@
 #ifndef TBLSTRUCTURE_H
 #define TBLSTRUCTURE_H
 
-#include <QVector>
+#include <QList>
 #include <QPair>
 #include <QString>
-#include <QObject>
 #include <QDataStream>
 
 
-// typedefs for understanding
+// 'classic' typedefs
 typedef quint8  BYTE;
 typedef quint16 WORD;
 typedef quint32 DWORD;
@@ -65,11 +64,11 @@ struct DataNode // my node of the string table in string *.tbl file
 
 QDataStream &operator >>(QDataStream &in, TblHeader &th);
 
-class TblStructure : public QObject
+class QTextCodec;
+
+class TblStructure
 {
 public:
-    TblStructure(QObject *parent = 0) : QObject(parent) {}
-
     const TblHeader &header() const { return _header; }
     QPair<QString, QString> dataStrings(WORD i) const { return QPair<QString, QString>(_data.at(i).Key, _data.at(i).Val); }
 
@@ -79,9 +78,14 @@ public:
     static DWORD hashValue(char *key, int hashTableSize);
     static WORD getCRC(const char *stringData, DWORD size);
 
+    static QByteArray encodeKey(const QString &key);
+    static QString decodeKey(const QByteArray &key);
+
 private:
     TblHeader _header;
-    QVector<DataNode> _data;
+    QList<DataNode> _data;
+
+    static const QTextCodec *keyCodec;
 };
 
 #endif // TBLSTRUCTURE_H
