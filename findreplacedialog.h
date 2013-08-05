@@ -18,7 +18,7 @@ public:
     void show(bool isTwoTablesOpened);
 
 public slots:
-    void getFoundStrings(QList<QTableWidgetItem *> foundItems);
+    void getFoundStrings(const QList<QTableWidgetItem *> &foundItems);
     void needsRefind() { _findConditionChanged = true; }
 
 private slots:

@@ -913,9 +913,7 @@ void QTblEditor::updateItem(QTableWidgetItem *item)
 
 void QTblEditor::recievingText(KeyValueItemsPair leftItemsPair, KeyValueItemsPair rightItemsPair)
 {
-    QList<QTableWidgetItem *> items = QList<QTableWidgetItem *>() << leftItemsPair.first << leftItemsPair.second
-                                      << rightItemsPair.first << rightItemsPair.second;
-    foreach (QTableWidgetItem *item, items)
+    foreach (QTableWidgetItem *item, QList<QTableWidgetItem *>() << leftItemsPair.first << leftItemsPair.second << rightItemsPair.first << rightItemsPair.second)
         updateItem(item);
 }
 
@@ -1327,7 +1325,7 @@ void QTblEditor::showDifferences()
         if (!diffWidget)
         {
             diffWidget = new TablesDifferencesWidget(this, diffType);
-            connect(diffWidget, SIGNAL(rowDoubleClicked(QListWidgetItem *)), _leftTableWidget, SLOT(listWidgetItemDoubleClicked(QListWidgetItem *)));
+            connect(diffWidget->listWidget(), SIGNAL(currentTextChanged(const QString &)), _leftTableWidget, SLOT(tableDifferencesItemChanged(const QString &)));
             connect(diffWidget, SIGNAL(refreshRequested(TablesDifferencesWidget *)), SLOT(refreshDifferences(TablesDifferencesWidget *)));
         }
         diffWidget->addRows(differenceRows);

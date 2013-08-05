@@ -54,26 +54,25 @@ void D2StringTableWidget::deleteItems(bool isClear)
     // deleting rows is a long process, so progress dialog is shown
     QProgressDialog progress(tr("Deleting selected rows..."), tr("Cancel"), 0, elementsToDelete, this);
     progress.setWindowModality(Qt::WindowModal);
-    int rowShift = 0;
-    for (int i = 0; i < ranges.size(); i++)
+    for (int i = 0, rowShift = 0; i < ranges.size(); ++i)
     {
-        QTableWidgetSelectionRange currentSelectedItems(ranges.at(i));
+        const QTableWidgetSelectionRange &range = ranges.at(i);
         if (isClear) // Only Delete pressed, clears selected items
         {
-            for (int j = currentSelectedItems.topRow(); j <= currentSelectedItems.bottomRow(); j++)
-                for (int k = currentSelectedItems.leftColumn(); k <= currentSelectedItems.rightColumn(); k++)
+            for (int j = range.topRow(); j <= range.bottomRow(); ++j)
+                for (int k = range.leftColumn(); k <= range.rightColumn(); ++k)
                     item(j, k)->setText(QString());
         }
         else // Shift+Delete pressed, removes selected rows
         {
-            for (int k = 0; k < currentSelectedItems.rowCount(); k++)
+            for (int k = 0; k < range.rowCount(); ++k)
             {
                 progress.setValue((i + 1) * k);
                 if (progress.wasCanceled())
                     return;
-                removeRow(currentSelectedItems.topRow() - rowShift);
+                removeRow(range.topRow() - rowShift);
             }
-            rowShift += currentSelectedItems.rowCount();
+            rowShift += range.rowCount();
             emit currentCellChanged(currentRow(), 0, 0, 0);
         }
     }
@@ -110,21 +109,27 @@ void D2StringTableWidget::clearBackground()
 
 void D2StringTableWidget::dropEvent(QDropEvent *event)
 {
-    QTableWidgetItem *item = itemAt(event->pos());
-    QString oldString = item->text();
+    QTableWidgetItem *firstDroppedItem = itemAt(event->pos());
+    QList<QTableWidgetItem *> droppedItems;
+    QStringList oldTexts;
+    QTableWidgetSelectionRange range = qobject_cast<QTableWidget *>(event->source())->selectedRanges().at(0);
+    for (int i = 0, rows = range.bottomRow() - range.topRow(), cols = range.rightColumn() - range.leftColumn(); i <= rows; ++i)
+    {
+        for (int j = 0; j <= cols; ++j)
+        {
+            QTableWidgetItem *anItem = item(firstDroppedItem->row() + i, firstDroppedItem->column() + j);
+            droppedItems += anItem;
+            oldTexts += anItem->text();
+        }
+    }
 
     QTableWidget::dropEvent(event);
-    const QMimeData *mimeData = event->mimeData();
-    qDebug() << mimeData->formats(); // application/x-qabstractitemmodeldatalist
-    qDebug() << mimeData->text();
-    if (item->text() != oldString)
-        emit itemWasDropped(item);
-}
-
-void D2StringTableWidget::listWidgetItemDoubleClicked(QListWidgetItem *item)
-{
-    QString text = item->text();
-    changeCurrentCell(text.left(text.indexOf(' ')).toInt() - 1);
+    for (int i = 0; i < droppedItems.size(); ++i)
+    {
+        QTableWidgetItem *anItem = droppedItems.at(i);
+        if (anItem->text() != oldTexts.at(i))
+            emit itemWasDropped(anItem);
+    }
 }
 
 void D2StringTableWidget::toggleDisplayHex(bool toggled)

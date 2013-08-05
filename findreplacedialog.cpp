@@ -146,7 +146,7 @@ void FindReplaceDialog::findPrevious()
     getNextString(true);
 }
 
-void FindReplaceDialog::getFoundStrings(QList<QTableWidgetItem *> foundItems)
+void FindReplaceDialog::getFoundStrings(const QList<QTableWidgetItem *> &foundItems)
 {
     _findConditionChanged = false;
 

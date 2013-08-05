@@ -16,7 +16,7 @@ public:
         QColor Color;
 
         ColorInfo() {}
-        ColorInfo(QString s, QChar ch, QColor c) : Name(s), Code(ch), Color(c) {}
+        ColorInfo(const QString &s, const QChar &ch, const QColor &c) : Name(s), Code(ch), Color(c) {}
     };
 
     explicit EditColorsDialog(QWidget *parent, const QStringList &colorStrings, const QList<QChar> &colorCodes, const QList<QColor> &colors);

@@ -15,10 +15,9 @@ TablesDifferencesWidget::TablesDifferencesWidget(QWidget *parent, DiffType diffT
         setWindowTitle(tr("Different keys & strings"));
 
     connect(ui.refreshButton, SIGNAL(clicked()), SLOT(refreshButtonClicked()));
-    connect(ui.rowsListWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *)), SIGNAL(rowDoubleClicked(QListWidgetItem *)));
 }
 
-void TablesDifferencesWidget::addRows(QStringList rowStrings)
+void TablesDifferencesWidget::addRows(const QStringList &rowStrings)
 {
     ui.rowsListWidget->addItems(rowStrings);
     ui.rowsListWidget->setToolTip(QString("%1 items").arg(rowStrings.size()));

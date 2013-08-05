@@ -1,0 +1,59 @@
+[cross-platform] QTblEditor - just another tbl editor
+=====================================================
+
+So this is just another tbl editor. It is written in C++ using Qt library, hence it's a cross-platform application.
+
+Translation of Median XL inspired me to create this application. When I was translating tbl files, I found existing editors very inconvenient to use, so I decided to create my own that fits my needs. I hope someone'll find it useful too.
+
+QTblEditor can run on any Windows version (starting from Win98), Mac OS X (Intel/PPC, starting from 10.5) and Linux (where Qt can be installed).
+
+Windows and Mac OS X versions include binary, necessary Qt dynamic libraries (QtCore and QtGui) and russian translation. Source includes Visual Studio and QtCreator project files; requires Qt 4.6.0 or higher (v1.1 is compiled with 4.6.3, but 4.6.0 should do).
+
+[u][b]QTblEditor 1.1 downloads:[/b][/u]
+[list][*][url=http://www.mediafire.com/?udmfpolml7fyadj]Windows[/url]
+[*][url=http://www.mediafire.com/?4ip2ztn5pdkbnhs]Mac OS X[/url]
+[*]Linux: compile yourself
+[*][url=https://github.com/kambala-decapitator/QTblEditor]Source code (github)[/url][/list]
+
+Older versions: http://www.mediafire.com/?p3x801yg1z3g6
+
+[b]Installation:[/b]
+[list][*]Windows: unrar wherever you want and run exe
+[*]Mac OS X: mount dmg and copy app bundle wherever you want (e.g., to /Applications)
+[*]Linux: No idea[/list]
+
+I placed some comments in the source code (mostly in the *.tbl file processing part), so that it'd be easier for one to understand how things work.
+I haven't included any license information, but you may copy and modify the code as you wish, so I guess it's the GPL license. However, mentioning me in credits would be nice :)
+
+[b]Changelog[/b]
+[i][no version change, v1.1 stays] (07.12.2010)[/i]
+[f] made the app actually universal on Mac and made it work starting from 10.5
+---
+[s] updated .pro file (change affects only Mac version)
+
+[i]v1.1 (03.12.2010)[/i]
+[+] "real" text preview
+[+] custom colors support (Mac OS X users can find the customcolors.ini file in the <app bundle>/Contents/Resources)
+[+] reopen table from disk menu command
+[+] hex display of all numbers
+[+] key hash display
+[+] display rows with different keys and/or strings
+[+] small/big rows display
+[+] copy/paste (creates new rows)
+[+] drag&drop (replaces existing rows)
+---
+[f] issue on WinXP (and earlier versions I guess) when file extension was appended in "save as" dialog
+---
+[s] some refactoring and code cleanup
+
+[i]v1.0 (18.11.2010)[/i]
+- initial release
+
+
+Plans for next version:
+[list][*]regexp support in search (is it really needed?)
+[*]creating "diff" file for 2 tables and various operations with it
+[*]tabbed UI (is it really needed?)
+[*]your suggestions[/list]
+
+[b]Credits:[/b] Jarulf, Afj666, L'Autour, other PhrozenKeep members whose names I can't remember (for their editors' source code and posts on *.tbl file structure), the guy who created this beautiful Baal icon (found it somewhere on the Internet), EmaStergam & Necrolis for suggestions, morlock for pointing on the PPC incompatibility.

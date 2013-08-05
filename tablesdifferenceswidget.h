@@ -14,12 +14,13 @@ public:
     explicit TablesDifferencesWidget(QWidget *parent, DiffType diffType);
 
     DiffType diffType() const { return _diffType; }
+    QListWidget *listWidget() const { return ui.rowsListWidget; }
+
     void clear() { ui.rowsListWidget->clear(); }
-    void addRows(QStringList rowStrings);
+    void addRows(const QStringList &rowStrings);
 
 signals:
     void refreshRequested(TablesDifferencesWidget *w);
-    void rowDoubleClicked(QListWidgetItem *rowItem);
 
 private slots:
     void refreshButtonClicked() { emit refreshRequested(this); }

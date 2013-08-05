@@ -20,7 +20,7 @@ public:
 
     void deleteItems(bool isClear);
     void createRowAt(int row);
-    void addEditedItem(QTableWidgetItem *editedItem) { _editedItems.push_back(editedItem); }
+    void addEditedItem(QTableWidgetItem *editedItem) { _editedItems[editedItem->row()] = editedItem; }
     void clearBackground();
     void createNewEntry(int row, const QString &key, const QString &val);
     void clearContents() { QTableWidget::clearContents(); _editedItems.clear(); }
@@ -29,7 +29,7 @@ public:
 
 public slots:
     void changeCurrentCell(int row, int col = 1) { if (row < rowCount()) setCurrentCell(row, col); }
-    void listWidgetItemDoubleClicked(QListWidgetItem *item);
+    void tableDifferencesItemChanged(const QString &newText) { changeCurrentCell(newText.left(newText.indexOf(' ')).toInt() - 1); }
 
     void toggleDisplayHex(bool toggled);
     void changeRowNumberingTo1(bool toggled);
@@ -44,7 +44,7 @@ protected:
     void dropEvent(QDropEvent *event);
 
 private:
-    QList<QTableWidgetItem *> _editedItems;
+    QMap<int, QTableWidgetItem *> _editedItems;
     bool _displayRowHex, _addToRowValue;
 };
 
