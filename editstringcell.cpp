@@ -15,38 +15,28 @@ QString colorHexString(const QColor &c)
     return QString("#%1%2%3").arg(c.red(), 2, 16, zeroChar).arg(c.green(), 2, 16, zeroChar).arg(c.blue(), 2, 16, zeroChar);
 }
 
+bool colorStringsIndecesLessThan(const QPair<int, int> &a, const QPair<int, int> &b)
+{
+    return a.second < b.second;
+}
+
 
 extern QList<QChar> colorCodes;
 extern QStringList colorStrings;
 extern QList<QColor> colors;
 extern int colorsNum;
 
-EditStringCell::EditStringCell(QWidget *parent, KeyValueItemsPair keyValueItemsPairToEdit) : QWidget(parent)
+EditStringCell::EditStringCell(QWidget *parent, const KeyValueItemsPair &keyValueItemsPairToEdit) : QWidget(parent)
 {
     ui.setupUi(this);
 
+    static const QStringList kGenderAbbreviations = QStringList() << "[ms]" << "[fs]" << "[ns]" << "[nl]" << "[pl]" << "[mp]" << "[fp]";
+    static const QStringList kGenders = QStringList() << tr("Masculine singular") << tr("Feminine singular") << tr("Neutral singular") << tr("Neutral") << tr("Plural") << tr("Masculine plural") << tr("Feminine plural");
+
     QMenu *genderNumberMenu = new QMenu(ui.genderNumberButton);
     genderNumberMenu->setObjectName("GenderNumberMenu");
-    QString genderAbbreviations[] = {
-        "[ms]",
-        "[fs]",
-        "[ns]",
-        "[nl]",
-        "[pl]",
-        "[mp]",
-        "[fp]"
-    };
-    QString genders[] = {
-        tr("Masculine singular"),
-        tr("Feminine singular"),
-        tr("Neutral singular"),
-        tr("Neutral"),
-        tr("Plural"),
-        tr("Masculine plural"),
-        tr("Feminine plural")
-    };
-    for (int i = 0; i < 7; i++)
-        genderNumberMenu->addAction(QString("%1 %2").arg(genderAbbreviations[i], genders[i]), this, SLOT(insertText()));
+    for (int i = 0; i < kGenderAbbreviations.size(); i++)
+        genderNumberMenu->addAction(QString("%1 %2").arg(kGenderAbbreviations.at(i), kGenders.at(i)), this, SLOT(insertText()));
     ui.genderNumberButton->setMenu(genderNumberMenu);
 
     _colorMenu = new QMenu(ui.colorButton);
@@ -141,39 +131,20 @@ void EditStringCell::setPreviewText()
         }
 
         // sort colorStringsIndeces by position in ascending order
-        int colorsNumberInString = colorStringsIndeces.size();
-        for (int i = 0; i < colorsNumberInString - 1; i++)
-        {
-            QPair<int, int> a = colorStringsIndeces.at(i);
-            for (int j = i + 1; j < colorsNumberInString; j++)
-            {
-                QPair<int, int> b = colorStringsIndeces.at(j);
-                if (a.second > b.second)
-                {
-                    colorStringsIndeces[i] = b;
-                    colorStringsIndeces[j] = a;
-                    a = b;
-                }
-            }
-        }
+        qSort(colorStringsIndeces.begin(), colorStringsIndeces.end(), colorStringsIndecesLessThan);
 
         QStack<QString> colorStringsStack;
-        for (int i = 0; i < colorsNumberInString; i++)
+        for (int i = 0, colorsNumberInString = colorStringsIndeces.size(); i < colorsNumberInString; i++)
         {
             int index = colorStringsIndeces.at(i).first;
             int position = colorStringsIndeces.at(i).second + colorStrings.at(index).length(); // skip colorString
             QString coloredText = text.mid(position, i != colorsNumberInString - 1 ? colorStringsIndeces.at(i + 1).second - position : -1);
 
             QStringList lines = coloredText.split("<br>");
-            QString reversedLines;
-            for (QStringList::const_iterator i = lines.end() - 1; i != lines.begin() - 1; i--)
-            {
-                reversedLines.append(*i);
-                if (i != lines.begin())
-                    reversedLines.append("<br>");
-            }
-            if (!reversedLines.isEmpty())
-                colorStringsStack.push(QString("<font color = \"%1\">%2</font>").arg(colorHexString(colors.at(index - 1)), reversedLines));
+            std::reverse(lines.begin(), lines.end());
+            QString reversedText = lines.join("<br>");
+            if (!reversedText.isEmpty())
+                colorStringsStack.push(QString("<font color = \"%1\">%2</font>").arg(colorHexString(colors.at(index - 1)), reversedText));
         }
 
         // empty stack
@@ -188,7 +159,11 @@ void EditStringCell::setPreviewText()
         ui.stringPreview->setHtml(text);
     }
 
-    ui.charsPreviewCountLabel->setText(QString::number(ui.stringPreview->toPlainText().length()));
+    const int kMaxLengthPatch110 = 255;
+    int length = ui.stringPreview->toPlainText().length();
+    ui.charsPreviewCountLabel->setText(QString::number(length));
+    if (length > kMaxLengthPatch110)
+        emit maxLengthExceededFor110(tr("Patch 1.10 has limitation of %1 characters per string").arg(kMaxLengthPatch110));
 }
 
 void EditStringCell::showEditColorsDialog()
@@ -204,8 +179,7 @@ void EditStringCell::showEditColorsDialog()
             colors.removeLast();
         }
 
-        QList<EditColorsDialog::ColorInfo> newColors = dlg.colorsInfo();
-        foreach (EditColorsDialog::ColorInfo ci, newColors)
+        foreach (const EditColorsDialog::ColorInfo &ci, dlg.colorsInfo())
         {
             colorCodes.append(ci.Code);
             colorStrings.append(ci.Name);

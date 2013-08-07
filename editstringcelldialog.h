@@ -37,10 +37,13 @@ private slots:
     void replaceText();
     void appendText();
 
+    void maybeShowStringLengthWarning(const QString &warningText);
+
 private:
     Ui::EditStringCellDialog ui;
     EditorsSplitter *_editorsSplitter;
     EditStringCell *_leftEditor, *_rightEditor;
+    bool _wasStringLengthWarningShown;
 
     void updateLocation();
     void changeRecord(bool isNext);

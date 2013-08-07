@@ -19,7 +19,7 @@ class EditStringCell : public QWidget
 public:
     enum SaveResult {NothingChanged = 0, KeyChanged, ValueChanged};
 
-    EditStringCell(QWidget *parent, KeyValueItemsPair keyValueItemsPairToEdit);
+    EditStringCell(QWidget *parent, const KeyValueItemsPair &keyValueItemsPairToEdit);
 
     SaveResult saveChanges();
     KeyValueItemsPair itemsPair() const { return _keyValueItemsPair; }
@@ -34,6 +34,7 @@ public slots:
 
 signals:
     void colorMenuChanged();
+    void maxLengthExceededFor110(const QString &warningText);
 
 private slots:
     void wrapModeChanged(bool state);

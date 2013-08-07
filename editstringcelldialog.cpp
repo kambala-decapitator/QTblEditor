@@ -2,6 +2,7 @@
 #include "editorssplitterhandle.h"
 
 #include <QSplitter>
+#include <QMessageBox>
 
 #include <QSettings>
 
@@ -18,7 +19,7 @@ protected:
 };
 
 
-EditStringCellDialog::EditStringCellDialog(QWidget *parent, KeyValueItemsPair leftItemsPairToEdit, KeyValueItemsPair rightItemsPairToEdit) : QDialog(parent)
+EditStringCellDialog::EditStringCellDialog(QWidget *parent, KeyValueItemsPair leftItemsPairToEdit, KeyValueItemsPair rightItemsPairToEdit) : QDialog(parent), _wasStringLengthWarningShown(false)
 {
     ui.setupUi(this);
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
@@ -48,8 +49,9 @@ EditStringCellDialog::EditStringCellDialog(QWidget *parent, KeyValueItemsPair le
         splitterHandle->createButtons();
 
         connect(ui.resetButton, SIGNAL(clicked()), _rightEditor, SLOT(resetText()));
-        connect(_leftEditor, SIGNAL(colorMenuChanged()), _rightEditor, SLOT(updateColorsMenu()));
-        connect(_rightEditor, SIGNAL(colorMenuChanged()), _leftEditor, SLOT(updateColorsMenu()));
+        connect(_leftEditor,  SIGNAL(colorMenuChanged()), _rightEditor, SLOT(updateColorsMenu()));
+        connect(_rightEditor, SIGNAL(colorMenuChanged()), _leftEditor,  SLOT(updateColorsMenu()));
+        connect(_rightEditor, SIGNAL(maxLengthExceededFor110(const QString &)), SLOT(maybeShowStringLengthWarning(const QString &)));
 
         connect(splitterHandle->replaceRightButton(), SIGNAL(clicked()), SLOT(replaceText()));
         connect(splitterHandle->replaceLeftButton(),  SIGNAL(clicked()), SLOT(replaceText()));
@@ -64,7 +66,7 @@ EditStringCellDialog::EditStringCellDialog(QWidget *parent, KeyValueItemsPair le
     QHBoxLayout *hLayout = new QHBoxLayout;
     hLayout->addWidget(ui.previousButton);
     hLayout->addWidget(ui.nextButton);
-    hLayout->addSpacerItem(new QSpacerItem(20, 20, QSizePolicy::Expanding));
+    hLayout->addStretch();
     hLayout->addWidget(ui.cancelButton);
     hLayout->addWidget(ui.resetButton);
     hLayout->addWidget(ui.saveButton);
@@ -74,10 +76,11 @@ EditStringCellDialog::EditStringCellDialog(QWidget *parent, KeyValueItemsPair le
 
     restoreGeometry(QSettings().value("geometry/EditStringCellDialogGeometry").toByteArray());
 
-    connect(ui.saveButton, SIGNAL(clicked()), SLOT(saveText()));
-    connect(ui.resetButton, SIGNAL(clicked()), _leftEditor, SLOT(resetText()));
+    connect(_leftEditor, SIGNAL(maxLengthExceededFor110(const QString &)), SLOT(maybeShowStringLengthWarning(const QString &)));
+    connect(ui.resetButton,    SIGNAL(clicked()), _leftEditor, SLOT(resetText()));
+    connect(ui.saveButton,     SIGNAL(clicked()), SLOT(saveText()));
     connect(ui.previousButton, SIGNAL(clicked()), SLOT(previous()));
-    connect(ui.nextButton, SIGNAL(clicked()), SLOT(next()));
+    connect(ui.nextButton,     SIGNAL(clicked()), SLOT(next()));
 }
 
 void EditStringCellDialog::closeEvent(QCloseEvent *e)
@@ -164,6 +167,15 @@ void EditStringCellDialog::appendText()
     QPlainTextEdit *textEdit = targetTextEditAndText(sender() == _editorsSplitter->customHandle()->appendRightButton(), &text);
     textEdit->moveCursor(QTextCursor::End);
     textEdit->insertPlainText(text);
+}
+
+void EditStringCellDialog::maybeShowStringLengthWarning(const QString &warningText)
+{
+    if (!_wasStringLengthWarningShown)
+    {
+        _wasStringLengthWarningShown = true;
+        QMessageBox::warning(this, qApp->applicationName(), warningText);
+    }
 }
 
 QPlainTextEdit *EditStringCellDialog::targetTextEditAndText(bool toRight, QString *outText)
