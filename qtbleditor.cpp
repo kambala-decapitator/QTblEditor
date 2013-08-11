@@ -631,7 +631,9 @@ void QTblEditor::saveAs()
                                                           tr("Tbl files (*.tbl);;Tab-delimited text files (*.txt);;CSV files (*.csv);;All files (*)"));
     if (!fileNameToSave.isEmpty() && saveFile(fileNameToSave))
     {
-        currentTablePanelWidget()->setFilePath(fileNameToSave);
+        // change opened file path only if saving with the same extension
+        if (fileName.right(4) == fileNameToSave.right(4))
+            currentTablePanelWidget()->setFilePath(fileNameToSave);
         addToRecentFiles(fileNameToSave);
     }
 }

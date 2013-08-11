@@ -153,6 +153,9 @@ void D2StringTableWidget::changeRowHeaderDisplay()
         QString rowText = QString::number(row);
         if (_displayRowHex)
             rowText += QString(" (0x%2)").arg(row, 0, 16);
+#ifdef Q_OS_MAC
+        rowText += "  "; // fixes slight text truncation
+#endif
         rowLabels += rowText;
     }
     setVerticalHeaderLabels(rowLabels);
