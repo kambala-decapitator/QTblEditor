@@ -820,6 +820,8 @@ DWORD QTblEditor::writeAsText(QByteArray &bytesToWrite, bool isCsv)
 void QTblEditor::showFindReplaceDialog()
 {
     _findReplaceDlg->show(_openedTables == 2);
+    _findReplaceDlg->raise();
+    _findReplaceDlg->activateWindow();
 }
 
 void QTblEditor::changeCurrentTableItem(QTableWidgetItem *newItem)
@@ -1216,17 +1218,19 @@ void QTblEditor::increaseRowCount(int rowIndex)
 
 void QTblEditor::copy()
 {
-    QString selectedText;
-    foreach (QTableWidgetSelectionRange range, _currentTableWidget->selectedRanges())
+    QStringList selectedLines;
+    foreach (const QTableWidgetSelectionRange &range, _currentTableWidget->selectedRanges())
+    {
         for (int j = range.topRow(); j <= range.bottomRow(); j++)
         {
-            if (range.columnCount() == 1) // format: "text"<newline>
-                selectedText += QString("\"%1\"\n").arg(_currentTableWidget->item(j, range.rightColumn())->text());
-            else // format: "key"<tab>"value"<newline>
-                selectedText += QString("\"%1\"\t\"%2\"\n").arg(_currentTableWidget->item(j, 0)->text(), _currentTableWidget->item(j, 1)->text());
+            if (range.columnCount() == 1)
+                selectedLines += QString("\"%1\"").arg(_currentTableWidget->item(j, range.rightColumn())->text());
+            else
+                selectedLines += QString("\"%1\"\t\"%2\"").arg(_currentTableWidget->item(j, 0)->text(), _currentTableWidget->item(j, 1)->text());
         }
+    }
 
-    qApp->clipboard()->setText(selectedText);
+    qApp->clipboard()->setText(selectedLines.join("\n"));
 }
 
 void QTblEditor::paste()
@@ -1234,11 +1238,11 @@ void QTblEditor::paste()
     const QMimeData *data = qApp->clipboard()->mimeData();
     if (data->hasText())
     {
-        QStringList records = data->text().split("\"\n"); // strings can have more than 1 line
+        QStringList records = data->text().split("\n");
         if (records.last().isEmpty()) // remove last empty line
             records.removeLast();
         int row = _currentTableWidget->currentRow() + 1, recordsNumber = records.size();
-        if (records.at(0).contains('\t')) // format: "key"<tab>"value"<newline>
+        if (records.at(0).contains('\t')) // format: "key"<tab>"value"
         {
             for (int i = 0; i < recordsNumber; i++)
             {
@@ -1248,7 +1252,7 @@ void QTblEditor::paste()
                 _currentTableWidget->createNewEntry(rowIndex, keyValueString.at(0), keyValueString.at(1));
             }
         }
-        else // format: "text"<newline>
+        else // format: "text"
         {
             bool isKey = !_currentTableWidget->currentColumn();
             for (int i = 0; i < recordsNumber; i++)
