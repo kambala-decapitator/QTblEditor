@@ -61,8 +61,6 @@ private slots:
     void syncScrollingChanged(bool isSyncing);
 
     void editString(QTableWidgetItem *itemToEdit);
-    void recievingText(KeyValueItemsPair leftItemsPair, KeyValueItemsPair rightItemsPair = emptyKeyValuePair);
-    void recievingTextFromSingleItem(QTableWidgetItem *editedItem);
     void updateLocationLabel(int newRow);
     void changeCurrentTable(QWidget *newActiveTable);
     void updateWindow(bool isModified = true);
@@ -81,6 +79,7 @@ private:
     quint8 _openedTables; // 0, 1 or 2
     QString _lastPath;
     QStringList _recentFilesList;
+    bool _isTableLoaded;
 
 
     void connectActions();
@@ -104,7 +103,7 @@ private:
 
     TablePanelWidget *currentTablePanelWidget() const;
     TablePanelWidget *inactiveNamedTableWidget(TablePanelWidget *namedTableToCheck) const;
-    D2StringTableWidget *inactiveTableWidget(D2StringTableWidget *tableToCheck) const;
+    D2StringTableWidget *inactiveTableWidget(QTableWidget *tableToCheck) const;
 
     void tableMenuSetEnabled(bool isEnabled);
     void addToRecentFiles(const QString &fileName);

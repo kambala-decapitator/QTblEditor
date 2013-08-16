@@ -10,18 +10,16 @@ QString colorHexString(const QColor &c);
 
 
 typedef QPair<QTableWidgetItem *, QTableWidgetItem *> KeyValueItemsPair; // <keyItem, valueItem>
-static const KeyValueItemsPair emptyKeyValuePair(0, 0);
+static const KeyValueItemsPair kEmptyKeyValuePair(0, 0);
 
 class EditStringCell : public QWidget
 {
     Q_OBJECT
 
 public:
-    enum SaveResult {NothingChanged = 0, KeyChanged, ValueChanged};
-
     EditStringCell(QWidget *parent, const KeyValueItemsPair &keyValueItemsPairToEdit);
 
-    SaveResult saveChanges();
+    void saveChanges();
     KeyValueItemsPair itemsPair() const { return _keyValueItemsPair; }
     void setItem(KeyValueItemsPair newKeyValueItemsPair);
     void changeItem(bool toNext);

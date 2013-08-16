@@ -40,7 +40,7 @@ EditStringCellDialog::EditStringCellDialog(QWidget *parent, KeyValueItemsPair le
     _editorsSplitter->setChildrenCollapsible(false);
     _leftEditor = new EditStringCell(this, leftItemsPairToEdit);
     _editorsSplitter->addWidget(_leftEditor);
-    if (rightItemsPairToEdit != emptyKeyValuePair)
+    if (rightItemsPairToEdit != kEmptyKeyValuePair)
     {
         _rightEditor = new EditStringCell(this, rightItemsPairToEdit);
         _editorsSplitter->addWidget(_rightEditor);
@@ -92,18 +92,9 @@ void EditStringCellDialog::closeEvent(QCloseEvent *e)
 
 void EditStringCellDialog::saveText()
 {
-    EditStringCell::SaveResult leftEditorSaveResult = _leftEditor->saveChanges(), rightEditorSaveResult = EditStringCell::NothingChanged;
-    KeyValueItemsPair leftItems = _leftEditor->itemsPair(), rightItemsToSend = emptyKeyValuePair;
-    KeyValueItemsPair leftItemsToSend(leftEditorSaveResult & EditStringCell::KeyChanged ? leftItems.first : 0,
-                                 leftEditorSaveResult & EditStringCell::ValueChanged ? leftItems.second : 0);
+    _leftEditor->saveChanges();
     if (_rightEditor)
-    {
-        rightEditorSaveResult = _rightEditor->saveChanges();
-        KeyValueItemsPair rightItems = _rightEditor->itemsPair();
-        rightItemsToSend = KeyValueItemsPair(rightEditorSaveResult & EditStringCell::KeyChanged ? rightItems.first : 0,
-                                        rightEditorSaveResult & EditStringCell::ValueChanged ? rightItems.second : 0);
-    }
-    emit sendingText(leftItemsToSend, rightItemsToSend);
+        _rightEditor->saveChanges();
 }
 
 void EditStringCellDialog::updateLocation()

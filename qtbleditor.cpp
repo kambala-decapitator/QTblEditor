@@ -55,7 +55,7 @@ extern QList<QColor> colors;
 extern QString colorHeader;
 extern int colorsNum;
 
-QTblEditor::QTblEditor(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(parent, flags), _openedTables(0)
+QTblEditor::QTblEditor(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(parent, flags), _openedTables(0), _isTableLoaded(false)
 {
     ui.setupUi(this);
     ui.mainToolBar->setWindowTitle(tr("Toolbar"));
@@ -119,12 +119,12 @@ QTblEditor::QTblEditor(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(par
     connect(_leftTableWidget, SIGNAL(itemDoubleClicked(QTableWidgetItem *)), SLOT(editString(QTableWidgetItem *)));
     connect(_leftTableWidget, SIGNAL(currentCellChanged(int, int, int, int)), SLOT(updateLocationLabel(int)));
     connect(_leftTableWidget, SIGNAL(tableGotFocus(QWidget *)), SLOT(changeCurrentTable(QWidget *)));
-    connect(_leftTableWidget, SIGNAL(itemWasDropped(QTableWidgetItem *)), SLOT(updateItem(QTableWidgetItem *)));
+    connect(_leftTableWidget, SIGNAL(itemChanged(QTableWidgetItem *)), SLOT(updateItem(QTableWidgetItem *)));
 
     connect(_rightTableWidget, SIGNAL(itemDoubleClicked(QTableWidgetItem *)), SLOT(editString(QTableWidgetItem *)));
     connect(_rightTableWidget, SIGNAL(currentCellChanged(int, int, int, int)), SLOT(updateLocationLabel(int)));
     connect(_rightTableWidget, SIGNAL(tableGotFocus(QWidget *)), SLOT(changeCurrentTable(QWidget *)));
-    connect(_rightTableWidget, SIGNAL(itemWasDropped(QTableWidgetItem *)), SLOT(updateItem(QTableWidgetItem *)));
+    connect(_rightTableWidget, SIGNAL(itemChanged(QTableWidgetItem *)), SLOT(updateItem(QTableWidgetItem *)));
 
     connect(ui.actionShowHexInRow, SIGNAL(toggled(bool)), _leftTableWidget, SLOT(toggleDisplayHex(bool)));
     connect(ui.actionShowHexInRow, SIGNAL(toggled(bool)), _rightTableWidget, SLOT(toggleDisplayHex(bool)));
@@ -133,7 +133,6 @@ QTblEditor::QTblEditor(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(par
 
     connect(_findReplaceDlg, SIGNAL(getStrings(QString, bool, bool, bool)), SLOT(findNextString(QString, bool, bool, bool)));
     connect(_findReplaceDlg, SIGNAL(currentItemChanged(QTableWidgetItem *)), SLOT(changeCurrentTableItem(QTableWidgetItem *)));
-    connect(_findReplaceDlg, SIGNAL(sendingText(QTableWidgetItem *)), SLOT(recievingTextFromSingleItem(QTableWidgetItem *)));
     
 
     _currentTableWidget = _leftTableWidget;
@@ -383,9 +382,9 @@ bool QTblEditor::processTable(const QString &fileName)
     {
         QString extension = fileName.right(4).toLower();
         if (extension == ".tbl")
-            return processTblFile(&inputFile);
+            return _isTableLoaded = processTblFile(&inputFile);
         else if (extension == ".txt" || extension == ".csv")
-            return processTxtOrCsvFile(&inputFile);
+            return _isTableLoaded = processTxtOrCsvFile(&inputFile);
         else // arbitrary file opened
         {
             QTextStream in(&inputFile);
@@ -393,9 +392,9 @@ bool QTblEditor::processTable(const QString &fileName)
             QString secondLine = in.readLine(); // it should equal "X" if it's tbl file
             inputFile.reset();
             if (secondLine.contains('\t') || secondLine.contains(';') || secondLine.contains(',')) // text format
-                return processTxtOrCsvFile(&inputFile);
+                _isTableLoaded = processTxtOrCsvFile(&inputFile);
             else // tbl format
-                return processTblFile(&inputFile);
+                _isTableLoaded = processTblFile(&inputFile);
         }
     }
     else
@@ -404,6 +403,7 @@ bool QTblEditor::processTable(const QString &fileName)
                               .arg(fileName, inputFile.errorString()));
         return false;
     }
+    return _isTableLoaded;
 }
 
 bool QTblEditor::processTblFile(QFile *inputFile)
@@ -856,15 +856,6 @@ void QTblEditor::goTo()
         _currentTableWidget->setCurrentCell(dlg.row() - 1, 1);
 }
 
-void QTblEditor::recievingTextFromSingleItem(QTableWidgetItem *editedItem)
-{
-    KeyValueItemsPair dummyItemsPair(editedItem, 0);
-    if (editedItem->tableWidget() == _leftTableWidget)
-        recievingText(dummyItemsPair);
-    else
-        recievingText(emptyKeyValuePair, dummyItemsPair);
-}
-
 void QTblEditor::editString(QTableWidgetItem *itemToEdit)
 {
     int row = itemToEdit->row();
@@ -879,7 +870,7 @@ void QTblEditor::editString(QTableWidgetItem *itemToEdit)
         editStringCellDlg = new EditStringCellDialog(this, itemsPair);
     else
     {
-        QTableWidget *w = inactiveTableWidget(_currentTableWidget);
+        QTableWidget *w = inactiveTableWidget(itemToEdit->tableWidget());
         KeyValueItemsPair otherItemsPair(w->item(row, 0), w->item(row, 1));
         if (_currentTableWidget == _leftTableWidget)
             editStringCellDlg = new EditStringCellDialog(this, itemsPair, otherItemsPair);
@@ -887,7 +878,6 @@ void QTblEditor::editString(QTableWidgetItem *itemToEdit)
             editStringCellDlg = new EditStringCellDialog(this, otherItemsPair, itemsPair);
     }
 
-    connect(editStringCellDlg, SIGNAL(sendingText(KeyValueItemsPair, KeyValueItemsPair)), SLOT(recievingText(KeyValueItemsPair, KeyValueItemsPair)));
     connect(editStringCellDlg, SIGNAL(editorClosedAt(int)), _currentTableWidget, SLOT(changeCurrentCell(int)));
     if (_openedTables == 2 && ui.actionSyncScrolling->isChecked())
     {
@@ -900,7 +890,7 @@ void QTblEditor::editString(QTableWidgetItem *itemToEdit)
 
 void QTblEditor::updateItem(QTableWidgetItem *item)
 {
-    if (item && item->background().color() != Qt::green)
+    if (_isTableLoaded && item && item->background().color() != Qt::green)
     {
         item->setBackground(QBrush(Qt::green));
 
@@ -913,12 +903,6 @@ void QTblEditor::updateItem(QTableWidgetItem *item)
         ui.actionSaveAll->setEnabled(true);
         ui.actionReopen->setEnabled(w->absoluteFileName() != kNewTblFileName);
     }
-}
-
-void QTblEditor::recievingText(KeyValueItemsPair leftItemsPair, KeyValueItemsPair rightItemsPair)
-{
-    foreach (QTableWidgetItem *item, QList<QTableWidgetItem *>() << leftItemsPair.first << leftItemsPair.second << rightItemsPair.first << rightItemsPair.second)
-        updateItem(item);
 }
 
 bool QTblEditor::isDialogQuestionConfirmed(const QString &text)
@@ -1078,8 +1062,11 @@ void QTblEditor::readSettings()
             _currentTableWidget->setCurrentCell(settings.value(keys.at(1)).toInt(), 1);
 
         if (keys.length() == 4)
+        {
+            _isTableLoaded = false;
             if (loadFile(settings.value(keys.at(2)).toString(), false))
                 _currentTableWidget->setCurrentCell(settings.value(keys.at(3)).toInt(), 1);
+        }
     }
     settings.endGroup();
 
@@ -1145,7 +1132,7 @@ TablePanelWidget *QTblEditor::inactiveNamedTableWidget(TablePanelWidget *namedTa
     return namedTableToCheck == _leftTablePanelWidget ? _rightTablePanelWidget : _leftTablePanelWidget;
 }
 
-D2StringTableWidget *QTblEditor::inactiveTableWidget(D2StringTableWidget *tableToCheck) const
+D2StringTableWidget *QTblEditor::inactiveTableWidget(QTableWidget *tableToCheck) const
 {
     return tableToCheck == _leftTableWidget ? _rightTableWidget : _leftTableWidget;
 }

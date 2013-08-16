@@ -108,20 +108,20 @@ void FindReplaceDialog::getNextString(bool isPrevious)
     {
         if (isPrevious) // get previous
         {
-            if (_currentStringIterator == _foundStrings.begin())
+            if (_currentStringIterator == _foundTableItems.begin())
             {
                 qApp->beep();
-                _currentStringIterator = _foundStrings.end() - 1;
+                _currentStringIterator = _foundTableItems.end() - 1;
             }
             else
                 _currentStringIterator--;
         }
         else // get next
         {
-            if (_currentStringIterator + 1 == _foundStrings.end())
+            if (_currentStringIterator + 1 == _foundTableItems.end())
             {
                 qApp->beep();
-                _currentStringIterator = _foundStrings.begin();
+                _currentStringIterator = _foundTableItems.begin();
             }
             else
                 _currentStringIterator++;
@@ -159,8 +159,8 @@ void FindReplaceDialog::getFoundStrings(const QList<QTableWidgetItem *> &foundIt
     }
 
     _searchFailed = false;
-    _foundStrings = foundItems;
-    _currentStringIterator = _foundStrings.begin();
+    _foundTableItems = foundItems;
+    _currentStringIterator = _foundTableItems.begin();
 
     emit currentItemChanged(*_currentStringIterator);
 }
@@ -179,7 +179,7 @@ void FindReplaceDialog::replaceAll()
         return;
 
     int n = 0;
-    for (_currentStringIterator = _foundStrings.begin(); _currentStringIterator != _foundStrings.end(); _currentStringIterator++, n++)
+    for (_currentStringIterator = _foundTableItems.begin(); _currentStringIterator != _foundTableItems.end(); _currentStringIterator++, n++)
         replaceInCurrentString();
     QMessageBox::information(this, tr("Replace"), tr("%n occurrence(s) replaced", 0, n));
 
@@ -197,5 +197,4 @@ void FindReplaceDialog::replaceInCurrentString()
         position = replaceIn.indexOf(_query, position, cs);
         itemToReplaceIn->setText(replaceIn.replace(position, _query.length(), replaceWith));
     }
-    emit sendingText(itemToReplaceIn);
 }

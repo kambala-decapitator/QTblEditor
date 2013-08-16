@@ -31,7 +31,6 @@ private slots:
 
 signals:
     void getStrings(const QString &query, bool isCaseSensitive, bool isExactString, bool isSearchBothTables);
-    void sendingText(QTableWidgetItem *);
     void currentItemChanged(QTableWidgetItem *newItem);
 
 protected:
@@ -41,7 +40,7 @@ private:
     Ui::FindReplaceDialogClass ui;
     QString _query;
     bool _findConditionChanged, _searchFailed;
-    QList<QTableWidgetItem *> _foundStrings;
+    QList<QTableWidgetItem *> _foundTableItems;
     QList<QTableWidgetItem *>::iterator _currentStringIterator;
 
     void readSettings();

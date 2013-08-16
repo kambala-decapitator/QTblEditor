@@ -15,13 +15,12 @@ class EditStringCellDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit EditStringCellDialog(QWidget *parent, KeyValueItemsPair leftItemsPairToEdit, KeyValueItemsPair rightItemsPairToEdit = emptyKeyValuePair);
+    explicit EditStringCellDialog(QWidget *parent, KeyValueItemsPair leftItemsPairToEdit, KeyValueItemsPair rightItemsPairToEdit = kEmptyKeyValuePair);
 
 public slots:
     void swapEditors();
 
 signals:
-    void sendingText(KeyValueItemsPair leftItemsPair, KeyValueItemsPair rightItemsPair);
     void editorClosedAt(int row);
 
 protected:

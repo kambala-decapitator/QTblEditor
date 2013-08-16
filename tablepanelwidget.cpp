@@ -30,6 +30,9 @@ void TablePanelWidget::setFilePath(const QString &newFilePath)
 
 void TablePanelWidget::setActive(bool isActive)
 {
+    if (isActive)
+        ui.tableWidget->setFocus();
+
     QString currentFileName = ui.filePathLabel->text();
     bool isLabelBold = currentFileName.contains("<b>");
     if (isActive ^ isLabelBold)

@@ -26,10 +26,13 @@ void D2StringTableWidget::keyPressEvent(QKeyEvent *keyEvent)
 {
     switch (keyEvent->key())
     {
-        case Qt::Key_Enter:  // Return (usual Enter), Enter (on the numpad) or F2
-        case Qt::Key_Return: // starts editing of the
-        case Qt::Key_F2:     // current selected cell
-            emit itemDoubleClicked(currentItem());
+        case Qt::Key_Enter:  // Return (usual Enter) or Enter (on the numpad)
+        case Qt::Key_Return: // starts editing of the current selected cell
+            if (state() != QAbstractItemView::EditingState)
+                emit itemDoubleClicked(currentItem());
+            break;
+        case Qt::Key_F2:
+            editItem(currentItem());
             break;
         case Qt::Key_Home: // Home or Ctrl+Home goes to the first cell
             if (keyEvent->modifiers() == Qt::NoModifier || keyEvent->modifiers() == Qt::ControlModifier)
@@ -41,6 +44,7 @@ void D2StringTableWidget::keyPressEvent(QKeyEvent *keyEvent)
             break;
         default:
             QTableWidget::keyPressEvent(keyEvent);
+            break;
     }
 }
 

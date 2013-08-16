@@ -26,6 +26,8 @@ extern QStringList colorStrings;
 extern QList<QColor> colors;
 extern int colorsNum;
 
+static const QString kGenderNumberMenuName("GenderNumberMenu");
+
 EditStringCell::EditStringCell(QWidget *parent, const KeyValueItemsPair &keyValueItemsPairToEdit) : QWidget(parent)
 {
     ui.setupUi(this);
@@ -34,7 +36,7 @@ EditStringCell::EditStringCell(QWidget *parent, const KeyValueItemsPair &keyValu
     static const QStringList kGenders = QStringList() << tr("Masculine singular") << tr("Feminine singular") << tr("Neutral singular") << tr("Neutral") << tr("Plural") << tr("Masculine plural") << tr("Feminine plural");
 
     QMenu *genderNumberMenu = new QMenu(ui.genderNumberButton);
-    genderNumberMenu->setObjectName("GenderNumberMenu");
+    genderNumberMenu->setObjectName(kGenderNumberMenuName);
     for (int i = 0; i < kGenderAbbreviations.size(); i++)
         genderNumberMenu->addAction(QString("%1 %2").arg(kGenderAbbreviations.at(i), kGenders.at(i)), this, SLOT(insertText()));
     ui.genderNumberButton->setMenu(genderNumberMenu);
@@ -62,27 +64,16 @@ void EditStringCell::wrapModeChanged(bool state)
 void EditStringCell::insertText()
 {
     QAction *menuItem = qobject_cast<QAction *>(sender());
-    if (menuItem->parentWidget()->objectName() == "GenderNumberMenu")
+    if (menuItem->parentWidget()->objectName() == kGenderNumberMenuName)
         ui.stringEdit->insertPlainText(menuItem->text().left(4));
     else
         ui.stringEdit->insertPlainText(menuItem->text());
 }
 
-EditStringCell::SaveResult EditStringCell::saveChanges()
+void EditStringCell::saveChanges()
 {
-    QString keyText = ui.keyLineEdit->text(), valueText = ui.stringEdit->toPlainText();
-    int result = EditStringCell::NothingChanged;
-    if (_keyValueItemsPair.first->text() != keyText)
-    {
-        _keyValueItemsPair.first->setText(keyText);
-        result |= KeyChanged;
-    }
-    if (_keyValueItemsPair.second->text() != valueText)
-    {
-        _keyValueItemsPair.second->setText(valueText);
-        result |= ValueChanged;
-    }
-    return (EditStringCell::SaveResult)result;
+    _keyValueItemsPair.first->setText(ui.keyLineEdit->text());
+    _keyValueItemsPair.second->setText(ui.stringEdit->toPlainText());
 }
 
 void EditStringCell::changeItem(bool toNext)
