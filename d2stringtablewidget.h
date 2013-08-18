@@ -46,6 +46,8 @@ protected:
 private:
     QMap<int, QTableWidgetItem *> _editedItems;
     bool _displayRowHex, _addToRowValue;
+
+    void editInPlace() { editItem(currentItem()); };
 };
 
 #endif // D2STRINGTABLEWIDGET_H

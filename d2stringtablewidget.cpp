@@ -26,13 +26,20 @@ void D2StringTableWidget::keyPressEvent(QKeyEvent *keyEvent)
 {
     switch (keyEvent->key())
     {
+#ifndef Q_OS_MAC
         case Qt::Key_Enter:  // Return (usual Enter) or Enter (on the numpad)
+#endif
         case Qt::Key_Return: // starts editing of the current selected cell
             if (state() != QAbstractItemView::EditingState)
                 emit itemDoubleClicked(currentItem());
             break;
+        // in-place edit
+#ifdef Q_OS_MAC
+        case Qt::Key_Enter:
+#else
         case Qt::Key_F2:
-            editItem(currentItem());
+#endif
+            editInPlace();
             break;
         case Qt::Key_Home: // Home or Ctrl+Home goes to the first cell
             if (keyEvent->modifiers() == Qt::NoModifier || keyEvent->modifiers() == Qt::ControlModifier)
@@ -102,12 +109,19 @@ void D2StringTableWidget::mousePressEvent(QMouseEvent *mouseEvent)
 {
     emit tableGotFocus(parentWidget());
     QTableWidget::mousePressEvent(mouseEvent);
+
+    if (mouseEvent->button() == Qt::RightButton)
+        editInPlace();
 }
 
 void D2StringTableWidget::clearBackground()
 {
+    // without blocking cells will become green again immediately
+    blockSignals(true);
     foreach (QTableWidgetItem *item, _editedItems)
         item->setBackground(QBrush(Qt::white));
+    blockSignals(false);
+
     _editedItems.clear();
 }
 

@@ -377,6 +377,8 @@ bool QTblEditor::loadFile(const QString &fileName, bool shouldShowOpenOptions)
 
 bool QTblEditor::processTable(const QString &fileName)
 {
+    _isTableLoaded = false;
+
     QFile inputFile(fileName);
     if (inputFile.open(QIODevice::ReadOnly))
     {
@@ -1170,12 +1172,6 @@ void QTblEditor::supplement()
     {
         smallerTable->createRowAt(i);
         smallerTable->createNewEntry(i, biggerTable->item(i, 0)->text(), biggerTable->item(i, 1)->text());
-
-        QTableWidgetItem *keyItem = smallerTable->item(i, 0), *stringItem = smallerTable->item(i, 1);
-        keyItem->setBackgroundColor(Qt::green);
-        stringItem->setBackgroundColor(Qt::green);
-        smallerTable->addEditedItem(keyItem);
-        smallerTable->addEditedItem(stringItem);
     }
 
     _currentTableWidget = smallerTable;
