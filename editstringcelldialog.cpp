@@ -81,6 +81,8 @@ EditStringCellDialog::EditStringCellDialog(QWidget *parent, KeyValueItemsPair le
     connect(ui.saveButton,     SIGNAL(clicked()), SLOT(saveText()));
     connect(ui.previousButton, SIGNAL(clicked()), SLOT(previous()));
     connect(ui.nextButton,     SIGNAL(clicked()), SLOT(next()));
+
+    _leftEditor->setFocus();
 }
 
 void EditStringCellDialog::closeEvent(QCloseEvent *e)

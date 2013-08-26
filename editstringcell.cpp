@@ -50,6 +50,7 @@ EditStringCell::EditStringCell(QWidget *parent, const KeyValueItemsPair &keyValu
     connect(ui.keyLineEdit, SIGNAL(textChanged(QString)), SLOT(calculateKeyHashValue()));
     connect(ui.stringEdit, SIGNAL(textChanged()), SLOT(updateCharsEditCounter()));
     connect(ui.stringEdit, SIGNAL(textChanged()), SLOT(setPreviewText()));
+    connect(ui.stringEdit, SIGNAL(cursorPositionChanged()), SLOT(updateCurrentEditColumn()));
     connect(ui.reversePreviewTextCheckBox, SIGNAL(toggled(bool)), SLOT(setPreviewText()));
 
     setItem(keyValueItemsPairToEdit);
@@ -57,8 +58,8 @@ EditStringCell::EditStringCell(QWidget *parent, const KeyValueItemsPair &keyValu
 
 void EditStringCell::wrapModeChanged(bool state)
 {
-    ui.stringEdit->setLineWrapMode((QPlainTextEdit::LineWrapMode)state);
-    ui.stringPreview->setLineWrapMode((QTextEdit::LineWrapMode)state);
+    ui.stringEdit   ->setLineWrapMode(state ? QPlainTextEdit::WidgetWidth : QPlainTextEdit::NoWrap);
+    ui.stringPreview->setLineWrapMode(state ?      QTextEdit::WidgetWidth :      QTextEdit::NoWrap);
 }
 
 void EditStringCell::insertText()
@@ -106,7 +107,15 @@ void EditStringCell::setPreviewText()
     ui.stringPreview->clear();
 
     // text is white by default + stupid HTML with its newlines and spaces
-    QString text = "\\white;" + ui.stringEdit->toPlainText().replace('\n', "<br>").replace(' ', "&nbsp;");
+    QString text = colorStrings.at(1) + ui.stringEdit->toPlainText().replace('<', "&lt;").replace('>', "&gt;").replace('\n', "<br>");
+    int emptyMatchIndex;
+    QRegExp emptyRe(" {2,}");
+    while ((emptyMatchIndex = emptyRe.indexIn(text)) != -1)
+    {
+        int matchedLength = emptyRe.matchedLength();
+        text.replace(emptyMatchIndex, matchedLength, QString("&nbsp;").repeated(matchedLength));
+    }
+
     if (ui.reversePreviewTextCheckBox->isChecked())
     {
         QList<QPair<int, int> > colorStringsIndeces; // <index_of_color_string_in_array, position_in_string>
@@ -138,7 +147,7 @@ void EditStringCell::setPreviewText()
                 colorStringsStack.push(QString("<font color = \"%1\">%2</font>").arg(colorHexString(colors.at(index - 1)), reversedText));
         }
 
-        // empty stack
+        // empty the stack
         while (!colorStringsStack.isEmpty())
             ui.stringPreview->insertHtml(colorStringsStack.pop());
     }
@@ -146,7 +155,6 @@ void EditStringCell::setPreviewText()
     {
         for (int i = 0; i < colors.size(); i++) // replace color codes with their hex values for HTML
             text.replace(colorStrings.at(i + 1), QString("</font><font color = \"%1\">").arg(colorHexString(colors.at(i))));
-        text.remove(QRegExp("<font color = \"#[\\da-fA-F]{6}\"></font>")); // remove empty tags
         ui.stringPreview->setHtml(text);
     }
 

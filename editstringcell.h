@@ -29,6 +29,7 @@ public:
 public slots:
     void resetText();
     void updateColorsMenu();
+    void setFocus() { QWidget::setFocus(); ui.stringEdit->setFocus(); }
 
 signals:
     void colorMenuChanged();
@@ -40,6 +41,7 @@ private slots:
     void updateCharsEditCounter() { ui.charsEditCountLabel->setText(QString::number(ui.stringEdit->toPlainText().length())); }
     void calculateKeyHashValue();
     void setPreviewText();
+    void updateCurrentEditColumn() { ui.currentEditColumnLabel->setText(QString::number(ui.stringEdit->textCursor().columnNumber())); }
     void showEditColorsDialog();
 
 private:
