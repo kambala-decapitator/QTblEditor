@@ -175,6 +175,8 @@
    <addaction name="separator"/>
    <addaction name="actionFindReplace"/>
    <addaction name="actionGoTo"/>
+   <addaction name="separator"/>
+   <addaction name="actionSyncScrolling"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNew">
@@ -744,6 +746,9 @@
    </property>
    <property name="text">
     <string>Sync scrolling and selection</string>
+   </property>
+   <property name="iconText">
+    <string>Sync scrolling</string>
    </property>
    <property name="shortcut">
     <string notr="true">F4</string>

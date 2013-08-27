@@ -80,6 +80,7 @@ private:
     QString _lastPath;
     QStringList _recentFilesList;
     bool _isTableLoaded;
+    QHash<QString, QVariant> _lastSelectedRowsHash;
 
 
     void connectActions();

@@ -334,32 +334,34 @@ bool QTblEditor::loadFile(const QString &fileName, bool shouldShowOpenOptions)
     if (result && !currentTablePanelWidget()->absoluteFileName().isEmpty() && !closeTable())
         return false;
 
-    int row = 0, column = 0;
     if (!result || (result == -1 && areTwoTablesOpened))
     {
-        row = _currentTableWidget->currentRow();
-        column = _currentTableWidget->currentColumn();
         activateAnotherTable();
         currentTablePanelWidget()->show();
         closeAllDialogs();
     }
+
+    TablePanelWidget *w = currentTablePanelWidget();
     if (processTable(fileName))
     {
         if (!_openedTables || (_openedTables == 1 && (!result || result == -1)))
             _openedTables++;
 
-        currentTablePanelWidget()->setFilePath(fileName);
-        currentTablePanelWidget()->setActive(true);
-        currentTablePanelWidget()->setWindowModified(false);
-        _currentTableWidget->setCurrentCell(row, column);
+        w->setFilePath(fileName);
+        w->setActive(true);
+        w->setWindowModified(false);
+
+        int row = _lastSelectedRowsHash[QDir::toNativeSeparators(fileName)].toInt();
+        _currentTableWidget->setCurrentCell(row, 1);
+        _currentTableWidget->scrollTo(_currentTableWidget->model()->index(row, 1));
 
         if (_openedTables == 2)
         {
-            inactiveNamedTableWidget(currentTablePanelWidget())->setActive(false);
+            inactiveNamedTableWidget(w)->setActive(false);
             tableMenuSetEnabled(true);
         }
 
-        _lastPath = currentTablePanelWidget()->fileDirPath();
+        _lastPath = w->fileDirPath();
         enableTableActions(true);
 
         return true;
@@ -368,7 +370,7 @@ bool QTblEditor::loadFile(const QString &fileName, bool shouldShowOpenOptions)
     {
         if (!result || (result == -1 && areTwoTablesOpened))
         {
-            currentTablePanelWidget()->hide();
+            w->hide();
             activateAnotherTable();
         }
         return false;
@@ -419,7 +421,6 @@ bool QTblEditor::processTblFile(QFile *inputFile)
     if (in.readRawData(table, numElem) == numElem)
     {
         delete [] table;
-        table = 0;
 
         inputFile->reset(); // current offset for reading = 0x00
         in.skipRawData(TblHeader::size); // current offset for reading = 0x15 (we don't need header any more)
@@ -447,7 +448,6 @@ bool QTblEditor::processTblFile(QFile *inputFile)
     else
     {
         delete [] table;
-        table = 0;
         QMessageBox::critical(this, qApp->applicationName(), tr("Couldn't read entire file, read only %n byte(s) after header.\n"
                                                     "Probably file is corrupted or wrong file format.", 0, numElem));
         return false;
@@ -539,8 +539,10 @@ bool QTblEditor::closeTable(bool hideTable)
         _keyHashLabel->clear();
         closeAllDialogs();
 
-        int row = _currentTableWidget->currentRow(), column = _currentTableWidget->currentColumn();
         QString filePath = currentTablePanelWidget()->absoluteFileName();
+        if (filePath != kNewTblFileName)
+            _lastSelectedRowsHash[QDir::toNativeSeparators(filePath)] = _currentTableWidget->currentRow();
+
         if (hideTable || filePath == kNewTblFileName)
         {
             currentTablePanelWidget()->clearContents();
@@ -552,7 +554,6 @@ bool QTblEditor::closeTable(bool hideTable)
                 currentTablePanelWidget()->hide();
             activateAnotherTable();
             currentTablePanelWidget()->setActive(true);
-            _currentTableWidget->setCurrentCell(row, column);
 
             tableMenuSetEnabled(false);
             updateWindow(_currentTableWidget->isWindowModified());
@@ -969,6 +970,8 @@ void QTblEditor::updateLocationLabel(int newRow)
 void QTblEditor::writeSettings()
 {
     QSettings settings;
+    settings.setValue("syncScrolling", ui.actionSyncScrolling->isChecked());
+    settings.setValue("lastSelectedRowsHash", _lastSelectedRowsHash);
 
     settings.beginGroup("geometry");
     settings.setValue("windowGeometry", saveGeometry());
@@ -1010,8 +1013,6 @@ void QTblEditor::writeSettings()
     else
         settings.remove("lastSession");
 
-    settings.setValue("syncScrolling", ui.actionSyncScrolling->isChecked());
-
 
     // write custom colors to file
     QFile f(
@@ -1035,6 +1036,8 @@ void QTblEditor::writeSettings()
 void QTblEditor::readSettings()
 {
     QSettings settings;
+    ui.actionSyncScrolling->setChecked(settings.value("syncScrolling", true).toBool());
+    _lastSelectedRowsHash = settings.value("lastSelectedRowsHash").toHash();
 
     settings.beginGroup("geometry");
     restoreGeometry(settings.value("windowGeometry").toByteArray());
@@ -1071,8 +1074,6 @@ void QTblEditor::readSettings()
         }
     }
     settings.endGroup();
-
-    ui.actionSyncScrolling->setChecked(settings.value("syncScrolling", true).toBool());
 
 
     // read custom colors from file
