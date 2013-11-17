@@ -2,7 +2,6 @@ MarcoNecroX:
 3) Save user's table parameters - for example; everytime I load the program I have the key column covering all screen, and string column is not visible so I have to fix the columns everytime I open the program.
 5) Allow up to 3 string files at same time - so you can have the 3 opened. After this, 'Search in All' feature  pure win.
 
-- save position for each opened file
 - rewrite search
 - different colors on one line mustn't be reversed, e.g. '\gold;Median XL by \dgreen;BrotherLaz'
 - allow 'almost' synced tables (there can be a number of rows that doesn't match, but all others must match)
