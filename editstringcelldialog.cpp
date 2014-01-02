@@ -85,13 +85,6 @@ EditStringCellDialog::EditStringCellDialog(QWidget *parent, KeyValueItemsPair le
     _leftEditor->setFocus();
 }
 
-void EditStringCellDialog::closeEvent(QCloseEvent *e)
-{
-    QSettings().setValue("geometry/EditStringCellDialogGeometry", saveGeometry());
-    emit editorClosedAt(_leftEditor->itemsPair().first->row());
-    e->accept();
-}
-
 void EditStringCellDialog::saveText()
 {
     _leftEditor->saveChanges();
@@ -134,6 +127,13 @@ void EditStringCellDialog::keyPressEvent(QKeyEvent *e)
             next();
     }
     QDialog::keyPressEvent(e);
+}
+
+void EditStringCellDialog::done(int r)
+{
+    QSettings().setValue("geometry/EditStringCellDialogGeometry", saveGeometry());
+    emit editorClosedAt(_leftEditor->itemsPair().first->row());
+    QDialog::done(r);
 }
 
 void EditStringCellDialog::swapEditors()

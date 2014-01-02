@@ -18,13 +18,14 @@ public:
     explicit EditStringCellDialog(QWidget *parent, KeyValueItemsPair leftItemsPairToEdit, KeyValueItemsPair rightItemsPairToEdit = kEmptyKeyValuePair);
 
 public slots:
+    void done(int r);
+
     void swapEditors();
 
 signals:
     void editorClosedAt(int row);
 
 protected:
-    void closeEvent(QCloseEvent *e);
     void keyPressEvent(QKeyEvent *e);
 
 private slots:
