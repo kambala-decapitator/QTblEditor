@@ -465,7 +465,7 @@ bool QTblEditor::processTxtOrCsvFile(QFile *inputFile)
     _currentTableWidget->setRowCount(rows);
     currentTablePanelWidget()->updateRowCountLabel();
 
-    QByteArray currentLine = entries.at(0);
+    QByteArray currentLine = entries.at(0).trimmed();
     char separator = '\t', wrappingCharKey = '\"', wrappingCharValue = '\"';
     if (inputFile->fileName().right(4).toLower() == ".csv" || currentLine.contains("\",\"") || currentLine.contains("\";\""))
     {
@@ -508,6 +508,8 @@ bool QTblEditor::processTxtOrCsvFile(QFile *inputFile)
     int maxKeyWidth = 0;
     for (; i < rows; currentLine = entries.at(++i))
     {
+        currentLine = currentLine.trimmed();
+
         int separatorIndex = currentLine.indexOf(keyValueSeparator);
         if (separatorIndex == -1)
         {
