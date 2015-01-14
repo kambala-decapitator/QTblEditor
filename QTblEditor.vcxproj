@@ -401,6 +401,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\debug\qrc_%(Filename).cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <None Include="qtbleditor_ru.ts" />
+    <None Include="qtbleditor_zh.ts" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="qtbleditor.rc" />
