@@ -22,6 +22,8 @@
 #include <QMimeData>
 #include <QDateTime>
 
+#include <QNetworkReply>
+
 #ifndef QT_NO_DEBUG
 #include <QDebug>
 #endif
@@ -148,6 +150,7 @@ void QTblEditor::connectActions()
     CONNECT_ACTION_TO_SLOT(ui.actionNew, SLOT(newTable()));
     CONNECT_ACTION_TO_SLOT(ui.actionOpen, SLOT(open()));
     CONNECT_ACTION_TO_SLOT(ui.actionReopen, SLOT(reopen()));
+    CONNECT_ACTION_TO_SLOT(ui.actionSendToServer, SLOT(sendToServer()));
     CONNECT_ACTION_TO_SLOT(ui.actionSave, SLOT(save()));
     CONNECT_ACTION_TO_SLOT(ui.actionSaveAs, SLOT(saveAs()));
     CONNECT_ACTION_TO_SLOT(ui.actionSaveAll, SLOT(saveAll()));
@@ -318,6 +321,41 @@ void QTblEditor::reopen()
         setWindowModified(_leftTableWidget->isWindowModified() && _rightTableWidget->isWindowModified());
         updateLocationLabel(_currentTableWidget->currentRow());
     }
+}
+
+void QTblEditor::sendToServer()
+{
+    QSettings settings;
+    QString url = settings.value("serverUrl").toString();
+    if (url.isEmpty())
+    {
+        url = QInputDialog::getText(this, tr("Server URL"), QString());
+        if (url.isEmpty())
+            return;
+        settings.setValue("serverUrl", url);
+    }
+
+    // force wrapping in quotes
+    bool wrapCurrent = ui.actionWrapStrings->isChecked();
+    ui.actionWrapStrings->setChecked(true);
+    QByteArray data;
+    writeAsText(data, false);
+    ui.actionWrapStrings->setChecked(wrapCurrent);
+
+    QNetworkRequest request(QUrl(url + "?name=" + QFileInfo(currentTablePanelWidget()->absoluteFileName()).baseName()));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+
+    QNetworkAccessManager qnam;
+    QNetworkReply *reply = qnam.post(request, data);
+    QEventLoop eventLoop;
+    connect(reply, SIGNAL(finished()), &eventLoop, SLOT(quit()));
+    eventLoop.exec();
+
+    if (reply->error())
+        QMessageBox::critical(this, tr("Error"), reply->errorString());
+    else
+        QMessageBox::information(this, tr("Success"), tr("Response:") + "\n" + reply->readAll());
+    reply->deleteLater();
 }
 
 bool QTblEditor::loadFile(const QString &fileName, bool shouldShowOpenOptions)
@@ -574,7 +612,7 @@ bool QTblEditor::closeTable(bool hideTable)
 
 void QTblEditor::enableTableActions(bool state)
 {
-    QList<QAction *> actions = QList<QAction *>() << ui.actionSaveAs << ui.actionClose << ui.actionCloseAll << ui.menuEdit->actions();
+    QList<QAction *> actions = QList<QAction *>() << ui.actionSaveAs << ui.actionClose << ui.actionCloseAll << ui.menuEdit->actions() << ui.actionSendToServer;
     foreach (QAction *action, actions)
         action->setEnabled(state);
     ui.menuEdit->setEnabled(state);

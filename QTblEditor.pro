@@ -5,6 +5,8 @@
 TEMPLATE = app
 TARGET = QTblEditor
 
+QT += network
+
 greaterThan(QT_MAJOR_VERSION, 4): {
     DEFINES += IS_QT5
     IS_QT5 = 1

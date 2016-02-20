@@ -33,6 +33,7 @@ private slots:
     void open();
     void openRecentFile();
     void reopen();
+    void sendToServer();
     bool closeTable(bool hideTable = true);
     bool closeAll(bool hideTable = true) { return closeTable(hideTable) && (!_openedTables || closeTable(hideTable)); }
     void save();

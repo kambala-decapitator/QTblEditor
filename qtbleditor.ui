@@ -30,7 +30,7 @@
      <x>0</x>
      <y>0</y>
      <width>714</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -50,6 +50,8 @@
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
     <addaction name="actionSaveAll"/>
+    <addaction name="separator"/>
+    <addaction name="actionSendToServer"/>
     <addaction name="separator"/>
     <addaction name="actionClose"/>
     <addaction name="actionCloseAll"/>
@@ -752,6 +754,14 @@
    </property>
    <property name="shortcut">
     <string notr="true">F4</string>
+   </property>
+  </action>
+  <action name="actionSendToServer">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Send to server...</string>
    </property>
   </action>
  </widget>
