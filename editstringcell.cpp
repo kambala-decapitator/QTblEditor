@@ -200,7 +200,7 @@ void EditStringCell::updateColorsMenu()
         pix.fill(colors.at(i));
         if (i == colorsNum)
             _colorMenu->addSeparator();
-        _colorMenu->addAction(QIcon(pix), colorStrings.at(i + 1), this, SLOT(insertText()));
+        _colorMenu->addAction(QIcon(pix), colorStrings.at(i + 1), this, SLOT(insertText()))->setIconVisibleInMenu(true);
     }
     _colorMenu->addSeparator();
     _colorMenu->addAction(tr("Edit..."), this, SLOT(showEditColorsDialog()));
