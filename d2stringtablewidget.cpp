@@ -88,6 +88,9 @@ void D2StringTableWidget::deleteItems(bool isClear)
         }
     }
     progress.setValue(elementsToDelete);
+
+    if (!isClear)
+        changeRowHeaderDisplay();
 }
 
 void D2StringTableWidget::createRowAt(int row)
