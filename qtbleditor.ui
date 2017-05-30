@@ -352,9 +352,6 @@
    <property name="statusTip">
     <string>Go to the specified row</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+G</string>
-   </property>
   </action>
   <action name="actionClearSelected">
    <property name="enabled">
