@@ -557,7 +557,7 @@ bool QTblEditor::processTxtOrCsvFile(QFile *inputFile)
         }
 
         QString key = TblStructure::decodeKey(currentLine.left(separatorIndex));
-        _currentTableWidget->createNewEntry(i, key, QString::fromUtf8(currentLine.mid(separatorIndex + keyValueSeparator.length()).replace("\\n", "\n")));
+        _currentTableWidget->createNewEntry(i, key, restoreNewlines(QString::fromUtf8(currentLine.mid(separatorIndex + keyValueSeparator.length()))));
 
         int currentKeyWidth = QFontMetrics(_currentTableWidget->item(i, 0)->font()).width(key);
         if (maxKeyWidth < currentKeyWidth)
@@ -849,7 +849,7 @@ DWORD QTblEditor::writeAsText(QByteArray &bytesToWrite, bool isCsv)
 
         out << separator;
 
-        QByteArray valUtf8 = _currentTableWidget->item(i, 1)->text().replace('\n', "\\n").toUtf8();
+        QByteArray valUtf8 = foldNewlines(_currentTableWidget->item(i, 1)->text()).toUtf8();
         if (wrappingChar)
             out << wrappingChar;
         if (!valUtf8.isEmpty())
@@ -1249,10 +1249,12 @@ void QTblEditor::copy()
     {
         for (int j = range.topRow(); j <= range.bottomRow(); j++)
         {
+            QString s;
             if (range.columnCount() == 1)
-                selectedLines += QString("\"%1\"").arg(_currentTableWidget->item(j, range.rightColumn())->text());
+                s = QString("\"%1\"").arg(_currentTableWidget->item(j, range.rightColumn())->text());
             else
-                selectedLines += QString("\"%1\"\t\"%2\"").arg(_currentTableWidget->item(j, 0)->text(), _currentTableWidget->item(j, 1)->text());
+                s = QString("\"%1\"\t\"%2\"").arg(_currentTableWidget->item(j, 0)->text(), _currentTableWidget->item(j, 1)->text());
+            selectedLines += foldNewlines(s);
         }
     }
 
@@ -1275,7 +1277,7 @@ void QTblEditor::paste()
                 int rowIndex = row + i;
                 _currentTableWidget->createRowAt(rowIndex);
                 QStringList keyValueString = records.at(i).split('\t');
-                _currentTableWidget->createNewEntry(rowIndex, keyValueString.at(0), keyValueString.at(1));
+                _currentTableWidget->createNewEntry(rowIndex, keyValueString.at(0), restoreNewlines(keyValueString.at(1)));
             }
         }
         else // format: "text"
@@ -1285,10 +1287,12 @@ void QTblEditor::paste()
             {
                 int rowIndex = row + i;
                 _currentTableWidget->createRowAt(rowIndex);
+
+                QString s = restoreNewlines(records.at(i));
                 if (isKey)
-                    _currentTableWidget->createNewEntry(rowIndex, records.at(i), QString());
+                    _currentTableWidget->createNewEntry(rowIndex, s, QString());
                 else
-                    _currentTableWidget->createNewEntry(rowIndex, QString(), records.at(i));
+                    _currentTableWidget->createNewEntry(rowIndex, QString(), s);
             }
         }
 
@@ -1331,6 +1335,16 @@ QStringList QTblEditor::differentStrings(TablesDifferencesWidget::DiffType diffT
         }
     }
     return differenceRows;
+}
+
+QString QTblEditor::foldNewlines(const QString &s)
+{
+    return QString(s).replace(QLatin1String("\n"), QLatin1String("\\n"));
+}
+
+QString QTblEditor::restoreNewlines(const QString &s)
+{
+    return QString(s).replace(QLatin1String("\\n"), QLatin1String("\n"));
 }
 
 void QTblEditor::showDifferences()

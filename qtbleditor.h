@@ -113,6 +113,9 @@ private:
     void closeAllDialogs() { foreach (QDialog *d, findChildren<QDialog *>()) d->close(); }
     void increaseRowCount(int rowIndex);
     QStringList differentStrings(TablesDifferencesWidget::DiffType diffType) const;
+
+    QString foldNewlines(const QString &s);
+    QString restoreNewlines(const QString &s);
 };
 
 #endif // QTBLEDITOR_H
