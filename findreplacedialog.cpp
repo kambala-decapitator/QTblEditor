@@ -167,9 +167,13 @@ void FindReplaceDialog::getFoundStrings(const QList<QTableWidgetItem *> &foundIt
 
 void FindReplaceDialog::replaceNext()
 {
+    bool notSearched = !_currentStringIterator.i;
+    if (notSearched)
+        findNext();
     if (!_searchFailed)
         replaceInCurrentString();
-    findNext();
+    if (!(notSearched && _searchFailed))
+        findNext();
 }
 
 void FindReplaceDialog::replaceAll()

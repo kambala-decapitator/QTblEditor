@@ -19,7 +19,7 @@ public:
 
 public slots:
     void getFoundStrings(const QList<QTableWidgetItem *> &foundItems);
-    void needsRefind() { _findConditionChanged = true; }
+    void needsRefind() { _findConditionChanged = true; _currentStringIterator = QList<QTableWidgetItem *>::iterator(); }
 
 private slots:
     void enableButtons();
