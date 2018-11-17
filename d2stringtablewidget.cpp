@@ -81,7 +81,11 @@ void D2StringTableWidget::deleteItems(bool isClear)
                 progress.setValue((i + 1) * k);
                 if (progress.wasCanceled())
                     return;
-                removeRow(range.topRow() - rowShift);
+
+                int row = range.topRow() - rowShift;
+                removeRow(row);
+                _editedItems.remove(qMakePair<int, int>(row, 0));
+                _editedItems.remove(qMakePair<int, int>(row, 1));
             }
             rowShift += range.rowCount();
             emit currentCellChanged(currentRow(), 0, 0, 0);
