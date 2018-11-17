@@ -145,6 +145,7 @@ void D2StringTableWidget::dropEvent(QDropEvent *event)
             QTableWidgetItem *anItem = item(firstDroppedItem->row() + i, firstDroppedItem->column() + j);
             droppedItems += anItem;
             oldTexts += anItem->text();
+            addEditedItem(anItem);
         }
     }
 
