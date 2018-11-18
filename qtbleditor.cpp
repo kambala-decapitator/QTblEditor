@@ -1168,7 +1168,7 @@ void QTblEditor::aboutApp()
     aboutBox.setText(QString("<b>%1</b><br />").arg(appFullName)
                      + tr("Compiled on: %1").arg(QLocale(QLocale::C).toDateTime(QString(__TIMESTAMP__).simplified(), "ddd MMM d hh:mm:ss yyyy").toString("dd.MM.yyyy hh:mm:ss")));
     aboutBox.setInformativeText(tr("<i>Author:</i> Filipenkov Andrey (<b>kambala</b>)")
-                                + QString("<br /><i>ICQ:</i> 287764961<br /><i>E-mail:</i> <a href=\"mailto:%2?subject=%3\">%2</a>").arg(email, appFullName));
+                                + QString("<br /><i>Telegram:</i> <a href=\"https://telegram.me/kambala_decapitator\">@kambala_decapitator</a><br /><i>E-mail:</i> <a href=\"mailto:%2?subject=%3\">%2</a>").arg(email, appFullName));
     aboutBox.exec();
 }
 
