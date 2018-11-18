@@ -108,8 +108,8 @@ void D2StringTableWidget::createRowAt(int row)
 
 void D2StringTableWidget::createNewEntry(int row, const QString &key, const QString &val)
 {
-    setItem(row, 0, new QTableWidgetItem(key.isEmpty() || key == "\"" ? QString() : key.split('\"', QString::SkipEmptyParts).at(0)));
-    setItem(row, 1, new QTableWidgetItem(val.isEmpty() || val == "\"" ? QString() : val.split('\"', QString::SkipEmptyParts).at(0)));
+    setItem(row, 0, new QTableWidgetItem(key.isEmpty() || key == "\"" ? QString() : key));
+    setItem(row, 1, new QTableWidgetItem(val.isEmpty() || val == "\"" ? QString() : val));
 }
 
 void D2StringTableWidget::mousePressEvent(QMouseEvent *mouseEvent)

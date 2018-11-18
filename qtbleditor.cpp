@@ -550,6 +550,10 @@ bool QTblEditor::processTxtOrCsvFile(QFile *inputFile)
     for (; i < rows; currentLine = entries.at(++i))
     {
         currentLine = currentLine.trimmed();
+        if (wrappingCharKey)
+            currentLine = currentLine.mid(1); // remove leading wrappingCharKeyString
+        if (wrappingCharValue)
+            currentLine.chop(1); // remove trailing wrappingCharValueString
 
         int separatorIndex = currentLine.indexOf(keyValueSeparator);
         if (separatorIndex == -1)
