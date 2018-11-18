@@ -1,3 +1,5 @@
+- if one of the previously loaded files doesn't load/exist, still 2 tables are displayed; afterwards second opened file isn't restored on next launch
+
 MarcoNecroX:
 3) Save user's table parameters - for example; everytime I load the program I have the key column covering all screen, and string column is not visible so I have to fix the columns everytime I open the program.
 5) Allow up to 3 string files at same time - so you can have the 3 opened. After this, 'Search in All' feature  pure win.

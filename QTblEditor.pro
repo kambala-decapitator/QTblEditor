@@ -67,11 +67,23 @@ OTHER_FILES += TODO.txt
 macx {
     ICON = File_icons/Baal.icns
 
-    # Qt 5 uses new approach to QMAKE_MAC_SDK, so default value is usually ok
-#    !isEmpty(IS_QT5): QMAKE_MAC_SDK = macosx10.8
+    !isEmpty(IS_QT5) {
+        QMAKE_MAC_SDK = macosx
+    }
+    else {
+        *-clang* {
+            QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.9 # for libc++
+        }
+        else {
+            !isEmpty(IS_RELEASE_BUILD) {
+                # oldfags using apple-gcc must include PPC support
+                MAC_SDK = /Developer/SDKs/MacOSX10.5.sdk
+                if (!exists($$MAC_SDK)): MAC_SDK = /Developer/Xcode3.2.6/SDKs/MacOSX10.5.sdk
+                QMAKE_MAC_SDK = $$MAC_SDK
 
-    !isEmpty(IS_RELEASE_BUILD) {
-        QMAKE_MAC_SDK = /Developer/SDKs/MacOSX10.5.sdk
-        CONFIG += x86 ppc
+                CONFIG += x86 ppc
+                QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.5
+            }
+        }
     }
 }
