@@ -173,6 +173,9 @@
     <None Include="qtbleditor_ru.ts">
       <Filter>Translation Files</Filter>
     </None>
+    <None Include="qtbleditor_zh.ts">
+      <Filter>Translation Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="qtbleditor.rc">
