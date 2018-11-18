@@ -1,3 +1,4 @@
+customcolors.ini
 
 #ignore thumbnails created by windows
 Thumbs.db
@@ -38,3 +39,4 @@ qrc_*
 ui_*
 *.o
 *.qm
+*.VC.*
