@@ -563,7 +563,7 @@ bool QTblEditor::processTxtOrCsvFile(QFile *inputFile)
             return false;
         }
 
-        QString key = TblStructure::decodeKey(currentLine.left(separatorIndex));
+        QString key = restoreNewlines(TblStructure::decodeKey(currentLine.left(separatorIndex)));
         _currentTableWidget->createNewEntry(i, key, restoreNewlines(QString::fromUtf8(currentLine.mid(separatorIndex + keyValueSeparator.length()))));
 
         int currentKeyWidth = QFontMetrics(_currentTableWidget->item(i, 0)->font()).width(key);
@@ -847,7 +847,7 @@ DWORD QTblEditor::writeAsText(QByteArray &bytesToWrite, bool isCsv)
     QDataStream out(&bytesToWrite, QIODevice::WriteOnly);
     for (WORD i = 0, n = _currentTableWidget->rowCount(); i < n; ++i)
     {
-        QByteArray keyLatin1 = TblStructure::encodeKey(_currentTableWidget->item(i, 0)->text());
+        QByteArray keyLatin1 = TblStructure::encodeKey(foldNewlines(_currentTableWidget->item(i, 0)->text()));
         if (wrappingChar)
             out << wrappingChar;
         out.writeRawData(keyLatin1.constData(), keyLatin1.size());
