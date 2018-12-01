@@ -3,13 +3,13 @@
 
 #include "ui_editstringcell.h"
 
-#include <QTableWidgetItem>
+#include <QStandardItemModel>
 
 
 QString colorHexString(const QColor &c);
 
 
-typedef QPair<QTableWidgetItem *, QTableWidgetItem *> KeyValueItemsPair; // <keyItem, valueItem>
+typedef QPair<QStandardItem *, QStandardItem *> KeyValueItemsPair; // <keyItem, valueItem>
 static const KeyValueItemsPair kEmptyKeyValuePair(0, 0);
 
 class EditStringCell : public QWidget

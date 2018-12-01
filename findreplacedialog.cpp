@@ -3,10 +3,10 @@
 
 #include <QMessageBox>
 #include <QDialog>
-#include <QTableWidgetItem>
 #include <QCloseEvent>
 
 #include <QSettings>
+#include <QStandardItemModel>
 
 
 FindReplaceDialog::FindReplaceDialog(QWidget *parent) : QDialog(parent)
@@ -146,7 +146,7 @@ void FindReplaceDialog::findPrevious()
     getNextString(true);
 }
 
-void FindReplaceDialog::getFoundStrings(const QList<QTableWidgetItem *> &foundItems)
+void FindReplaceDialog::getFoundStrings(const QList<QStandardItem *> &foundItems)
 {
     _findConditionChanged = false;
 
@@ -192,7 +192,7 @@ void FindReplaceDialog::replaceAll()
 
 void FindReplaceDialog::replaceInCurrentString()
 {
-    QTableWidgetItem *itemToReplaceIn = *_currentStringIterator;
+    QStandardItem *itemToReplaceIn = *_currentStringIterator;
     QString replaceIn = itemToReplaceIn->text(), replaceWith = ui.lineEditReplace->text();
     Qt::CaseSensitivity cs = (Qt::CaseSensitivity)ui.checkBoxCaseSensitive->isChecked();
     int occurencesCount = replaceIn.count(_query, cs), position = 0;

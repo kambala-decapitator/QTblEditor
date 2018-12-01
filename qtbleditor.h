@@ -41,7 +41,7 @@ private slots:
     void saveAll();
     void aboutApp();
 
-    void changeText() { editString(_currentTableWidget->currentItem()); }
+    void changeText() { /*editString(_currentTableWidget->currentItem());*/ }
     void appendEntry() { increaseRowCount(_currentTableWidget->rowCount()); }
     void insertAfterCurrent() { increaseRowCount(_currentTableWidget->currentRow() + 1); }
     void deleteSelectedItems();
@@ -49,7 +49,7 @@ private slots:
     void paste();
     void showFindReplaceDialog();
     void findNextString(const QString &query, bool isCaseSensitive, bool isExactString, bool isSearchBothTables);
-    void changeCurrentTableItem(QTableWidgetItem *newItem);
+    void changeCurrentTableItem(QStandardItem *newItem);
     void goTo();
 
     void updateToolbarStateInMenu() { ui.actionToolbar->setChecked(ui.mainToolBar->isVisible()); }
@@ -61,11 +61,11 @@ private slots:
     void showDifferences();
     void syncScrollingChanged(bool isSyncing);
 
-    void editString(QTableWidgetItem *itemToEdit);
+    void editString(QStandardItem *itemToEdit);
     void updateLocationLabel(int newRow);
     void changeCurrentTable(QWidget *newActiveTable);
     void updateWindow(bool isModified = true);
-    void updateItem(QTableWidgetItem *item);
+    void updateItem(QStandardItem *item);
     void refreshDifferences(TablesDifferencesWidget *w);
 
 private:
@@ -105,7 +105,8 @@ private:
 
     TablePanelWidget *currentTablePanelWidget() const;
     TablePanelWidget *inactiveNamedTableWidget(TablePanelWidget *namedTableToCheck) const;
-    D2StringTableWidget *inactiveTableWidget(QTableWidget *tableToCheck) const;
+    D2StringTableWidget *inactiveTableWidget(QTableView *tableToCheck) const;
+    D2StringTableWidget *inactiveTableWidget(QStandardItemModel *modelToCheck) const;
 
     void tableMenuSetEnabled(bool isEnabled);
     void addToRecentFiles(const QString &fileName);

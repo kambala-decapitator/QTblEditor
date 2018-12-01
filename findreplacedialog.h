@@ -5,7 +5,7 @@
 
 
 class QDialog;
-class QTableWidgetItem;
+class QStandardItem;
 class QCloseEvent;
 
 class FindReplaceDialog : public QDialog
@@ -18,8 +18,8 @@ public:
     void show(bool isTwoTablesOpened);
 
 public slots:
-    void getFoundStrings(const QList<QTableWidgetItem *> &foundItems);
-    void needsRefind() { _findConditionChanged = true; _currentStringIterator = QList<QTableWidgetItem *>::iterator(); }
+    void getFoundStrings(const QList<QStandardItem *> &foundItems);
+    void needsRefind() { _findConditionChanged = true; _currentStringIterator = QList<QStandardItem *>::iterator(); }
 
 private slots:
     void enableButtons();
@@ -31,7 +31,7 @@ private slots:
 
 signals:
     void getStrings(const QString &query, bool isCaseSensitive, bool isExactString, bool isSearchBothTables);
-    void currentItemChanged(QTableWidgetItem *newItem);
+    void currentItemChanged(QStandardItem *newItem);
 
 protected:
     void closeEvent(QCloseEvent *e);
@@ -40,8 +40,8 @@ private:
     Ui::FindReplaceDialogClass ui;
     QString _query;
     bool _findConditionChanged, _searchFailed;
-    QList<QTableWidgetItem *> _foundTableItems;
-    QList<QTableWidgetItem *>::iterator _currentStringIterator;
+    QList<QStandardItem *> _foundTableItems;
+    QList<QStandardItem *>::iterator _currentStringIterator;
 
     void readSettings();
     void writeSettings();

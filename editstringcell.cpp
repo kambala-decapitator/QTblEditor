@@ -79,9 +79,9 @@ void EditStringCell::saveChanges()
 
 void EditStringCell::changeItem(bool toNext)
 {
-    int newItemIndexOffset = toNext ? 1 : -1, row = _keyValueItemsPair.first->row();
-    QTableWidget *w = _keyValueItemsPair.first->tableWidget();
-    setItem(KeyValueItemsPair(w->item(row + newItemIndexOffset, 0), w->item(row + newItemIndexOffset, 1)));
+    QStandardItem *firstItem = _keyValueItemsPair.first;
+    int newItemIndexOffset = toNext ? 1 : -1, row = firstItem->row();
+    setItem(KeyValueItemsPair(firstItem->model()->item(row + newItemIndexOffset, 0), firstItem->model()->item(row + newItemIndexOffset, 1)));
 }
 
 void EditStringCell::setItem(KeyValueItemsPair newKeyValueItemsPair)
@@ -99,7 +99,7 @@ void EditStringCell::resetText()
 
 void EditStringCell::calculateKeyHashValue()
 {
-    ui.hashValueLabel->setText(QString("0x%1").arg(TblStructure::hashValue(TblStructure::encodeKey(ui.keyLineEdit->text()).data(), _keyValueItemsPair.first->tableWidget()->rowCount()), 0, 16));
+    ui.hashValueLabel->setText(QString("0x%1").arg(TblStructure::hashValue(TblStructure::encodeKey(ui.keyLineEdit->text()).data(), _keyValueItemsPair.first->model()->rowCount()), 0, 16));
 }
 
 void EditStringCell::setPreviewText()

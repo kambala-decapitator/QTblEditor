@@ -268,7 +268,8 @@ void QTblEditor::newTable()
             _currentTableWidget->createNewEntry(i, QString(), QString());
         currentTablePanelWidget()->setFilePath(kNewTblFileName);
         currentTablePanelWidget()->setActive(true);
-        _currentTableWidget->setCurrentCell(0, 0, QItemSelectionModel::Select);
+//        _currentTableWidget->setCurrentCell(0, 0, QItemSelectionModel::Select);
+        _currentTableWidget->setCurrentIndex(QModelIndex());
 
         updateWindow();
         enableTableActions(true);
@@ -393,8 +394,9 @@ bool QTblEditor::loadFile(const QString &fileName, bool shouldShowOpenOptions)
         w->setWindowModified(false);
 
         int row = _lastSelectedRowsHash[QDir::toNativeSeparators(fileName)].toInt();
-        _currentTableWidget->setCurrentCell(row, 1);
-        _currentTableWidget->scrollTo(_currentTableWidget->model()->index(row, 1));
+//        _currentTableWidget->setCurrentCell(row, 1);
+        _currentTableWidget->setCurrentIndex(_currentTableWidget->model()->index(row, 1));
+//        _currentTableWidget->scrollTo(_currentTableWidget->model()->index(row, 1));
 
         if (_openedTables == 2)
         {
@@ -472,15 +474,15 @@ bool QTblEditor::processTblFile(QFile *inputFile)
         _currentTableWidget->setRowCount(rowCount);
         currentTablePanelWidget()->updateRowCountLabel();
 
-        int maxKeyWidth = 0;
+        int maxKeyWidth = 100;
         for (WORD i = 0; i < rowCount; i++)
         {
             QPair<QString, QString> currentDataStrings = tbl.dataStrings(i); // reading pair <key, value>
             _currentTableWidget->createNewEntry(i, currentDataStrings.first, currentDataStrings.second);
 
-            int currentKeyWidth = QFontMetrics(_currentTableWidget->item(i, 0)->font()).width(currentDataStrings.first);
-            if (maxKeyWidth < currentKeyWidth)
-                maxKeyWidth = currentKeyWidth;
+//            int currentKeyWidth = QFontMetrics(_currentTableWidget->item(i, 0)->font()).width(currentDataStrings.first);
+//            if (maxKeyWidth < currentKeyWidth)
+//                maxKeyWidth = currentKeyWidth;
         }
         _currentTableWidget->setColumnWidth(0, maxKeyWidth + 1); // making "key" column width fit all the entries
 
@@ -546,7 +548,7 @@ bool QTblEditor::processTxtOrCsvFile(QFile *inputFile)
         currentLine = entries.at(++i);
     }
 
-    int maxKeyWidth = 0;
+    int maxKeyWidth = 100;
     for (; i < rows; currentLine = entries.at(++i))
     {
         currentLine = currentLine.trimmed();
@@ -566,9 +568,9 @@ bool QTblEditor::processTxtOrCsvFile(QFile *inputFile)
         QString key = restoreNewlines(TblStructure::decodeKey(currentLine.left(separatorIndex)));
         _currentTableWidget->createNewEntry(i, key, restoreNewlines(QString::fromUtf8(currentLine.mid(separatorIndex + keyValueSeparator.length()))));
 
-        int currentKeyWidth = QFontMetrics(_currentTableWidget->item(i, 0)->font()).width(key);
-        if (maxKeyWidth < currentKeyWidth)
-            maxKeyWidth = currentKeyWidth;
+//        int currentKeyWidth = QFontMetrics(_currentTableWidget->item(i, 0)->font()).width(key);
+//        if (maxKeyWidth < currentKeyWidth)
+//            maxKeyWidth = currentKeyWidth;
     }
     _currentTableWidget->setColumnWidth(0, maxKeyWidth + 1);
 
@@ -876,10 +878,11 @@ void QTblEditor::showFindReplaceDialog()
     _findReplaceDlg->activateWindow();
 }
 
-void QTblEditor::changeCurrentTableItem(QTableWidgetItem *newItem)
+void QTblEditor::changeCurrentTableItem(QStandardItem *newItem)
 {
-    _currentTableWidget = qobject_cast<D2StringTableWidget *>(newItem->tableWidget());
-    _currentTableWidget->setCurrentCell(newItem->row(), newItem->column());
+    _currentTableWidget = _leftTableWidget->model() == newItem->model() ? _leftTableWidget : _rightTableWidget; //qobject_cast<D2StringTableWidget *>(newItem->tableWidget());
+//    _currentTableWidget->setCurrentCell(newItem->row(), newItem->column());
+    _currentTableWidget->setCurrentIndex(_currentTableWidget->model()->index(newItem->row(), newItem->column()));
 
     currentTablePanelWidget()->setActive(true);
     if (_openedTables == 2)
@@ -893,7 +896,7 @@ void QTblEditor::findNextString(const QString &query, bool isCaseSensitive, bool
         searchOptions |= Qt::MatchCaseSensitive;
     if (isExactString)
         searchOptions &= ~Qt::MatchContains;
-    QList<QTableWidgetItem *> foundItems = _currentTableWidget->findItems(query, searchOptions);
+    QList<QStandardItem *> foundItems = _currentTableWidget->findItems(query, searchOptions);
     if (isSearchBothTables && _openedTables == 2)
         foundItems.append(inactiveTableWidget(_currentTableWidget)->findItems(query, searchOptions));
     _findReplaceDlg->getFoundStrings(foundItems);
@@ -903,24 +906,25 @@ void QTblEditor::goTo()
 {
     GoToRowDialog dlg(this, _currentTableWidget->rowCount());
     if (dlg.exec())
-        _currentTableWidget->setCurrentCell(dlg.row() - 1, 1);
+        _currentTableWidget->setCurrentIndex(_currentTableWidget->model()->index(dlg.row() - 1, 1));
+//        _currentTableWidget->setCurrentCell(dlg.row() - 1, 1);
 }
 
-void QTblEditor::editString(QTableWidgetItem *itemToEdit)
+void QTblEditor::editString(QStandardItem *itemToEdit)
 {
     int row = itemToEdit->row();
     KeyValueItemsPair itemsPair;
     if (itemToEdit->column()) // value selected
-        itemsPair = KeyValueItemsPair(itemToEdit->tableWidget()->item(row, 0), itemToEdit);
+        itemsPair = KeyValueItemsPair(itemToEdit->model()->item(row, 0), itemToEdit);
     else // key selected
-        itemsPair = KeyValueItemsPair(itemToEdit, itemToEdit->tableWidget()->item(row, 1));
+        itemsPair = KeyValueItemsPair(itemToEdit, itemToEdit->model()->item(row, 1));
 
     EditStringCellDialog *editStringCellDlg = 0;
     if (_openedTables == 1 || row >= inactiveTableWidget(_currentTableWidget)->rowCount() || !ui.actionSyncScrolling->isChecked())
         editStringCellDlg = new EditStringCellDialog(this, itemsPair);
     else
     {
-        QTableWidget *w = inactiveTableWidget(itemToEdit->tableWidget());
+        D2StringTableWidget *w = inactiveTableWidget(itemToEdit->model());
         KeyValueItemsPair otherItemsPair(w->item(row, 0), w->item(row, 1));
         if (_currentTableWidget == _leftTableWidget)
             editStringCellDlg = new EditStringCellDialog(this, itemsPair, otherItemsPair);
@@ -938,13 +942,13 @@ void QTblEditor::editString(QTableWidgetItem *itemToEdit)
     editStringCellDlg->show();
 }
 
-void QTblEditor::updateItem(QTableWidgetItem *item)
+void QTblEditor::updateItem(QStandardItem *item)
 {
     if (_isTableLoaded && item && item->background().color() != Qt::green)
     {
         item->setBackground(QBrush(Qt::green));
 
-        TablePanelWidget *w = _leftTablePanelWidget->tableWidget() == item->tableWidget() ? _leftTablePanelWidget : _rightTablePanelWidget;
+        TablePanelWidget *w = _leftTablePanelWidget->tableWidget()->model() == item->model() ? _leftTablePanelWidget : _rightTablePanelWidget;
         w->tableWidget()->addEditedItem(item);
         w->setWindowModified(true);
 
@@ -1111,13 +1115,15 @@ void QTblEditor::readSettings()
     if (keys.length() >= 2)
     {
         if (loadFile(settings.value(keys.at(0)).toString()))
-            _currentTableWidget->setCurrentCell(settings.value(keys.at(1)).toInt(), 1);
+            _currentTableWidget->setCurrentIndex(_currentTableWidget->model()->index(settings.value(keys.at(1)).toInt(), 1));
+//            _currentTableWidget->setCurrentCell(settings.value(keys.at(1)).toInt(), 1);
 
         if (keys.length() == 4)
         {
             _isTableLoaded = false;
             if (loadFile(settings.value(keys.at(2)).toString(), false))
-                _currentTableWidget->setCurrentCell(settings.value(keys.at(3)).toInt(), 1);
+                _currentTableWidget->setCurrentIndex(_currentTableWidget->model()->index(settings.value(keys.at(3)).toInt(), 1));
+//                _currentTableWidget->setCurrentCell(settings.value(keys.at(3)).toInt(), 1);
         }
     }
     settings.endGroup();
@@ -1182,9 +1188,14 @@ TablePanelWidget *QTblEditor::inactiveNamedTableWidget(TablePanelWidget *namedTa
     return namedTableToCheck == _leftTablePanelWidget ? _rightTablePanelWidget : _leftTablePanelWidget;
 }
 
-D2StringTableWidget *QTblEditor::inactiveTableWidget(QTableWidget *tableToCheck) const
+D2StringTableWidget *QTblEditor::inactiveTableWidget(QTableView *tableToCheck) const
 {
     return tableToCheck == _leftTableWidget ? _rightTableWidget : _leftTableWidget;
+}
+
+D2StringTableWidget *QTblEditor::inactiveTableWidget(QStandardItemModel *modelToCheck) const
+{
+    return modelToCheck == _leftTableWidget->model() ? _rightTableWidget : _leftTableWidget;
 }
 
 void QTblEditor::changeCurrentTable(QWidget *newActiveTable)
@@ -1251,21 +1262,21 @@ void QTblEditor::increaseRowCount(int rowIndex)
 
 void QTblEditor::copy()
 {
-    QStringList selectedLines;
-    foreach (const QTableWidgetSelectionRange &range, _currentTableWidget->selectedRanges())
-    {
-        for (int j = range.topRow(); j <= range.bottomRow(); j++)
-        {
-            QString s;
-            if (range.columnCount() == 1)
-                s = QString("\"%1\"").arg(_currentTableWidget->item(j, range.rightColumn())->text());
-            else
-                s = QString("\"%1\"\t\"%2\"").arg(_currentTableWidget->item(j, 0)->text(), _currentTableWidget->item(j, 1)->text());
-            selectedLines += foldNewlines(s);
-        }
-    }
+//    QStringList selectedLines;
+//    foreach (const QTableWidgetSelectionRange &range, _currentTableWidget->selectedRanges())
+//    {
+//        for (int j = range.topRow(); j <= range.bottomRow(); j++)
+//        {
+//            QString s;
+//            if (range.columnCount() == 1)
+//                s = QString("\"%1\"").arg(_currentTableWidget->item(j, range.rightColumn())->text());
+//            else
+//                s = QString("\"%1\"\t\"%2\"").arg(_currentTableWidget->item(j, 0)->text(), _currentTableWidget->item(j, 1)->text());
+//            selectedLines += foldNewlines(s);
+//        }
+//    }
 
-    qApp->clipboard()->setText(selectedLines.join("\n"));
+//    qApp->clipboard()->setText(selectedLines.join("\n"));
 }
 
 void QTblEditor::paste()
@@ -1309,7 +1320,8 @@ void QTblEditor::paste()
             updateItem(_currentTableWidget->item(i, 1));
         }
 
-        _currentTableWidget->setCurrentCell(row + recordsNumber, 0);
+//        _currentTableWidget->setCurrentCell(row + recordsNumber, 0);
+        _currentTableWidget->setCurrentIndex(_currentTableWidget->model()->index(row + recordsNumber, 0));
         currentTablePanelWidget()->updateRowCountLabel();
     }
 }

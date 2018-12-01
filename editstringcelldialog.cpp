@@ -94,15 +94,15 @@ void EditStringCellDialog::saveText()
 
 void EditStringCellDialog::updateLocation()
 {
-    QTableWidgetItem *item = _leftEditor->itemsPair().first;
+    QStandardItem *item = _leftEditor->itemsPair().first;
     int row = item->row(), displayRow = row + 1;
     setWindowTitle(tr("Edit record [row - %1 (0x%2)]").arg(displayRow).arg(displayRow, 0, 16));
 
     ui.previousButton->setEnabled(row != 0);
 
-    int rowCount = item->tableWidget()->rowCount();
+    int rowCount = item->model()->rowCount();
     if (_rightEditor)
-        rowCount = qMin(rowCount, _rightEditor->itemsPair().first->tableWidget()->rowCount());
+        rowCount = qMin(rowCount, _rightEditor->itemsPair().first->model()->rowCount());
     ui.nextButton->setEnabled(row != rowCount - 1);
 }
 
