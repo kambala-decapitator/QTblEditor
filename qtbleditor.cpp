@@ -48,6 +48,11 @@ QDataStream &operator <<(QDataStream &out, const TblHashNode &tn)
     return out << tn.Active << tn.Index << tn.HashValue << tn.StringKeyOffset << tn.StringValOffset << tn.StringValLength;
 }
 
+QString stripSurroundingQuotes(const QString &s)
+{
+    return s.startsWith('\"') && s.endsWith('\"') ? s.mid(1, s.length() - 2) : s;
+}
+
 // end of global auxiliary functions
 
 
@@ -1284,7 +1289,7 @@ void QTblEditor::paste()
                 int rowIndex = row + i;
                 _currentTableWidget->createRowAt(rowIndex);
                 QStringList keyValueString = records.at(i).split('\t');
-                _currentTableWidget->createNewEntry(rowIndex, keyValueString.at(0), restoreNewlines(keyValueString.at(1)));
+                _currentTableWidget->createNewEntry(rowIndex, stripSurroundingQuotes(keyValueString.at(0)), stripSurroundingQuotes(restoreNewlines(keyValueString.at(1))));
             }
         }
         else // format: "text"
@@ -1295,7 +1300,7 @@ void QTblEditor::paste()
                 int rowIndex = row + i;
                 _currentTableWidget->createRowAt(rowIndex);
 
-                QString s = restoreNewlines(records.at(i));
+                QString s = stripSurroundingQuotes(restoreNewlines(records.at(i)));
                 if (isKey)
                     _currentTableWidget->createNewEntry(rowIndex, s, QString());
                 else
