@@ -158,11 +158,18 @@ void EditStringCell::setPreviewText()
         ui.stringPreview->setHtml(text);
     }
 
-    const int kMaxLengthPatch110 = 255;
-    int length = ui.stringPreview->toPlainText().length();
-    ui.charsPreviewCountLabel->setText(QString::number(length));
-    if (length > kMaxLengthPatch110)
-        emit maxLengthExceededFor110(tr("Patch 1.10 has limitation of %1 characters per string").arg(kMaxLengthPatch110));
+	// show warning only once
+	static bool showWarning = true;
+	if (showWarning)
+	{
+		showWarning = false;
+
+		const int kMaxLengthPatch110 = 255;
+		int length = ui.stringPreview->toPlainText().length();
+		ui.charsPreviewCountLabel->setText(QString::number(length));
+		if (length > kMaxLengthPatch110)
+			emit maxLengthExceededFor110(tr("Patch 1.10 has limitation of %1 characters per string").arg(kMaxLengthPatch110));
+	}
 }
 
 void EditStringCell::showEditColorsDialog()
