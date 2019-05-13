@@ -68,6 +68,7 @@ private slots:
     void updateWindow(bool isModified = true);
     void updateItem(QTableWidgetItem *item);
     void refreshDifferences(TablesDifferencesWidget *w);
+    void modifyText(bool fromLeftToRight, bool append);
 
 private:
     Ui::QTblEditorClass ui;

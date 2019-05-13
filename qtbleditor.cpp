@@ -1399,7 +1399,10 @@ void QTblEditor::showDifferences()
         {
             diffWidget = new TablesDifferencesWidget(this, diffType);
             connect(diffWidget->listWidget(), SIGNAL(currentTextChanged(const QString &)), _leftTableWidget, SLOT(tableDifferencesItemChanged(const QString &)));
+            if (!ui.actionSyncScrolling->isChecked())
+                connect(diffWidget->listWidget(), SIGNAL(currentTextChanged(const QString &)), _rightTableWidget, SLOT(tableDifferencesItemChanged(const QString &)));
             connect(diffWidget, SIGNAL(refreshRequested(TablesDifferencesWidget *)), SLOT(refreshDifferences(TablesDifferencesWidget *)));
+            connect(diffWidget, SIGNAL(modifyTextRequested(bool,bool)), SLOT(modifyText(bool,bool)));
         }
         diffWidget->addRows(differenceRows);
         diffWidget->resize(diffWidget->sizeHint());
@@ -1413,6 +1416,16 @@ void QTblEditor::refreshDifferences(TablesDifferencesWidget *w)
 {
     w->clear();
     w->addRows(differentStrings(w->diffType()));
+}
+
+void QTblEditor::modifyText(bool fromLeftToRight, bool append)
+{
+    QTableWidget *acceptor = fromLeftToRight ? _rightTableWidget : _leftTableWidget, *donor = inactiveTableWidget(acceptor);
+    QTableWidgetItem *acceptorItem = acceptor->item(acceptor->currentRow(), 1);
+    QString prefix;
+    if (append)
+        prefix = acceptorItem->text();
+    acceptorItem->setText(prefix + donor->item(donor->currentRow(), 1)->text());
 }
 
 void QTblEditor::syncScrollingChanged(bool isSyncing)

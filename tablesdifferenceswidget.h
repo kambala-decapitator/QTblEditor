@@ -21,9 +21,11 @@ public:
 
 signals:
     void refreshRequested(TablesDifferencesWidget *w);
+    void modifyTextRequested(bool fromLeftToRight, bool append);
 
 private slots:
     void refreshButtonClicked() { emit refreshRequested(this); }
+    void modifyTextClicked();
 
 private:
     Ui::TablesDifferencesWidget ui;
