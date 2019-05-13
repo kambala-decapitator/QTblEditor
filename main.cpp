@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     app.setOrganizationName("kambala");
     app.setApplicationName("QTblEditor");
-    app.setApplicationVersion("1.3.1");
+    app.setApplicationVersion("1.3.2");
 #ifdef Q_OS_MAC
     app.setAttribute(Qt::AA_DontShowIconsInMenus);
 #endif
