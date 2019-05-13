@@ -136,6 +136,7 @@
     <addaction name="actionShowHexInRow"/>
     <addaction name="separator"/>
     <addaction name="actionSaveTxtWithTbl"/>
+    <addaction name="actionHideKeyColumn"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -772,6 +773,14 @@
    </property>
    <property name="statusTip">
     <string>When saving a .tbl, also save respective .txt automatically</string>
+   </property>
+  </action>
+  <action name="actionHideKeyColumn">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Hide the Key column</string>
    </property>
   </action>
  </widget>

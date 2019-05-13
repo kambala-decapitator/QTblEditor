@@ -177,6 +177,7 @@ void QTblEditor::connectActions()
 
     connect(ui.actionToolbar, SIGNAL(toggled(bool)), ui.mainToolBar, SLOT(setVisible(bool)));
     connect(ui.actionSmallRows, SIGNAL(toggled(bool)), SLOT(toggleRowsHeight(bool)));
+	connect(ui.actionHideKeyColumn, SIGNAL(toggled(bool)), SLOT(changeKeyColumnVisibility(bool)));
 
     CONNECT_ACTION_TO_SLOT(ui.actionSupplement, SLOT(supplement()));
     CONNECT_ACTION_TO_SLOT(ui.actionSwap, SLOT(swapTables()));
@@ -1337,6 +1338,12 @@ void QTblEditor::toggleRowsHeight(bool isSmall)
         _leftTableWidget->setRowHeight(i, height);
     for (int i = 0; i < _rightTableWidget->rowCount(); i++)
         _rightTableWidget->setRowHeight(i, height);
+}
+
+void QTblEditor::changeKeyColumnVisibility(bool hide)
+{
+	_leftTableWidget->setColumnHidden(0, hide);
+	_rightTableWidget->setColumnHidden(0, hide);
 }
 
 QStringList QTblEditor::differentStrings(TablesDifferencesWidget::DiffType diffType) const

@@ -54,6 +54,7 @@ private slots:
 
     void updateToolbarStateInMenu() { ui.actionToolbar->setChecked(ui.mainToolBar->isVisible()); }
     void toggleRowsHeight(bool isSmall);
+	void changeKeyColumnVisibility(bool hide);
 
     void supplement();
     void swapTables();
