@@ -710,13 +710,17 @@ void QTblEditor::saveAll()
 bool QTblEditor::saveFile(const QString &fileName)
 {
     QByteArray bytesToWrite; // first of all, write everything to buffer
-    QString extension = fileName.right(4);
-    bool isCsv = extension == ".csv";
+	QFileInfo fi(fileName);
+    QString extension = fi.suffix().toLower();
+    bool isCsv = extension == "csv", savedAsTbl = false;
 
     DWORD fileSize;
-    if (extension == ".tbl")
-        fileSize = writeAsTbl(bytesToWrite);
-    else if (extension == ".txt" || isCsv)
+	if (extension == "tbl")
+	{
+		fileSize = writeAsTbl(bytesToWrite);
+		savedAsTbl = true;
+	}
+    else if (extension == "txt" || isCsv)
         fileSize = writeAsText(bytesToWrite, isCsv);
     else // any file
     {
@@ -732,6 +736,7 @@ bool QTblEditor::saveFile(const QString &fileName)
         {
         case 0: // tbl
             fileSize = writeAsTbl(bytesToWrite);
+			savedAsTbl = true;
             break;
         case 1: // txt
             fileSize = writeAsText(bytesToWrite, false);
@@ -754,6 +759,9 @@ bool QTblEditor::saveFile(const QString &fileName)
 
             updateWindow(false);
             ui.statusBar->showMessage(tr("File \"%1\" successfully saved").arg(QDir::toNativeSeparators(fileName)), 3000);
+
+			if (savedAsTbl && ui.actionSaveTxtWithTbl->isChecked())
+				saveFile(QFileInfo(QDir(fi.absolutePath()), fi.completeBaseName() + ".txt").filePath());
 
             return true;
         }
@@ -1037,6 +1045,7 @@ void QTblEditor::writeSettings()
     settings.setValue("wrapTxtStrings", ui.actionWrapStrings->isChecked());
     settings.setValue("showHexInRows", ui.actionShowHexInRow->isChecked());
     settings.setValue("startNumberingFrom", _startNumberingGroup->checkedAction()->text());
+	settings.setValue("saveTxtWithTbl", ui.actionSaveTxtWithTbl->isChecked());
     settings.endGroup();
 
     settings.beginGroup("recentItems");
@@ -1103,6 +1112,7 @@ void QTblEditor::readSettings()
     ui.actionWrapStrings->setChecked(settings.value("wrapTxtStrings", true).toBool());
     ui.actionShowHexInRow->setChecked(settings.value("showHexInRows").toBool());
     (settings.value("startNumberingFrom").toString() == "0" ? ui.actionStartNumberingFrom0 : ui.actionStartNumberingFrom1)->setChecked(true);
+	ui.actionSaveTxtWithTbl->setChecked(settings.value("saveTxtWithTbl").toBool());
     settings.endGroup();
 
     settings.beginGroup("recentItems");
