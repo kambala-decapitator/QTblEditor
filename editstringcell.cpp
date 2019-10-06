@@ -5,6 +5,7 @@
 #include <QMenu>
 
 #include <QStack>
+#include <QQueue>
 #include <QTextCodec>
 
 
@@ -15,16 +16,30 @@ QString colorHexString(const QColor &c)
     return QString("#%1%2%3").arg(c.red(), 2, 16, zeroChar).arg(c.green(), 2, 16, zeroChar).arg(c.blue(), 2, 16, zeroChar);
 }
 
-bool colorStringsIndecesLessThan(const QPair<int, int> &a, const QPair<int, int> &b)
-{
-    return a.second < b.second;
-}
-
 
 extern QList<QChar> colorCodes;
 extern QStringList colorStrings;
 extern QList<QColor> colors;
 extern int colorsNum;
+
+QString colorHexFromColorString(const QString &colorString)
+{
+    return colorHexString(colors.at(colorStrings.indexOf(colorString) - 1));
+}
+
+QString textWithHtmlColor(const QString &text, const QString &colorString)
+{
+    return QString("<font color = \"%1\">%2</font>").arg(colorHexFromColorString(colorString), text);
+}
+
+QString colorsRegexPattern()
+{
+    QStringList realColorStrings = colorStrings.mid(1);
+    for (int i = 0; i < realColorStrings.size(); ++i)
+        realColorStrings[i] = QRegExp::escape(realColorStrings[i]);
+    return QString("(?:%1)").arg(realColorStrings.join(QChar('|')));
+}
+
 
 static const QString kGenderNumberMenuName("GenderNumberMenu");
 
@@ -106,8 +121,8 @@ void EditStringCell::setPreviewText()
 {
     ui.stringPreview->clear();
 
-    // text is white by default + stupid HTML with its newlines and spaces
-    QString text = colorStrings.at(1) + ui.stringEdit->toPlainText().replace('<', "&lt;").replace('>', "&gt;").replace('\n', "<br>");
+    // stupid HTML
+    QString text = ui.stringEdit->toPlainText().replace('<', "&lt;").replace('>', "&gt;");
     int emptyMatchIndex;
     QRegExp emptyRe(" {2,}");
     while ((emptyMatchIndex = emptyRe.indexIn(text)) != -1)
@@ -116,46 +131,65 @@ void EditStringCell::setPreviewText()
         text.replace(emptyMatchIndex, matchedLength, QString("&nbsp;").repeated(matchedLength));
     }
 
+    const QString defaultColor = colorStrings.at(1); // text is white by default
     if (ui.reversePreviewTextCheckBox->isChecked())
     {
-        QList<QPair<int, int> > colorStringsIndeces; // <index_of_color_string_in_array, position_in_string>
-        for (int i = 0; i < colors.size(); i++)
+        // text and colors flow top-to-bottom, but D2 renders text bottom-to-top
+        // HTML renders top-to-bottom
+
+        static QRegExp colorRegex(colorsRegexPattern()); // one of the colors
+        QString currentGlobalColor = defaultColor;
+        QStringList lines = text.split('\n');
+
+        typedef QPair<QString, QString> ColoredText; // first - text, second - color
+        typedef QQueue<ColoredText> LineColoredQueue;
+
+        QStack<LineColoredQueue> lineStack;
+        lineStack.reserve(lines.size());
+
+        foreach (const QString &line, lines)
         {
-            QString colorString = colorStrings.at(i + 1);
-            int occurencesCount = text.count(colorString), position = 0, length = colorString.length();
-            for (int j = 0; j < occurencesCount; j++, position += length)
+            LineColoredQueue lineQueue;
+            int nextColorStart = 0, previousColorEnd = 0;
+            do
             {
-                position = text.indexOf(colorString, position);
-                colorStringsIndeces.append(qMakePair(i + 1, position));
-            }
+                nextColorStart = colorRegex.indexIn(line, nextColorStart);
+
+                int textLength = nextColorStart;
+                if (textLength != -1)
+                    textLength -= previousColorEnd;
+                lineQueue.enqueue(qMakePair(line.mid(previousColorEnd, textLength), currentGlobalColor));
+
+                if (nextColorStart == -1)
+                    break;
+
+                currentGlobalColor = colorRegex.cap();
+                nextColorStart += colorRegex.matchedLength();
+                previousColorEnd = nextColorStart;
+            } while (true);
+
+            lineStack.push(lineQueue);
         }
 
-        // sort colorStringsIndeces by position in ascending order
-        qSort(colorStringsIndeces.begin(), colorStringsIndeces.end(), colorStringsIndecesLessThan);
-
-        QStack<QString> colorStringsStack;
-        for (int i = 0, colorsNumberInString = colorStringsIndeces.size(); i < colorsNumberInString; i++)
+        QStringList htmlLines;
+        while (!lineStack.isEmpty())
         {
-            int index = colorStringsIndeces.at(i).first;
-            int position = colorStringsIndeces.at(i).second + colorStrings.at(index).length(); // skip colorString
-            QString coloredText = text.mid(position, i != colorsNumberInString - 1 ? colorStringsIndeces.at(i + 1).second - position : -1);
-
-            QStringList lines = coloredText.split("<br>");
-            std::reverse(lines.begin(), lines.end());
-            QString reversedText = lines.join("<br>");
-            if (!reversedText.isEmpty())
-                colorStringsStack.push(QString("<font color = \"%1\">%2</font>").arg(colorHexString(colors.at(index - 1)), reversedText));
+            QString htmlLine;
+            LineColoredQueue queue = lineStack.pop();
+            while (!queue.isEmpty())
+            {
+                ColoredText pair = queue.dequeue();
+                htmlLine += textWithHtmlColor(pair.first, pair.second);
+            }
+            htmlLines += htmlLine;
         }
-
-        // empty the stack
-        while (!colorStringsStack.isEmpty())
-            ui.stringPreview->insertHtml(colorStringsStack.pop());
+        ui.stringPreview->setHtml(htmlLines.join("<br>"));
     }
     else
     {
         for (int i = 0; i < colors.size(); i++) // replace color codes with their hex values for HTML
             text.replace(colorStrings.at(i + 1), QString("</font><font color = \"%1\">").arg(colorHexString(colors.at(i))));
-        ui.stringPreview->setHtml(text);
+        ui.stringPreview->setHtml(QString("<body style='color: %1'>%2</body>").arg(colorHexFromColorString(defaultColor), text.replace('\n', "<br>")));
     }
 
     int length = ui.stringPreview->toPlainText().length();

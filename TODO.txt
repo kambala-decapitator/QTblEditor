@@ -5,7 +5,6 @@ MarcoNecroX:
 5) Allow up to 3 string files at same time - so you can have the 3 opened. After this, 'Search in All' feature  pure win.
 
 - rewrite search
-- different colors on one line mustn't be reversed, e.g. '\gold;Median XL by \dgreen;BrotherLaz' or expstring.tbl:8575 of MXL 2017 (mon_lazpetz)
 - allow 'almost' synced tables (there can be a number of rows that doesn't match, but all others must match)
 - allow Cut
 
