@@ -1,7 +1,7 @@
 TEMPLATE = lib
 
 CONFIG -= qt
-CONFIG += staticlib c++11
+CONFIG += staticlib c++17
 
 SOURCES += \
     tbl.cpp

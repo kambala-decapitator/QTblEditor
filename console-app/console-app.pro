@@ -1,7 +1,7 @@
 TEMPLATE = app
 
 CONFIG -= qt
-CONFIG += cmdline c++11
+CONFIG += cmdline c++17
 
 SOURCES += \
         main.cpp
