@@ -1,5 +1,8 @@
 #include "tbl.h"
 
-Tbl::Tbl()
+#include <fstream>
+
+Tbl::Tbl(const fs::path& path)
 {
+    std::ifstream in{path, std::ios_base::in | std::ios_base::binary};
 }

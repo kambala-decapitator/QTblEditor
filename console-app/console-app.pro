@@ -10,8 +10,10 @@ win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../tbl/release/ -ltbl
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../tbl/debug/ -ltbl
 else:unix: LIBS += -L$$OUT_PWD/../tbl/ -ltbl
 
-INCLUDEPATH += $$PWD/../tbl
 DEPENDPATH += $$PWD/../tbl
+INCLUDEPATH += \
+  $$PWD/../tbl \
+  $$PWD/../filesystem/include
 
 win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../tbl/release/libtbl.a
 else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../tbl/debug/libtbl.a

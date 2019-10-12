@@ -8,3 +8,5 @@ SOURCES += \
 
 HEADERS += \
     tbl.h
+
+INCLUDEPATH += $$PWD/../filesystem/include
