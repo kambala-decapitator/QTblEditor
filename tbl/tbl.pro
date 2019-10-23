@@ -7,6 +7,7 @@ SOURCES += \
     tbl.cpp
 
 HEADERS += \
+    exceptions.h \
     filesystem.h \
     tbl.h
 
