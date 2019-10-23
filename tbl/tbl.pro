@@ -7,6 +7,7 @@ SOURCES += \
     tbl.cpp
 
 HEADERS += \
+    filesystem.h \
     tbl.h
 
 INCLUDEPATH += $$PWD/../filesystem/include
