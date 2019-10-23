@@ -5,11 +5,17 @@
 
 using namespace std;
 
-int main()
+int main(int argc, const char* argv[])
 {
+    if (argc < 2)
+    {
+        cerr << "tbl param missing" << endl;
+        return 1;
+    }
+
     try
     {
-        Tbl t{fs::path{"/Volumes/hdd/games/d2/medianxl-rus/tbl/sigma/en/patchstring.tbl"}};
+        Tbl t{fs::path{argv[1]}};
         cout << "Hello World! " << &t << endl;
     }
     catch (const NoFileException& e)
