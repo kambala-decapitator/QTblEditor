@@ -2,6 +2,13 @@
 
 #include "filesystem.h"
 
+using std::ifstream;
+using std::vector;
+
+using HashTableIndex = uint16_t;
+using StringOffset = uint32_t;
+
+
 // header of a tbl file
 struct TblHeader
 {
@@ -12,6 +19,27 @@ struct TblHeader
     uint32_t dataStartOffset; // +0x09 - string table start offset
     uint32_t hashMaxTries;    // +0x0D - max number of collisions for string key search based on its hash value
     uint32_t fileSize;        // +0x11 - size of the file
+
+    static constexpr auto size = sizeof crc + sizeof nodesNumber + sizeof hashTableSize + sizeof version + sizeof dataStartOffset + sizeof hashMaxTries + sizeof fileSize;
+};
+
+// node of the hash table in a tbl file
+struct TblHashNode
+{
+    uint8_t isUsed;           // +0x00 - shows if the entry is used: if 0, then it has been "deleted" from the table
+    HashTableIndex index;     // +0x01 - index in the Indexes array
+    uint32_t keyHash;         // +0x03 - hash value of the current string key
+    StringOffset keyOffset;   // +0x07 - offset of the current string key
+    StringOffset valueOffset; // +0x0B - offset of the current string value
+    uint16_t valueLength;     // +0x0F - length of the current string value
+};
+
+
+struct TblEntry
+{
+    std::string key;
+    std::string value;
+    bool isUsed;
 };
 
 class Tbl
@@ -21,5 +49,11 @@ public:
     Tbl(const fs::path& filename);
 
 private:
-    void readHeader(std::ifstream& in);
+    TblHeader readHeader(ifstream& in);
+    vector<HashTableIndex> readIndexes(ifstream& in, TblHeader& header);
+    vector<TblHashNode> readNodes(ifstream& in, TblHeader& header);
+    void readStringData(const char buf[], TblHeader& header, const vector<HashTableIndex>& indexes, const vector<TblHashNode>& nodes);
+
+private:
+    vector<TblEntry> m_entries;
 };

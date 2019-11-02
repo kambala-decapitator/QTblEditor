@@ -22,5 +22,9 @@ int main(int argc, const char* argv[])
     {
         cerr << "file doesn't exist" << endl;
     }
+    catch (const TblReadException& e)
+    {
+        cerr << "couldn't read file" << endl;
+    }
     return 0;
 }
