@@ -3,8 +3,10 @@ TEMPLATE = subdirs
 SUBDIRS += \
     console-app \
     filesystem \
-    tbl
+    tbl \
+    test
     
 filesystem.file = filesystem.pro
 
 console-app.depends += tbl
+test.depends += tbl
