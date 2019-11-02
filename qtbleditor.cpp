@@ -30,7 +30,7 @@
 
 
 static const QString kNewTblFileName("!newstring!.tbl"), kCustomColorsFileName("customcolors.ini");
-const int kMaxRecentFiles = 10;
+const int kMaxRecentFiles = 12;
 
 
 // global auxiliary functions
