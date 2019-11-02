@@ -27,11 +27,11 @@ void Tbl::readHeader(ifstream& in)
 {
     // TODO: big-endian
     TblHeader h;
-    readBinaryData(in, h.CRC);
-    readBinaryData(in, h.NodesNumber);
-    readBinaryData(in, h.HashTableSize);
-    readBinaryData(in, h.Version);
-    readBinaryData(in, h.DataStartOffset);
-    readBinaryData(in, h.HashMaxTries);
-    readBinaryData(in, h.FileSize);
+    readBinaryData(in, h.crc);
+    readBinaryData(in, h.nodesNumber);
+    readBinaryData(in, h.hashTableSize);
+    readBinaryData(in, h.version);
+    readBinaryData(in, h.dataStartOffset);
+    readBinaryData(in, h.hashMaxTries);
+    readBinaryData(in, h.fileSize);
 }
