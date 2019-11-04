@@ -6,7 +6,8 @@ CONFIG += cmdline c++17
 DEPENDPATH += $$PWD/../tbl
 INCLUDEPATH += \
   $$PWD/../tbl \
-  $$PWD/../3rdparty/filesystem/filesystem/include
+  $$PWD/../3rdparty/filesystem/filesystem/include \
+  $$PWD/../3rdparty/catch/Catch2/include
 
 
 win32:!g++ {

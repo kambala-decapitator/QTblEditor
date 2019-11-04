@@ -1,3 +1,6 @@
 [submodule "filesystem"]
 	path = 3rdparty/filesystem/filesystem
 	url = https://github.com/gulrak/filesystem
+[submodule "Catch2"]
+	path = 3rdparty/catch/Catch2
+	url = https://github.com/catchorg/Catch2.git
