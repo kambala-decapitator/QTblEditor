@@ -21,6 +21,7 @@
 #include <QFileInfo>
 #include <QMimeData>
 #include <QDateTime>
+#include <QDesktopServices>
 
 #include <QNetworkReply>
 
@@ -1077,11 +1078,7 @@ void QTblEditor::writeSettings()
 
 
     // write custom colors to file
-    QFile f(
-#ifdef Q_OS_MAC
-            qApp->applicationDirPath() + "/../Resources/" +
-#endif
-            kCustomColorsFileName);
+    QFile f(customColorsFilePath());
     if (f.open(QIODevice::WriteOnly))
     {
         QTextStream out(&f);
@@ -1140,11 +1137,11 @@ void QTblEditor::readSettings()
 
 
     // read custom colors from file
-    QFile f(
-#ifdef Q_OS_MAC
-            qApp->applicationDirPath() + "/../Resources/" +
+    QFile f(customColorsFilePath());
+#ifndef Q_OS_MAC
+    if (!f.exists()) // fallback for older versions
+        f.setFileName(kCustomColorsFileName);
 #endif
-            kCustomColorsFileName);
     if (f.exists())
     {
         if (f.open(QIODevice::ReadOnly))
@@ -1374,6 +1371,19 @@ QString QTblEditor::foldNewlines(const QString &s)
 QString QTblEditor::restoreNewlines(const QString &s)
 {
     return QString(s).replace(QLatin1String("\\n"), QLatin1String("\n"));
+}
+
+QString QTblEditor::customColorsFilePath() const
+{
+#ifdef Q_OS_MAC
+    QString basePath = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+    if (basePath.isEmpty())
+        basePath = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+    QDir::current().mkpath(basePath);
+#else
+    QString basePath = qApp->applicationDirPath();
+#endif
+    return basePath + '/' + kCustomColorsFileName;
 }
 
 void QTblEditor::showDifferences()

@@ -118,6 +118,8 @@ private:
 
     QString foldNewlines(const QString &s);
     QString restoreNewlines(const QString &s);
+
+    QString customColorsFilePath() const;
 };
 
 #endif // QTBLEDITOR_H
