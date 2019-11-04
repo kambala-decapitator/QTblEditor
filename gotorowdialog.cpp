@@ -23,8 +23,6 @@ GoToRowDialog::GoToRowDialog(QWidget *parent, int rowCount, bool rowsStartFromZe
     ui.radioButtonHex->setChecked(showHex);
     changeMode(showHex);
 
-    ui.lineEditValue->setFocus();
-
     connect(ui.radioButtonHex, SIGNAL(toggled(bool)), SLOT(changeMode(bool)));
     connect(ui.lineEditValue, SIGNAL(textChanged(QString)), SLOT(enableOkButton()));
 }
@@ -32,6 +30,7 @@ GoToRowDialog::GoToRowDialog(QWidget *parent, int rowCount, bool rowsStartFromZe
 void GoToRowDialog::changeMode(bool isHex)
 {
     ui.lineEditValue->setValidator(new QRegExpValidator(isHex ? QRegExp("[\\da-fA-F]+") : QRegExp("\\d+"), ui.lineEditValue));
+	ui.lineEditValue->setFocus();
 }
 
 void GoToRowDialog::enableOkButton()
