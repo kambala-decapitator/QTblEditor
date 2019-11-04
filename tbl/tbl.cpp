@@ -26,6 +26,9 @@ Tbl::Tbl(const fs::path& path)
     try
     {
         auto header = readHeader(in);
+        if (auto fileSize = fs::file_size(path); header.fileSize != fileSize)
+            throw TblTruncatedException{header.fileSize, fileSize};
+
         auto indexes = readIndexes(in, header);
         auto nodes = readNodes(in, header);
 

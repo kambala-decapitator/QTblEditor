@@ -26,5 +26,9 @@ int main(int argc, const char* argv[])
     {
         cerr << "couldn't read file" << endl;
     }
+    catch (const TblTruncatedException& e)
+    {
+        cerr << "file size is incorrect: expected " << e.expectedFileSize << " - actual " << e.actualFileSize << endl;
+    }
     return 0;
 }
