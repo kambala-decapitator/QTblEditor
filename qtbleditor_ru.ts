@@ -4,12 +4,12 @@
 <context>
     <name>D2StringTableWidget</name>
     <message>
-        <location filename="d2stringtablewidget.cpp" line="37"/>
+        <location filename="d2stringtablewidget.cpp" line="66"/>
         <source>Deleting selected rows...</source>
         <translation>Удаляются выбраные строки...</translation>
     </message>
     <message>
-        <location filename="d2stringtablewidget.cpp" line="37"/>
+        <location filename="d2stringtablewidget.cpp" line="66"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
@@ -102,42 +102,47 @@
 <context>
     <name>EditStringCell</name>
     <message>
-        <location filename="editstringcell.cpp" line="39"/>
+        <location filename="editstringcell.cpp" line="51"/>
         <source>Masculine singular</source>
         <translation>М.р. ед.ч.</translation>
     </message>
     <message>
-        <location filename="editstringcell.cpp" line="40"/>
+        <location filename="editstringcell.cpp" line="51"/>
         <source>Feminine singular</source>
         <translation>Ж.р. ед.ч.</translation>
     </message>
     <message>
-        <location filename="editstringcell.cpp" line="41"/>
+        <location filename="editstringcell.cpp" line="51"/>
         <source>Neutral singular</source>
         <translation>С.р. ед.ч.</translation>
     </message>
     <message>
-        <location filename="editstringcell.cpp" line="42"/>
+        <location filename="editstringcell.cpp" line="51"/>
         <source>Neutral</source>
         <translation>С.р.</translation>
     </message>
     <message>
-        <location filename="editstringcell.cpp" line="43"/>
+        <location filename="editstringcell.cpp" line="51"/>
         <source>Plural</source>
         <translation>Мн.ч.</translation>
     </message>
     <message>
-        <location filename="editstringcell.cpp" line="44"/>
+        <location filename="editstringcell.cpp" line="51"/>
         <source>Masculine plural</source>
         <translation>М.р. мн.ч.</translation>
     </message>
     <message>
-        <location filename="editstringcell.cpp" line="45"/>
+        <location filename="editstringcell.cpp" line="51"/>
         <source>Feminine plural</source>
         <translation>Ж.р. мн.ч.</translation>
     </message>
     <message>
-        <location filename="editstringcell.cpp" line="233"/>
+        <location filename="editstringcell.cpp" line="212"/>
+        <source>Patch 1.10 has limitation of %1 characters per string</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editstringcell.cpp" line="254"/>
         <source>Edit...</source>
         <translation>Изменить...</translation>
     </message>
@@ -145,53 +150,73 @@
 <context>
     <name>EditStringCellClass</name>
     <message>
-        <location filename="editstringcell.ui" line="49"/>
+        <location filename="editstringcell.ui" line="46"/>
         <source>Key</source>
         <translation>Ключ</translation>
     </message>
     <message>
-        <location filename="editstringcell.ui" line="69"/>
         <source>Hash value</source>
-        <translation>Хэш</translation>
+        <translation type="obsolete">Хэш</translation>
     </message>
     <message>
-        <location filename="editstringcell.ui" line="112"/>
+        <location filename="editstringcell.ui" line="99"/>
         <source>Preview</source>
         <translation>Предпросмотр</translation>
     </message>
     <message>
-        <location filename="editstringcell.ui" line="154"/>
+        <location filename="editstringcell.ui" line="142"/>
         <source>Color</source>
         <translation>Цвет</translation>
     </message>
     <message>
-        <location filename="editstringcell.ui" line="179"/>
+        <location filename="editstringcell.ui" line="167"/>
         <source>Gender/Number</source>
         <translation>Род/Число</translation>
     </message>
     <message>
-        <location filename="editstringcell.ui" line="214"/>
+        <location filename="editstringcell.ui" line="215"/>
         <source>Number of characters in editor</source>
         <translation>Количество символов в редакторе</translation>
     </message>
     <message>
-        <location filename="editstringcell.ui" line="223"/>
-        <location filename="editstringcell.ui" line="331"/>
+        <location filename="editstringcell.ui" line="192"/>
+        <location filename="editstringcell.ui" line="224"/>
+        <location filename="editstringcell.ui" line="355"/>
         <source>0</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="editstringcell.ui" line="299"/>
+        <location filename="editstringcell.ui" line="66"/>
+        <source>Key hash value</source>
+        <translation type="unfinished">Хэш ключа</translation>
+    </message>
+    <message>
+        <location filename="editstringcell.ui" line="69"/>
+        <source>0xdeadbeef</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editstringcell.ui" line="186"/>
+        <source>Current column in editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editstringcell.ui" line="300"/>
         <source>Reverse preview text</source>
         <translation>Отображать строки в обратном порядке</translation>
     </message>
     <message>
-        <location filename="editstringcell.ui" line="322"/>
+        <location filename="editstringcell.ui" line="323"/>
+        <source>Center preview text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editstringcell.ui" line="346"/>
         <source>Number of characters in preview</source>
         <translation>Количество символов в предпросмотре</translation>
     </message>
     <message>
-        <location filename="editstringcell.ui" line="122"/>
+        <location filename="editstringcell.ui" line="109"/>
         <source>Line wrap</source>
         <translation>Перенос по словам</translation>
     </message>
@@ -264,14 +289,14 @@
         <translation>Ctrl+Alt+Вниз</translation>
     </message>
     <message>
-        <location filename="editstringcelldialog.cpp" line="15"/>
+        <location filename="editstringcelldialog.cpp" line="28"/>
         <source>%1
 %2 or %3</source>
         <translation>%1
 %2 или %3</translation>
     </message>
     <message>
-        <location filename="editstringcelldialog.cpp" line="89"/>
+        <location filename="editstringcelldialog.cpp" line="99"/>
         <source>Edit record [row - %1 (0x%2)]</source>
         <translation>Редактировать запись [строка - %1 (0x%2)]</translation>
     </message>
@@ -281,29 +306,44 @@
     </message>
 </context>
 <context>
+    <name>EditorsSplitterHandle</name>
+    <message>
+        <location filename="editorssplitterhandle.cpp" line="9"/>
+        <source>Replace %1</source>
+        <comment>param is arrow</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editorssplitterhandle.cpp" line="9"/>
+        <source>Append %1</source>
+        <comment>param is arrow</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FindReplaceDialog</name>
     <message>
-        <location filename="findreplacedialog.cpp" line="134"/>
+        <location filename="findreplacedialog.cpp" line="135"/>
         <source>Lrn2read!</source>
         <translation>Учи матчасть!</translation>
     </message>
     <message>
-        <location filename="findreplacedialog.cpp" line="134"/>
+        <location filename="findreplacedialog.cpp" line="135"/>
         <source>You&apos;ve already been told that there&apos;s no string &quot;%1&quot;</source>
         <translation>Вам уже было сказано, что строка &quot;%1&quot; не найдена</translation>
     </message>
     <message>
-        <location filename="findreplacedialog.cpp" line="155"/>
+        <location filename="findreplacedialog.cpp" line="156"/>
         <source>String &quot;%1&quot; not found</source>
         <translation>Строка &quot;%1&quot; не найдена</translation>
     </message>
     <message>
-        <location filename="findreplacedialog.cpp" line="183"/>
+        <location filename="findreplacedialog.cpp" line="188"/>
         <source>Replace</source>
         <translation>Замена</translation>
     </message>
     <message numerus="yes">
-        <location filename="findreplacedialog.cpp" line="183"/>
+        <location filename="findreplacedialog.cpp" line="188"/>
         <source>%n occurrence(s) replaced</source>
         <translation>
             <numerusform>Заменено %n вхождение</numerusform>
@@ -399,9 +439,13 @@
         <translation>16-ричный</translation>
     </message>
     <message>
-        <location filename="gotorowdialog.cpp" line="13"/>
         <source>Go to row [1-%1 (0x%2)]</source>
-        <translation>Перейти к строке [1-%1 (0x%2)]</translation>
+        <translation type="obsolete">Перейти к строке [1-%1 (0x%2)]</translation>
+    </message>
+    <message>
+        <location filename="gotorowdialog.cpp" line="19"/>
+        <source>Go to row [%1-%2 (0x%3)]</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -426,77 +470,92 @@
 <context>
     <name>QTblEditor</name>
     <message>
-        <location filename="qtbleditor.cpp" line="59"/>
+        <location filename="qtbleditor.cpp" line="69"/>
         <source>Toolbar</source>
         <translation>Панель инструментов</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="70"/>
+        <location filename="qtbleditor.cpp" line="90"/>
         <source>Current row / total rows</source>
         <translation>Текущая строка / всего строк</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="76"/>
+        <location filename="qtbleditor.cpp" line="96"/>
         <source>Key hash value</source>
         <translation>Хэш ключа</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="197"/>
+        <location filename="qtbleditor.cpp" line="226"/>
         <source>Open one more</source>
         <translation>Открыть еще одну</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="199"/>
+        <location filename="qtbleditor.cpp" line="228"/>
         <source>Replace active</source>
         <translation>Заменить активную</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="200"/>
+        <location filename="qtbleditor.cpp" line="229"/>
         <source>How do you want to open the table?</source>
         <translation>Как вы хотите открыть таблицу?</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="217"/>
+        <location filename="qtbleditor.cpp" line="246"/>
         <source>New table</source>
         <translation>Новая таблица</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="217"/>
+        <location filename="qtbleditor.cpp" line="246"/>
         <source>Enter desired number of rows (1-100000):</source>
         <translation>Введите желаемое количество строк (1-100000):</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="288"/>
+        <location filename="qtbleditor.cpp" line="317"/>
         <source>Open table file</source>
         <translation>Открыть файл таблицы</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="614"/>
+        <location filename="qtbleditor.cpp" line="342"/>
+        <source>Server URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.cpp" line="367"/>
+        <source>Success</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.cpp" line="367"/>
+        <source>Response:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.cpp" line="688"/>
         <source>Tbl files (*.tbl);;Tab-delimited text files (*.txt);;CSV files (*.csv);;All files (*)</source>
         <translation>Tbl файлы (*.tbl);;Txt файлы с разделителями-табуляциями (*.txt);;CSV файлы (*.csv);;Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="651"/>
+        <location filename="qtbleditor.cpp" line="731"/>
         <source>Choose file format</source>
         <translation>Выберите формат файла</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="915"/>
+        <location filename="qtbleditor.cpp" line="986"/>
         <source>Are you sure you want to %1 selected items?</source>
         <translation>Вы точно хотите %1 выделенные строки?</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="915"/>
+        <location filename="qtbleditor.cpp" line="986"/>
         <source>clear</source>
         <translation>очистить</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="915"/>
+        <location filename="qtbleditor.cpp" line="986"/>
         <source>delete</source>
         <translation>удалить</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="1017"/>
+        <location filename="qtbleditor.cpp" line="1085"/>
         <source># You can place comments anywhere in the file
 # Format: name[tab]hex code[tab]hex RGB
 </source>
@@ -505,27 +564,36 @@
 </translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="1024"/>
+        <location filename="qtbleditor.cpp" line="1092"/>
         <source>Unable to create file &quot;customcolors.ini&quot;
 Reason: %1</source>
         <translation>Невозможно создать файл &quot;customcolors.ini&quot;
 Причина: %1</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="1103"/>
+        <location filename="qtbleditor.cpp" line="1182"/>
+        <source>Compiled on: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.cpp" line="1183"/>
+        <source>&lt;i&gt;Author:&lt;/i&gt; Filipenkov Andrey (&lt;b&gt;kambala&lt;/b&gt;)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>%1 %2
 Released: %3
 
 Author: Filipenkov Andrey (kambala)</source>
         <comment>args 1 &amp; 2 are app name and app version respectively</comment>
         <translatorcomment>аргументы 1 и 2 - это название и версия приложения соотвественно</translatorcomment>
-        <translation>%1 %2
+        <translation type="obsolete">%1 %2
 Дата выпуска: %3
 
 Автор: Филипенков Андрей (kambala)</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="1305"/>
+        <location filename="qtbleditor.cpp" line="1422"/>
         <source>Tables are identical</source>
         <translation>Таблицы одинаковы</translation>
     </message>
@@ -540,11 +608,12 @@ Probably file is corrupted.</source>
 Возможно файл поврежден.</translation>
     </message>
     <message>
+        <location filename="qtbleditor.cpp" line="365"/>
         <source>Error</source>
-        <translation type="obsolete">Ошибка</translation>
+        <translation type="unfinished">Ошибка</translation>
     </message>
     <message numerus="yes">
-        <location filename="qtbleditor.cpp" line="429"/>
+        <location filename="qtbleditor.cpp" line="499"/>
         <source>Couldn&apos;t read entire file, read only %n byte(s) after header.
 Probably file is corrupted or wrong file format.</source>
         <oldsource>Couldn&apos;t read entire file, read only %n bytes after header.
@@ -559,40 +628,40 @@ Probably file is corrupted or wrong file format.</oldsource>
         </translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="457"/>
+        <location filename="qtbleditor.cpp" line="523"/>
         <source>Wrong file format - all strings in *.csv should be wrapped in double quotes</source>
         <translation>Неверный формат файла - все строки в *.csv должны находиться в двойных кавычках</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="487"/>
+        <location filename="qtbleditor.cpp" line="568"/>
         <source>Wrong file format - separator is absent at line %1</source>
         <translation>Неверный формат файла - разделитель отсутствует в %1-й строке</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="383"/>
-        <location filename="qtbleditor.cpp" line="1096"/>
+        <location filename="qtbleditor.cpp" line="454"/>
+        <location filename="qtbleditor.cpp" line="1169"/>
         <source>Error opening file &quot;%1&quot;
 Reason: %2</source>
         <translation>Ошибка при открытии файла &quot;%1&quot;
 Причина: %2</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="289"/>
+        <location filename="qtbleditor.cpp" line="318"/>
         <source>All supported formats (*.tbl *.txt *.csv);;Tbl files (*.tbl);;Tab-delimited txt files (*.txt);;CSV files (*.csv);;All files (*)</source>
         <translation>Все поддерживаемые форматы (*.tbl *.txt *.csv);;Tbl файлы (*.tbl);;Txt файлы с разделителями-табуляциями (*.txt);;CSV файлы (*.csv);;Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="571"/>
+        <location filename="qtbleditor.cpp" line="652"/>
         <source>The table &quot;%1&quot; has been modified.</source>
         <translation>Таблица &quot;%1&quot; была изменена.</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="572"/>
+        <location filename="qtbleditor.cpp" line="653"/>
         <source>Do you want to save your changes?</source>
         <translation>Вы хотите сохранить изменения?</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="613"/>
+        <location filename="qtbleditor.cpp" line="687"/>
         <source>Save table</source>
         <translation>Сохранить таблицу</translation>
     </message>
@@ -601,12 +670,12 @@ Reason: %2</source>
         <translation type="obsolete">Tbl файлы (*.tbl);;Txt файлы с разделителями-табуляциями (*.txt);;CSV файлы (*.csv)</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="682"/>
+        <location filename="qtbleditor.cpp" line="763"/>
         <source>File &quot;%1&quot; successfully saved</source>
         <translation>Файл &quot;%1&quot; успешно сохранен</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="687"/>
+        <location filename="qtbleditor.cpp" line="771"/>
         <source>Error writing file &quot;%1&quot;
 Reason: %2</source>
         <oldsource>Error writing file %1
@@ -615,7 +684,7 @@ Reason: %2</oldsource>
 Причина: %2</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="691"/>
+        <location filename="qtbleditor.cpp" line="774"/>
         <source>Error creating file &quot;%1&quot;
 Reason: %2</source>
         <oldsource>Error creating file %1
@@ -636,7 +705,7 @@ Reason: %2</oldsource>
         <translation type="obsolete">Вы точно хотите удалить выделенные строки?</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="1102"/>
+        <location filename="qtbleditor.cpp" line="1178"/>
         <source>About %1</source>
         <translation>О %1</translation>
     </message>
@@ -668,373 +737,439 @@ Author: Filipenkov Andrey (kambala)</oldsource>
         <translation>Последние файлы</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="61"/>
+        <location filename="qtbleditor.ui" line="63"/>
         <source>Help</source>
         <translation>Справка</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="71"/>
+        <location filename="qtbleditor.ui" line="73"/>
         <source>Edit</source>
         <translation>Правка</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="92"/>
+        <location filename="qtbleditor.ui" line="94"/>
         <source>Tables</source>
         <translation>Таблицы</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="96"/>
+        <location filename="qtbleditor.ui" line="98"/>
         <source>Differences</source>
         <translation>Разницы</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="109"/>
+        <location filename="qtbleditor.ui" line="114"/>
         <source>Options</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="113"/>
+        <location filename="qtbleditor.ui" line="118"/>
         <source>CSV separator</source>
         <translation>Разделитель CSV файлов</translation>
     </message>
     <message>
         <location filename="qtbleditor.ui" line="125"/>
+        <source>Row numbering starts with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.ui" line="143"/>
         <source>View</source>
         <translation>Вид</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="173"/>
+        <location filename="qtbleditor.ui" line="194"/>
         <source>&amp;New...</source>
         <translation>&amp;Создать...</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="176"/>
+        <location filename="qtbleditor.ui" line="197"/>
         <source>New</source>
         <translation>Создать</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="179"/>
+        <location filename="qtbleditor.ui" line="200"/>
         <source>Create new table</source>
         <translation>Создать новую таблицу</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="182"/>
+        <location filename="qtbleditor.ui" line="203"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="191"/>
+        <location filename="qtbleditor.ui" line="212"/>
         <source>&amp;Open...</source>
         <translation>&amp;Открыть...</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="194"/>
+        <location filename="qtbleditor.ui" line="215"/>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="197"/>
+        <location filename="qtbleditor.ui" line="218"/>
         <source>Open existing table</source>
         <translation>Открыть существующую таблицу</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="200"/>
+        <location filename="qtbleditor.ui" line="221"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="212"/>
+        <location filename="qtbleditor.ui" line="233"/>
         <source>&amp;Save</source>
         <translation>Со&amp;хранить</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="215"/>
+        <location filename="qtbleditor.ui" line="236"/>
         <source>Save</source>
         <translation>Сохранить</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="218"/>
+        <location filename="qtbleditor.ui" line="239"/>
         <source>Save active table</source>
         <translation>Сохранить активную таблицу</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="221"/>
+        <location filename="qtbleditor.ui" line="242"/>
         <source>Ctrl+S</source>
         <translation>Ctrl+S</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="229"/>
+        <location filename="qtbleditor.ui" line="250"/>
         <source>Save as...</source>
         <translation>Сохранить как...</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="232"/>
+        <location filename="qtbleditor.ui" line="253"/>
         <source>Save as</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="235"/>
+        <location filename="qtbleditor.ui" line="256"/>
         <source>Save active table with a new name</source>
         <translation>Сохранить активную таблицу под новым именем</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="238"/>
+        <location filename="qtbleditor.ui" line="259"/>
         <source>Ctrl+Shift+S</source>
         <translation>Ctrl+Shift+S</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="250"/>
+        <location filename="qtbleditor.ui" line="271"/>
         <source>&amp;Close</source>
         <translation>&amp;Закрыть</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="253"/>
+        <location filename="qtbleditor.ui" line="274"/>
         <source>Close</source>
         <translation>Закрыть</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="256"/>
+        <location filename="qtbleditor.ui" line="277"/>
         <source>Close active table</source>
         <translation>Закрыть активную таблицу</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="259"/>
+        <location filename="qtbleditor.ui" line="280"/>
         <source>Ctrl+W</source>
         <translation>Ctrl+W</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="264"/>
-        <location filename="qtbleditor.ui" line="267"/>
+        <location filename="qtbleditor.ui" line="285"/>
+        <location filename="qtbleditor.ui" line="288"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="270"/>
+        <location filename="qtbleditor.ui" line="291"/>
         <source>Exit the program</source>
         <translation>Закрыть программу</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="273"/>
+        <location filename="qtbleditor.ui" line="294"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="285"/>
-        <location filename="qtbleditor.ui" line="288"/>
+        <location filename="qtbleditor.ui" line="306"/>
+        <location filename="qtbleditor.ui" line="309"/>
         <source>About QTblEditor</source>
         <translation>О QTblEditor</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="291"/>
+        <location filename="qtbleditor.ui" line="312"/>
         <source>About this tool</source>
         <translation>Об этом приложении</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="294"/>
+        <location filename="qtbleditor.ui" line="315"/>
         <source>F1</source>
         <translation>F1</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="309"/>
+        <location filename="qtbleditor.ui" line="330"/>
         <source>Find/Replace...</source>
         <translation>Поиск/Замена...</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="312"/>
+        <location filename="qtbleditor.ui" line="333"/>
         <source>Find/Replace</source>
         <translation>Поиск/Замена</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="315"/>
+        <location filename="qtbleditor.ui" line="336"/>
         <source>Find and/or replace text in tables</source>
         <translation>Найти и/или заменить текст в таблицах</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="318"/>
+        <location filename="qtbleditor.ui" line="339"/>
         <source>Ctrl+F</source>
         <translation>Ctrl+F</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="330"/>
+        <location filename="qtbleditor.ui" line="351"/>
         <source>Go to...</source>
         <translation>Перейти...</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="333"/>
+        <location filename="qtbleditor.ui" line="354"/>
         <source>Go to</source>
         <translation>Перейти</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="336"/>
+        <location filename="qtbleditor.ui" line="357"/>
         <source>Go to the specified row</source>
         <translation>Перейти к указаной строке</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="339"/>
-        <source>Ctrl+G</source>
-        <translation>Ctrl+G</translation>
+        <location filename="qtbleditor.ui" line="713"/>
+        <source>Same strings</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="351"/>
+        <location filename="qtbleditor.ui" line="716"/>
+        <source>Show rows that have same strings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.ui" line="724"/>
+        <source>0</source>
+        <translation type="unfinished">0</translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.ui" line="735"/>
+        <source>1</source>
+        <translation type="unfinished">1</translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.ui" line="743"/>
+        <source>Show hex values in row numbers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.ui" line="751"/>
+        <source>Sync scrolling and selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.ui" line="754"/>
+        <source>Sync scrolling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.ui" line="765"/>
+        <source>Send to server...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.ui" line="773"/>
+        <source>Save .txt together with .tbl</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.ui" line="776"/>
+        <source>When saving a .tbl, also save respective .txt automatically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.ui" line="784"/>
+        <source>Hide the Key column</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.ui" line="787"/>
+        <source>Hide Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.ui" line="339"/>
+        <source>Ctrl+F</source>
+        <oldsource>Ctrl+G</oldsource>
+        <translation type="unfinished">Ctrl+G</translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.ui" line="369"/>
         <source>Clear selected...</source>
         <oldsource>Clear selected</oldsource>
         <translation>Очистить выбранные...</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="354"/>
+        <location filename="qtbleditor.ui" line="372"/>
         <source>Clear selected</source>
         <translation>Очистить выбранные</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="357"/>
+        <location filename="qtbleditor.ui" line="375"/>
         <source>Clear text of selected cells</source>
         <translation>Очистить текст в выбраных ячейках</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="360"/>
+        <location filename="qtbleditor.ui" line="378"/>
         <source>Del</source>
         <translation>Del</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="372"/>
+        <location filename="qtbleditor.ui" line="390"/>
         <source>Delete selected...</source>
         <oldsource>Delete selected</oldsource>
         <translation>Удалить выбраные...</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="375"/>
+        <location filename="qtbleditor.ui" line="393"/>
         <source>Delete selected</source>
         <translation>Удалить выбраные</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="378"/>
+        <location filename="qtbleditor.ui" line="396"/>
         <source>Delete selected rows</source>
         <translation>Удалить выбраные строки</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="381"/>
+        <location filename="qtbleditor.ui" line="399"/>
         <source>Shift+Del</source>
         <translation>Shift+Del</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="393"/>
-        <location filename="qtbleditor.ui" line="396"/>
+        <location filename="qtbleditor.ui" line="411"/>
+        <location filename="qtbleditor.ui" line="414"/>
         <source>Change text</source>
         <translation>Изменить текст</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="399"/>
+        <location filename="qtbleditor.ui" line="417"/>
         <source>Change text in the current cell</source>
         <translation>Изменить текст текущей ячейки</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="402"/>
+        <location filename="qtbleditor.ui" line="420"/>
         <source>Enter</source>
         <translation>Enter</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="414"/>
-        <location filename="qtbleditor.ui" line="417"/>
+        <location filename="qtbleditor.ui" line="432"/>
+        <location filename="qtbleditor.ui" line="435"/>
         <source>Append new entry</source>
         <translation>Добавить новую строку</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="420"/>
+        <location filename="qtbleditor.ui" line="438"/>
         <source>Insert empty row in the end of active table</source>
         <translation>Вставляет пустую строку в конец активной таблицы</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="423"/>
+        <location filename="qtbleditor.ui" line="441"/>
         <source>Ctrl+Ins</source>
         <translation>Ctrl+Ins</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="440"/>
+        <location filename="qtbleditor.ui" line="458"/>
         <source>Ins</source>
         <translation>Ins</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="601"/>
+        <location filename="qtbleditor.ui" line="619"/>
         <source>Reopen</source>
         <translation>Открыть заново</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="604"/>
+        <location filename="qtbleditor.ui" line="622"/>
         <source>Read active table from disk and lose all current changes</source>
         <translation>Считать активную таблицу с диска и потерять все текущие изменения</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="607"/>
+        <location filename="qtbleditor.ui" line="625"/>
         <source>Ctrl+Alt+O</source>
         <translation>Ctrl+Alt+O</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="619"/>
+        <location filename="qtbleditor.ui" line="637"/>
         <source>Copy</source>
         <translation>Копировать</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="622"/>
+        <location filename="qtbleditor.ui" line="640"/>
         <source>Copy text from selected cells to the clipboard</source>
         <translation>Копировать текст из выбраных ячеек в буфер обмена</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="625"/>
+        <location filename="qtbleditor.ui" line="643"/>
         <source>Ctrl+C</source>
         <translation>Ctrl+C</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="637"/>
+        <location filename="qtbleditor.ui" line="655"/>
         <source>Paste</source>
         <translation>Вставить</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="640"/>
+        <location filename="qtbleditor.ui" line="658"/>
         <source>Paste text from the clipboard after the current cell</source>
         <translation>Вставить текст из буфера обмена после текущей ячейки</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="643"/>
+        <location filename="qtbleditor.ui" line="661"/>
         <source>Ctrl+V</source>
         <translation>Ctrl+V</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="654"/>
+        <location filename="qtbleditor.ui" line="672"/>
         <source>Small rows</source>
         <translation>Маленькие строки</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="657"/>
+        <location filename="qtbleditor.ui" line="675"/>
         <source>Toggle between small and large rows</source>
         <translation>Переключить маленькие/большие строки</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="665"/>
+        <location filename="qtbleditor.ui" line="683"/>
         <source>Keys</source>
         <translation>Ключи</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="668"/>
+        <location filename="qtbleditor.ui" line="686"/>
         <source>Show rows with distinct keys</source>
         <translation>Показать номера строк с разными ключами</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="676"/>
+        <location filename="qtbleditor.ui" line="694"/>
         <source>Strings</source>
         <translation>Строки</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="679"/>
+        <location filename="qtbleditor.ui" line="697"/>
         <source>Show rows with same keys that have distinct strings</source>
         <translation>Показать номера строк с одинаковыми ключами, которым соответствуют разные строки</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="687"/>
+        <location filename="qtbleditor.ui" line="705"/>
         <source>Both</source>
         <translation>И то и то</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="690"/>
+        <location filename="qtbleditor.ui" line="708"/>
         <source>Show rows that meet the above conditions</source>
         <translation>Показать номера строк, для которых справедливы оба предыдущих пункта</translation>
     </message>
@@ -1043,13 +1178,13 @@ Author: Filipenkov Andrey (kambala)</oldsource>
         <translation type="obsolete">Ctrl++</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="431"/>
-        <location filename="qtbleditor.ui" line="434"/>
+        <location filename="qtbleditor.ui" line="449"/>
+        <location filename="qtbleditor.ui" line="452"/>
         <source>Insert after current</source>
         <translation>Вставить после текущей</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="437"/>
+        <location filename="qtbleditor.ui" line="455"/>
         <source>Insert empty row after the current selected in active table</source>
         <translation>Вставляет пустую строку после текущей выбраной строки в активной таблице</translation>
     </message>
@@ -1058,128 +1193,128 @@ Author: Filipenkov Andrey (kambala)</oldsource>
         <translation type="obsolete">Ctrl+Alt++</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="448"/>
+        <location filename="qtbleditor.ui" line="466"/>
         <source>Save all</source>
         <translation>Сохранить все</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="451"/>
+        <location filename="qtbleditor.ui" line="469"/>
         <source>Save all tables</source>
         <translation>Сохранить все таблицы</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="454"/>
+        <location filename="qtbleditor.ui" line="472"/>
         <source>Ctrl+Alt+S</source>
         <translation>Ctrl+Alt+S</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="463"/>
-        <location filename="qtbleditor.ui" line="466"/>
+        <location filename="qtbleditor.ui" line="481"/>
+        <location filename="qtbleditor.ui" line="484"/>
         <source>About Qt</source>
         <translation>О Qt</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="469"/>
+        <location filename="qtbleditor.ui" line="487"/>
         <source>About Qt library</source>
         <translation>О библиотеке Qt</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="480"/>
+        <location filename="qtbleditor.ui" line="498"/>
         <source>Close all</source>
         <translation>Закрыть все</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="483"/>
+        <location filename="qtbleditor.ui" line="501"/>
         <source>Close all tables</source>
         <translation>Закрыть все таблицы</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="486"/>
+        <location filename="qtbleditor.ui" line="504"/>
         <source>Ctrl+Shift+W</source>
         <translation>Ctrl+Shift+W</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="494"/>
+        <location filename="qtbleditor.ui" line="512"/>
         <source>Supplement</source>
         <translation>Дополнить</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="497"/>
+        <location filename="qtbleditor.ui" line="515"/>
         <source>Copy excessive data from the bigger table to the smaller one</source>
         <translation>Копировать лишние строки из большей таблицы в меньшую</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="500"/>
+        <location filename="qtbleditor.ui" line="518"/>
         <source>Ctrl+U</source>
         <translation>Ctrl+U</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="512"/>
+        <location filename="qtbleditor.ui" line="530"/>
         <source>Swap</source>
         <translation>Поменять местами</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="515"/>
+        <location filename="qtbleditor.ui" line="533"/>
         <source>Swap tables</source>
         <translation>Меняет таблицы местами</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="526"/>
+        <location filename="qtbleditor.ui" line="544"/>
         <source>, (comma)</source>
         <translation>, (запятая)</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="529"/>
+        <location filename="qtbleditor.ui" line="547"/>
         <source>Use comma as a value separator in *.csv files</source>
         <translation>Использовать запятую в качестве разделителя в *.csv файлах</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="537"/>
+        <location filename="qtbleditor.ui" line="555"/>
         <source>; (semicolon)</source>
         <translation>; (точка с запятой)</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="540"/>
+        <location filename="qtbleditor.ui" line="558"/>
         <source>Use semicolon as a value separator in *.csv files</source>
         <translation>Использовать точку с запятой в качестве разделителя в *.csv файлах</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="551"/>
+        <location filename="qtbleditor.ui" line="569"/>
         <source>Restore last opened files</source>
         <translation>Восстанавливать открытые файлы</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="554"/>
+        <location filename="qtbleditor.ui" line="572"/>
         <source>Load last opened files on start</source>
         <translation>Загружать последние открытые файлы при запуске</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="565"/>
+        <location filename="qtbleditor.ui" line="583"/>
         <source>Wrap strings in double quotes</source>
         <translation>Заключать строки в двойные кавычки</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="568"/>
+        <location filename="qtbleditor.ui" line="586"/>
         <source>Wrap all strings in generated *.txt in double quotes</source>
         <translation>Заключать все строки в генерируемых *.txt файлах в двойные кавычки</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="576"/>
+        <location filename="qtbleditor.ui" line="594"/>
         <source>Change active</source>
         <translation>Сменить активную</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="579"/>
+        <location filename="qtbleditor.ui" line="597"/>
         <source>Make the other table active</source>
         <translation>Сделать активной другую табицу</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="590"/>
+        <location filename="qtbleditor.ui" line="608"/>
         <source>Toolbar</source>
         <translation>Панель инструментов</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="593"/>
+        <location filename="qtbleditor.ui" line="611"/>
         <source>Toggle toolbar visibility</source>
         <translation>Показать/спрятать панель инструментов</translation>
     </message>
@@ -1229,20 +1364,45 @@ Author: Filipenkov Andrey (kambala)</oldsource>
         <source>Refresh</source>
         <translation>Обновить</translation>
     </message>
+    <message utf8="true">
+        <location filename="tablesdifferenceswidget.ui" line="42"/>
+        <source>Replace →</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="tablesdifferenceswidget.ui" line="49"/>
+        <source>Replace ←</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="tablesdifferenceswidget.ui" line="56"/>
+        <source>Append →</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="tablesdifferenceswidget.ui" line="63"/>
+        <source>Append ←</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
-        <location filename="tablesdifferenceswidget.cpp" line="11"/>
+        <location filename="tablesdifferenceswidget.cpp" line="14"/>
         <source>Different keys</source>
         <translation>Разные ключи</translation>
     </message>
     <message>
-        <location filename="tablesdifferenceswidget.cpp" line="13"/>
+        <location filename="tablesdifferenceswidget.cpp" line="17"/>
         <source>Different strings</source>
         <translation>Разные строки</translation>
     </message>
     <message>
-        <location filename="tablesdifferenceswidget.cpp" line="15"/>
+        <location filename="tablesdifferenceswidget.cpp" line="20"/>
         <source>Different keys &amp; strings</source>
         <translation>Разные ключи и строки</translation>
+    </message>
+    <message>
+        <location filename="tablesdifferenceswidget.cpp" line="23"/>
+        <source>Same strings</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

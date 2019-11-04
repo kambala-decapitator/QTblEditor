@@ -102,47 +102,47 @@
 <context>
     <name>EditStringCell</name>
     <message>
-        <location filename="editstringcell.cpp" line="36"/>
+        <location filename="editstringcell.cpp" line="51"/>
         <source>Masculine singular</source>
         <translation>男性单数</translation>
     </message>
     <message>
-        <location filename="editstringcell.cpp" line="36"/>
+        <location filename="editstringcell.cpp" line="51"/>
         <source>Feminine singular</source>
         <translation>女性单数</translation>
     </message>
     <message>
-        <location filename="editstringcell.cpp" line="36"/>
+        <location filename="editstringcell.cpp" line="51"/>
         <source>Neutral singular</source>
         <translation>中性单数</translation>
     </message>
     <message>
-        <location filename="editstringcell.cpp" line="36"/>
+        <location filename="editstringcell.cpp" line="51"/>
         <source>Neutral</source>
         <translation>中性</translation>
     </message>
     <message>
-        <location filename="editstringcell.cpp" line="36"/>
+        <location filename="editstringcell.cpp" line="51"/>
         <source>Plural</source>
         <translation>复数</translation>
     </message>
     <message>
-        <location filename="editstringcell.cpp" line="36"/>
+        <location filename="editstringcell.cpp" line="51"/>
         <source>Masculine plural</source>
         <translation>男性复数</translation>
     </message>
     <message>
-        <location filename="editstringcell.cpp" line="36"/>
+        <location filename="editstringcell.cpp" line="51"/>
         <source>Feminine plural</source>
         <translation>女性复数</translation>
     </message>
     <message>
-        <location filename="editstringcell.cpp" line="165"/>
+        <location filename="editstringcell.cpp" line="212"/>
         <source>Patch 1.10 has limitation of %1 characters per string</source>
         <translation>1.10版本有每字符串%1字符的限制</translation>
     </message>
     <message>
-        <location filename="editstringcell.cpp" line="206"/>
+        <location filename="editstringcell.cpp" line="254"/>
         <source>Edit...</source>
         <translation>编辑...</translation>
     </message>
@@ -194,7 +194,7 @@
     <message>
         <location filename="editstringcell.ui" line="192"/>
         <location filename="editstringcell.ui" line="224"/>
-        <location filename="editstringcell.ui" line="332"/>
+        <location filename="editstringcell.ui" line="355"/>
         <source>0</source>
         <translation type="unfinished"></translation>
     </message>
@@ -209,7 +209,7 @@
         <translation>预览文字倒排</translation>
     </message>
     <message>
-        <location filename="editstringcell.ui" line="323"/>
+        <location filename="editstringcell.ui" line="346"/>
         <source>Number of characters in preview</source>
         <translation>于预览中的字符数</translation>
     </message>
@@ -322,12 +322,12 @@
         <translation>字符串 &quot;%1&quot; 未找到</translation>
     </message>
     <message>
-        <location filename="findreplacedialog.cpp" line="184"/>
+        <location filename="findreplacedialog.cpp" line="188"/>
         <source>Replace</source>
         <translation>替换</translation>
     </message>
     <message numerus="yes">
-        <location filename="findreplacedialog.cpp" line="184"/>
+        <location filename="findreplacedialog.cpp" line="188"/>
         <source>%n occurrence(s) replaced</source>
         <translation>
             <numerusform>%n 处已替换</numerusform>
@@ -423,73 +423,97 @@
         <translation>十六进制</translation>
     </message>
     <message>
-        <location filename="gotorowdialog.cpp" line="13"/>
         <source>Go to row [1-%1 (0x%2)]</source>
-        <translation>跳转到行 [1-%1 (0x%2)]</translation>
+        <translation type="obsolete">跳转到行 [1-%1 (0x%2)]</translation>
+    </message>
+    <message>
+        <location filename="gotorowdialog.cpp" line="19"/>
+        <source>Go to row [%1-%2 (0x%3)]</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>QTblEditor</name>
     <message>
-        <location filename="qtbleditor.cpp" line="61"/>
+        <location filename="qtbleditor.cpp" line="69"/>
         <source>Toolbar</source>
         <translation>工具栏</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="79"/>
+        <location filename="qtbleditor.cpp" line="90"/>
         <source>Current row / total rows</source>
         <translation>目前行/行总数</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="85"/>
+        <location filename="qtbleditor.cpp" line="96"/>
         <source>Key hash value</source>
         <translation>键的hash值</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="213"/>
+        <location filename="qtbleditor.cpp" line="226"/>
         <source>Open one more</source>
         <translation>再打开一个</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="215"/>
+        <location filename="qtbleditor.cpp" line="228"/>
         <source>Replace active</source>
         <translation>替换当前活动的</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="216"/>
+        <location filename="qtbleditor.cpp" line="229"/>
         <source>How do you want to open the table?</source>
         <translation>你想怎么打开表？</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="233"/>
+        <location filename="qtbleditor.cpp" line="246"/>
         <source>New table</source>
         <translation>新表</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="233"/>
+        <location filename="qtbleditor.cpp" line="246"/>
         <source>Enter desired number of rows (1-100000):</source>
         <translation>输入想要的行数 (1-100000):</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="304"/>
+        <location filename="qtbleditor.cpp" line="317"/>
         <source>Open table file</source>
         <translation>打开表文件</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="305"/>
+        <location filename="qtbleditor.cpp" line="318"/>
         <source>All supported formats (*.tbl *.txt *.csv);;Tbl files (*.tbl);;Tab-delimited txt files (*.txt);;CSV files (*.csv);;All files (*)</source>
         <translation>所有支持格式 (*.tbl *.txt *.csv);;Tbl 文件 (*.tbl);;Tab分隔的txt文件 (*.txt);;CSV 文件 (*.csv);;所有文件 (*)</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="406"/>
-        <location filename="qtbleditor.cpp" line="1111"/>
+        <location filename="qtbleditor.cpp" line="342"/>
+        <source>Server URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.cpp" line="365"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.cpp" line="367"/>
+        <source>Success</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.cpp" line="367"/>
+        <source>Response:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.cpp" line="454"/>
+        <location filename="qtbleditor.cpp" line="1169"/>
         <source>Error opening file &quot;%1&quot;
 Reason: %2</source>
         <translation>打开文件 &quot;%1&quot; 出错
 原因: %2</translation>
     </message>
     <message numerus="yes">
-        <location filename="qtbleditor.cpp" line="451"/>
+        <location filename="qtbleditor.cpp" line="499"/>
         <source>Couldn&apos;t read entire file, read only %n byte(s) after header.
 Probably file is corrupted or wrong file format.</source>
         <translation>
@@ -498,76 +522,76 @@ Probably file is corrupted or wrong file format.</source>
         </translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="475"/>
+        <location filename="qtbleditor.cpp" line="523"/>
         <source>Wrong file format - all strings in *.csv should be wrapped in double quotes</source>
         <translation>错误的文件格式 - 所有于 *.csv 的字符串需用双引号括起</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="516"/>
+        <location filename="qtbleditor.cpp" line="568"/>
         <source>Wrong file format - separator is absent at line %1</source>
         <translation>错误的文件格式 - 行 %1 的分隔符缺失</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="600"/>
+        <location filename="qtbleditor.cpp" line="652"/>
         <source>The table &quot;%1&quot; has been modified.</source>
         <translation>表 &quot;%1&quot; 已被修改。</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="601"/>
+        <location filename="qtbleditor.cpp" line="653"/>
         <source>Do you want to save your changes?</source>
         <translation>你要保存变更吗？</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="635"/>
+        <location filename="qtbleditor.cpp" line="687"/>
         <source>Save table</source>
         <translation>保存表</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="636"/>
+        <location filename="qtbleditor.cpp" line="688"/>
         <source>Tbl files (*.tbl);;Tab-delimited text files (*.txt);;CSV files (*.csv);;All files (*)</source>
         <translation>Tbl 文件 (*.tbl);;Tab分隔的txt文件 (*.txt);;CSV 文件 (*.csv);;所有文件 (*)</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="675"/>
+        <location filename="qtbleditor.cpp" line="731"/>
         <source>Choose file format</source>
         <translation>选择文件格式</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="706"/>
+        <location filename="qtbleditor.cpp" line="763"/>
         <source>File &quot;%1&quot; successfully saved</source>
         <translation>文件 &quot;%1&quot; 成功保存</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="711"/>
+        <location filename="qtbleditor.cpp" line="771"/>
         <source>Error writing file &quot;%1&quot;
 Reason: %2</source>
         <translation>写入文件 &quot;%1&quot; 错误
 原因: %2</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="714"/>
+        <location filename="qtbleditor.cpp" line="774"/>
         <source>Error creating file &quot;%1&quot;
 Reason: %2</source>
         <translation>创建文件 &quot;%1&quot; 错误
 原因: %2</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="926"/>
+        <location filename="qtbleditor.cpp" line="986"/>
         <source>Are you sure you want to %1 selected items?</source>
         <translation>你确定要%1选中项?</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="926"/>
+        <location filename="qtbleditor.cpp" line="986"/>
         <source>clear</source>
         <translation>清除</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="926"/>
+        <location filename="qtbleditor.cpp" line="986"/>
         <source>delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="1028"/>
+        <location filename="qtbleditor.cpp" line="1085"/>
         <source># You can place comments anywhere in the file
 # Format: name[tab]hex code[tab]hex RGB
 </source>
@@ -575,31 +599,31 @@ Reason: %2</source>
 # 格式: 名字[tab]十六进制代码[tab]十六进制RGB</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="1035"/>
+        <location filename="qtbleditor.cpp" line="1092"/>
         <source>Unable to create file &quot;customcolors.ini&quot;
 Reason: %1</source>
         <translation>无法创建文件 &quot;customcolors.ini&quot;
 原因: %1</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="1120"/>
+        <location filename="qtbleditor.cpp" line="1178"/>
         <source>About %1</source>
         <translation>关于 %1</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="1124"/>
+        <location filename="qtbleditor.cpp" line="1182"/>
         <source>Compiled on: %1</source>
         <translation>编译于: %1</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="1125"/>
+        <location filename="qtbleditor.cpp" line="1183"/>
         <source>&lt;i&gt;Author:&lt;/i&gt; Filipenkov Andrey (&lt;b&gt;kambala&lt;/b&gt;)</source>
         <translatorcomment>Translator info added</translatorcomment>
         <translation>&lt;i&gt;作者:&lt;/i&gt; Filipenkov Andrey (&lt;b&gt;kambala&lt;/b&gt;)
 简体中文翻译: 菜“秒” (Cai_Miao)</translation>
     </message>
     <message>
-        <location filename="qtbleditor.cpp" line="1328"/>
+        <location filename="qtbleditor.cpp" line="1422"/>
         <source>Tables are identical</source>
         <translation>表完全相同</translation>
     </message>
@@ -617,550 +641,570 @@ Reason: %1</source>
         <translation>最近打开的文件</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="61"/>
+        <location filename="qtbleditor.ui" line="63"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="71"/>
+        <location filename="qtbleditor.ui" line="73"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="92"/>
+        <location filename="qtbleditor.ui" line="94"/>
         <source>Tables</source>
         <translation>表</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="96"/>
+        <location filename="qtbleditor.ui" line="98"/>
         <source>Differences</source>
         <translation>差异</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="112"/>
+        <location filename="qtbleditor.ui" line="114"/>
         <source>Options</source>
         <translation>选项</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="116"/>
+        <location filename="qtbleditor.ui" line="118"/>
         <source>CSV separator</source>
         <translation>CSV 分隔符</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="123"/>
+        <location filename="qtbleditor.ui" line="125"/>
         <source>Row numbering starts with</source>
         <translation>行数开始于</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="138"/>
+        <location filename="qtbleditor.ui" line="143"/>
         <source>View</source>
         <translation>查看</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="188"/>
+        <location filename="qtbleditor.ui" line="194"/>
         <source>&amp;New...</source>
         <translation>新建... (&amp;N)</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="191"/>
+        <location filename="qtbleditor.ui" line="197"/>
         <source>New</source>
         <translation>新建</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="194"/>
+        <location filename="qtbleditor.ui" line="200"/>
         <source>Create new table</source>
         <translation>创建新表</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="197"/>
+        <location filename="qtbleditor.ui" line="203"/>
         <source>Ctrl+N</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="206"/>
+        <location filename="qtbleditor.ui" line="212"/>
         <source>&amp;Open...</source>
         <translation>打开... (&amp;O)</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="209"/>
+        <location filename="qtbleditor.ui" line="215"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="212"/>
+        <location filename="qtbleditor.ui" line="218"/>
         <source>Open existing table</source>
         <translation>打开存在的表</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="215"/>
+        <location filename="qtbleditor.ui" line="221"/>
         <source>Ctrl+O</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="227"/>
+        <location filename="qtbleditor.ui" line="233"/>
         <source>&amp;Save</source>
         <translation>保存(&amp;S)</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="230"/>
+        <location filename="qtbleditor.ui" line="236"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="233"/>
+        <location filename="qtbleditor.ui" line="239"/>
         <source>Save active table</source>
         <translation>保存当前活动表</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="236"/>
+        <location filename="qtbleditor.ui" line="242"/>
         <source>Ctrl+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="244"/>
+        <location filename="qtbleditor.ui" line="250"/>
         <source>Save as...</source>
         <translation>另存为...</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="247"/>
+        <location filename="qtbleditor.ui" line="253"/>
         <source>Save as</source>
         <translation>另存为</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="250"/>
+        <location filename="qtbleditor.ui" line="256"/>
         <source>Save active table with a new name</source>
         <translation>以新名字保存当前活动表</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="253"/>
+        <location filename="qtbleditor.ui" line="259"/>
         <source>Ctrl+Shift+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="265"/>
+        <location filename="qtbleditor.ui" line="271"/>
         <source>&amp;Close</source>
         <translation>关闭(&amp;C)</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="268"/>
+        <location filename="qtbleditor.ui" line="274"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="271"/>
+        <location filename="qtbleditor.ui" line="277"/>
         <source>Close active table</source>
         <translation>关闭当前活动表</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="274"/>
+        <location filename="qtbleditor.ui" line="280"/>
         <source>Ctrl+W</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="279"/>
-        <location filename="qtbleditor.ui" line="282"/>
+        <location filename="qtbleditor.ui" line="285"/>
+        <location filename="qtbleditor.ui" line="288"/>
         <source>Exit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="285"/>
+        <location filename="qtbleditor.ui" line="291"/>
         <source>Exit the program</source>
         <translation>退出程序</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="288"/>
+        <location filename="qtbleditor.ui" line="294"/>
         <source>Ctrl+Q</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="300"/>
-        <location filename="qtbleditor.ui" line="303"/>
+        <location filename="qtbleditor.ui" line="306"/>
+        <location filename="qtbleditor.ui" line="309"/>
         <source>About QTblEditor</source>
         <translation>关于 QTblEditor</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="306"/>
+        <location filename="qtbleditor.ui" line="312"/>
         <source>About this tool</source>
         <translation>关于此工具</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="309"/>
+        <location filename="qtbleditor.ui" line="315"/>
         <source>F1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="324"/>
+        <location filename="qtbleditor.ui" line="330"/>
         <source>Find/Replace...</source>
         <translation>查找/替换...</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="327"/>
+        <location filename="qtbleditor.ui" line="333"/>
         <source>Find/Replace</source>
         <translation>查找/替换</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="330"/>
+        <location filename="qtbleditor.ui" line="336"/>
         <source>Find and/or replace text in tables</source>
         <translation>查找并(或)替换表中的文本</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="333"/>
+        <location filename="qtbleditor.ui" line="339"/>
         <source>Ctrl+F</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="345"/>
+        <location filename="qtbleditor.ui" line="351"/>
         <source>Go to...</source>
         <translation>跳转到...</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="348"/>
+        <location filename="qtbleditor.ui" line="354"/>
         <source>Go to</source>
         <translation>跳转</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="351"/>
+        <location filename="qtbleditor.ui" line="357"/>
         <source>Go to the specified row</source>
         <translation>跳转到特定行</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="354"/>
-        <source>Ctrl+G</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qtbleditor.ui" line="366"/>
+        <location filename="qtbleditor.ui" line="369"/>
         <source>Clear selected...</source>
         <translation>清除选中项...</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="369"/>
+        <location filename="qtbleditor.ui" line="372"/>
         <source>Clear selected</source>
         <translation>清除选中项</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="372"/>
+        <location filename="qtbleditor.ui" line="375"/>
         <source>Clear text of selected cells</source>
         <translation>清除选中单元格中的文本</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="375"/>
+        <location filename="qtbleditor.ui" line="378"/>
         <source>Del</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="387"/>
+        <location filename="qtbleditor.ui" line="390"/>
         <source>Delete selected...</source>
         <translation>删除选中项...</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="390"/>
+        <location filename="qtbleditor.ui" line="393"/>
         <source>Delete selected</source>
         <translation>删除选中项</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="393"/>
+        <location filename="qtbleditor.ui" line="396"/>
         <source>Delete selected rows</source>
         <translation>删除选中行</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="396"/>
+        <location filename="qtbleditor.ui" line="399"/>
         <source>Shift+Del</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="408"/>
         <location filename="qtbleditor.ui" line="411"/>
+        <location filename="qtbleditor.ui" line="414"/>
         <source>Change text</source>
         <translation>改变文本</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="414"/>
+        <location filename="qtbleditor.ui" line="417"/>
         <source>Change text in the current cell</source>
         <translation>改变当前单元格中的文本</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="417"/>
+        <location filename="qtbleditor.ui" line="420"/>
         <source>Enter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="429"/>
         <location filename="qtbleditor.ui" line="432"/>
+        <location filename="qtbleditor.ui" line="435"/>
         <source>Append new entry</source>
         <translation>添加新条目</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="435"/>
+        <location filename="qtbleditor.ui" line="438"/>
         <source>Insert empty row in the end of active table</source>
         <translation>在当前活动表的末尾插入空行</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="438"/>
+        <location filename="qtbleditor.ui" line="441"/>
         <source>Ctrl+Ins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="446"/>
         <location filename="qtbleditor.ui" line="449"/>
+        <location filename="qtbleditor.ui" line="452"/>
         <source>Insert after current</source>
         <translation>在当前行后插入</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="452"/>
+        <location filename="qtbleditor.ui" line="455"/>
         <source>Insert empty row after the current selected in active table</source>
         <translation>在当前活动表的当前选中项后插入空行</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="455"/>
+        <location filename="qtbleditor.ui" line="458"/>
         <source>Ins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="463"/>
+        <location filename="qtbleditor.ui" line="466"/>
         <source>Save all</source>
         <translation>保存所有</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="466"/>
+        <location filename="qtbleditor.ui" line="469"/>
         <source>Save all tables</source>
         <translation>保存所有表</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="469"/>
+        <location filename="qtbleditor.ui" line="472"/>
         <source>Ctrl+Alt+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="478"/>
         <location filename="qtbleditor.ui" line="481"/>
+        <location filename="qtbleditor.ui" line="484"/>
         <source>About Qt</source>
         <translation>关于 Qt</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="484"/>
+        <location filename="qtbleditor.ui" line="487"/>
         <source>About Qt library</source>
         <translation>关于 Qt 库</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="495"/>
+        <location filename="qtbleditor.ui" line="498"/>
         <source>Close all</source>
         <translation>关闭所有</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="498"/>
+        <location filename="qtbleditor.ui" line="501"/>
         <source>Close all tables</source>
         <translation>关闭所有表</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="501"/>
+        <location filename="qtbleditor.ui" line="504"/>
         <source>Ctrl+Shift+W</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="509"/>
+        <location filename="qtbleditor.ui" line="512"/>
         <source>Supplement</source>
         <translation>增补</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="512"/>
+        <location filename="qtbleditor.ui" line="515"/>
         <source>Copy excessive data from the bigger table to the smaller one</source>
         <translation>从更大的表中向更小的表复制超出部分的数据</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="515"/>
+        <location filename="qtbleditor.ui" line="518"/>
         <source>Ctrl+U</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="527"/>
+        <location filename="qtbleditor.ui" line="530"/>
         <source>Swap</source>
         <translation>交换</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="530"/>
+        <location filename="qtbleditor.ui" line="533"/>
         <source>Swap tables</source>
         <translation>交换表</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="541"/>
+        <location filename="qtbleditor.ui" line="544"/>
         <source>, (comma)</source>
         <translation>, (半角逗号)</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="544"/>
+        <location filename="qtbleditor.ui" line="547"/>
         <source>Use comma as a value separator in *.csv files</source>
         <translation>在 *.csv 文件中使用半角逗号作为值的分隔符</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="552"/>
+        <location filename="qtbleditor.ui" line="555"/>
         <source>; (semicolon)</source>
         <translation>; (半角分号)</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="555"/>
+        <location filename="qtbleditor.ui" line="558"/>
         <source>Use semicolon as a value separator in *.csv files</source>
         <translation>在 *.csv 文件中使用半角分号作为值的分隔符</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="566"/>
+        <location filename="qtbleditor.ui" line="569"/>
         <source>Restore last opened files</source>
         <translation>恢复最后打开文件</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="569"/>
+        <location filename="qtbleditor.ui" line="572"/>
         <source>Load last opened files on start</source>
         <translation>启动时读取最后打开的文件</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="580"/>
+        <location filename="qtbleditor.ui" line="583"/>
         <source>Wrap strings in double quotes</source>
         <translation>用半角双引号括起字符串</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="583"/>
+        <location filename="qtbleditor.ui" line="586"/>
         <source>Wrap all strings in generated *.txt in double quotes</source>
         <translation>用半角双引号在生成的*.txt中括起所有字符串</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="591"/>
+        <location filename="qtbleditor.ui" line="594"/>
         <source>Change active</source>
         <translation>切换活动表</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="594"/>
+        <location filename="qtbleditor.ui" line="597"/>
         <source>Make the other table active</source>
         <translation>将另一个表设为当前活动表</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="605"/>
+        <location filename="qtbleditor.ui" line="608"/>
         <source>Toolbar</source>
         <translation>工具栏</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="608"/>
+        <location filename="qtbleditor.ui" line="611"/>
         <source>Toggle toolbar visibility</source>
         <translation>切换工具栏的可视性</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="616"/>
+        <location filename="qtbleditor.ui" line="619"/>
         <source>Reopen</source>
         <translation>重新打开</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="619"/>
+        <location filename="qtbleditor.ui" line="622"/>
         <source>Read active table from disk and lose all current changes</source>
         <translation>从硬盘读取当前活动表并放弃所有更改</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="622"/>
+        <location filename="qtbleditor.ui" line="625"/>
         <source>Ctrl+Alt+O</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="634"/>
+        <location filename="qtbleditor.ui" line="637"/>
         <source>Copy</source>
         <translation>复制</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="637"/>
+        <location filename="qtbleditor.ui" line="640"/>
         <source>Copy text from selected cells to the clipboard</source>
         <translation>将选中单元格的文本复制到剪贴板</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="640"/>
+        <location filename="qtbleditor.ui" line="643"/>
         <source>Ctrl+C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="652"/>
+        <location filename="qtbleditor.ui" line="655"/>
         <source>Paste</source>
         <translation>粘贴</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="655"/>
+        <location filename="qtbleditor.ui" line="658"/>
         <source>Paste text from the clipboard after the current cell</source>
         <translation>将剪贴板中的文本粘贴到选中单元格后</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="658"/>
+        <location filename="qtbleditor.ui" line="661"/>
         <source>Ctrl+V</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="669"/>
+        <location filename="qtbleditor.ui" line="672"/>
         <source>Small rows</source>
         <translation>小行显示</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="672"/>
+        <location filename="qtbleditor.ui" line="675"/>
         <source>Toggle between small and large rows</source>
         <translation>在大小行显示间切换</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="680"/>
+        <location filename="qtbleditor.ui" line="683"/>
         <source>Keys</source>
         <translation>键 (Key)</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="683"/>
+        <location filename="qtbleditor.ui" line="686"/>
         <source>Show rows with distinct keys</source>
         <translation>显示不同键的行</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="691"/>
+        <location filename="qtbleditor.ui" line="694"/>
         <source>Strings</source>
         <translation>字符串 (String)</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="694"/>
+        <location filename="qtbleditor.ui" line="697"/>
         <source>Show rows with same keys that have distinct strings</source>
         <translation>显示有相同键值但不同字符串的行</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="702"/>
+        <location filename="qtbleditor.ui" line="705"/>
         <source>Both</source>
         <translation>两者</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="705"/>
+        <location filename="qtbleditor.ui" line="708"/>
         <source>Show rows that meet the above conditions</source>
         <translation>显示以上都符合的行</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="710"/>
+        <location filename="qtbleditor.ui" line="713"/>
         <source>Same strings</source>
         <translation>同字符串</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="713"/>
+        <location filename="qtbleditor.ui" line="716"/>
         <source>Show rows that have same strings</source>
         <translation>显示有相同字符串的行</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="721"/>
+        <location filename="qtbleditor.ui" line="724"/>
         <source>0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="732"/>
+        <location filename="qtbleditor.ui" line="735"/>
         <source>1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="740"/>
+        <location filename="qtbleditor.ui" line="743"/>
         <source>Show hex values in row numbers</source>
         <translation>在行数显示十六进制值</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="748"/>
+        <location filename="qtbleditor.ui" line="751"/>
         <source>Sync scrolling and selection</source>
         <translation>同步滚动与选择</translation>
     </message>
     <message>
-        <location filename="qtbleditor.ui" line="751"/>
+        <location filename="qtbleditor.ui" line="754"/>
         <source>Sync scrolling</source>
         <translation>同步滚动</translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.ui" line="765"/>
+        <source>Send to server...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.ui" line="773"/>
+        <source>Save .txt together with .tbl</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.ui" line="776"/>
+        <source>When saving a .tbl, also save respective .txt automatically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.ui" line="784"/>
+        <source>Hide the Key column</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qtbleditor.ui" line="787"/>
+        <source>Hide Key</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1208,20 +1252,45 @@ Reason: %1</source>
         <source>Refresh</source>
         <translation>刷新</translation>
     </message>
+    <message utf8="true">
+        <location filename="tablesdifferenceswidget.ui" line="42"/>
+        <source>Replace →</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="tablesdifferenceswidget.ui" line="49"/>
+        <source>Replace ←</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="tablesdifferenceswidget.ui" line="56"/>
+        <source>Append →</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="tablesdifferenceswidget.ui" line="63"/>
+        <source>Append ←</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
-        <location filename="tablesdifferenceswidget.cpp" line="11"/>
+        <location filename="tablesdifferenceswidget.cpp" line="14"/>
         <source>Different keys</source>
         <translation>不同键值</translation>
     </message>
     <message>
-        <location filename="tablesdifferenceswidget.cpp" line="13"/>
+        <location filename="tablesdifferenceswidget.cpp" line="17"/>
         <source>Different strings</source>
         <translation>不同字符串</translation>
     </message>
     <message>
-        <location filename="tablesdifferenceswidget.cpp" line="15"/>
+        <location filename="tablesdifferenceswidget.cpp" line="20"/>
         <source>Different keys &amp; strings</source>
         <translation>不同键值、字符串</translation>
+    </message>
+    <message>
+        <location filename="tablesdifferenceswidget.cpp" line="23"/>
+        <source>Same strings</source>
+        <translation type="unfinished">同字符串</translation>
     </message>
 </context>
 </TS>
