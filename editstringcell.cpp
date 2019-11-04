@@ -67,6 +67,7 @@ EditStringCell::EditStringCell(QWidget *parent, const KeyValueItemsPair &keyValu
     connect(ui.stringEdit, SIGNAL(textChanged()), SLOT(setPreviewText()));
     connect(ui.stringEdit, SIGNAL(cursorPositionChanged()), SLOT(updateCurrentEditColumn()));
     connect(ui.reversePreviewTextCheckBox, SIGNAL(toggled(bool)), SLOT(setPreviewText()));
+    connect(ui.centerPreviewTextCheckBox, SIGNAL(toggled(bool)), SLOT(setPreviewText()));
 
     setItem(keyValueItemsPairToEdit);
 }
@@ -131,6 +132,7 @@ void EditStringCell::setPreviewText()
         text.replace(emptyMatchIndex, matchedLength, QString("&nbsp;").repeated(matchedLength));
     }
 
+    bool shouldCenterAlign = ui.centerPreviewTextCheckBox->isChecked();
     const QString defaultColor = colorStrings.at(1); // text is white by default
     if (ui.reversePreviewTextCheckBox->isChecked())
     {
@@ -183,13 +185,17 @@ void EditStringCell::setPreviewText()
             }
             htmlLines += htmlLine;
         }
-        ui.stringPreview->setHtml(htmlLines.join("<br>"));
+        QString html = htmlLines.join("<br>");
+        if (shouldCenterAlign)
+            html = QString("<body align=\"center\">%1</body>").arg(html);
+        ui.stringPreview->setHtml(html);
     }
     else
     {
         for (int i = 0; i < colors.size(); i++) // replace color codes with their hex values for HTML
             text.replace(colorStrings.at(i + 1), QString("</font><font color = \"%1\">").arg(colorHexString(colors.at(i))));
-        ui.stringPreview->setHtml(QString("<body style='color: %1'>%2</body>").arg(colorHexFromColorString(defaultColor), text.replace('\n', "<br>")));
+        ui.stringPreview->setHtml(QString("<body style='color: %1' %3>%2</body>").arg(colorHexFromColorString(defaultColor), text.replace('\n', "<br>"),
+                                                                                      shouldCenterAlign ? QLatin1String("align=\"center\"") : QString()));
     }
 
     int length = ui.stringPreview->toPlainText().length();
