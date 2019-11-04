@@ -9,7 +9,7 @@ class GoToRowDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit GoToRowDialog(QWidget *parent, int rowCount, bool rowsStartFromZero);
+    explicit GoToRowDialog(QWidget *parent, int rowCount, bool rowsStartFromZero, bool showHex);
 
     int row();
 

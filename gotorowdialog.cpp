@@ -5,7 +5,7 @@
 #include <QSettings>
 
 
-GoToRowDialog::GoToRowDialog(QWidget *parent, int rowCount, bool rowsStartFromZero) : QDialog(parent), _minRow(1), _maxRow(rowCount)
+GoToRowDialog::GoToRowDialog(QWidget *parent, int rowCount, bool rowsStartFromZero, bool showHex) : QDialog(parent), _minRow(1), _maxRow(rowCount)
 {
     ui.setupUi(this);
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
@@ -20,9 +20,8 @@ GoToRowDialog::GoToRowDialog(QWidget *parent, int rowCount, bool rowsStartFromZe
 
     ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 
-    bool isHex = QSettings().value("goToRowModeIsHex").toBool();
-    ui.radioButtonHex->setChecked(isHex);
-    changeMode(isHex);
+    ui.radioButtonHex->setChecked(showHex);
+    changeMode(showHex);
 
     ui.lineEditValue->setFocus();
 

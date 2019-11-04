@@ -915,7 +915,7 @@ void QTblEditor::findNextString(const QString &query, bool isCaseSensitive, bool
 
 void QTblEditor::goTo()
 {
-    GoToRowDialog dlg(this, _currentTableWidget->rowCount(), ui.actionStartNumberingFrom0->isChecked());
+    GoToRowDialog dlg(this, _currentTableWidget->rowCount(), ui.actionStartNumberingFrom0->isChecked(), ui.actionShowHexInRow->isChecked());
     if (dlg.exec())
         _currentTableWidget->setCurrentCell(dlg.row() - 1, 1);
 }
