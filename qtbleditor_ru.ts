@@ -139,7 +139,7 @@
     <message>
         <location filename="editstringcell.cpp" line="212"/>
         <source>Patch 1.10 has limitation of %1 characters per string</source>
-        <translation type="unfinished"></translation>
+        <translation>Патч 1.10 имеет ограничение в %1 символов на строку</translation>
     </message>
     <message>
         <location filename="editstringcell.cpp" line="254"/>
@@ -188,17 +188,17 @@
     <message>
         <location filename="editstringcell.ui" line="66"/>
         <source>Key hash value</source>
-        <translation type="unfinished">Хэш ключа</translation>
+        <translation>Хэш ключа</translation>
     </message>
     <message>
         <location filename="editstringcell.ui" line="69"/>
         <source>0xdeadbeef</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="editstringcell.ui" line="186"/>
         <source>Current column in editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Текущая колонка в редакторе</translation>
     </message>
     <message>
         <location filename="editstringcell.ui" line="300"/>
@@ -208,7 +208,7 @@
     <message>
         <location filename="editstringcell.ui" line="323"/>
         <source>Center preview text</source>
-        <translation type="unfinished"></translation>
+        <translation>Центрировать текст</translation>
     </message>
     <message>
         <location filename="editstringcell.ui" line="346"/>
@@ -311,13 +311,13 @@
         <location filename="editorssplitterhandle.cpp" line="9"/>
         <source>Replace %1</source>
         <comment>param is arrow</comment>
-        <translation type="unfinished"></translation>
+        <translation>Заменить %1</translation>
     </message>
     <message>
         <location filename="editorssplitterhandle.cpp" line="9"/>
         <source>Append %1</source>
         <comment>param is arrow</comment>
-        <translation type="unfinished"></translation>
+        <translation>Добавить %1</translation>
     </message>
 </context>
 <context>
@@ -445,7 +445,7 @@
     <message>
         <location filename="gotorowdialog.cpp" line="19"/>
         <source>Go to row [%1-%2 (0x%3)]</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейти к строке [%1-%2 (0x%3)]</translation>
     </message>
 </context>
 <context>
@@ -517,17 +517,17 @@
     <message>
         <location filename="qtbleditor.cpp" line="342"/>
         <source>Server URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Адрес сервера</translation>
     </message>
     <message>
         <location filename="qtbleditor.cpp" line="367"/>
         <source>Success</source>
-        <translation type="unfinished"></translation>
+        <translation>Успех</translation>
     </message>
     <message>
         <location filename="qtbleditor.cpp" line="367"/>
         <source>Response:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ответ:</translation>
     </message>
     <message>
         <location filename="qtbleditor.cpp" line="688"/>
@@ -573,12 +573,12 @@ Reason: %1</source>
     <message>
         <location filename="qtbleditor.cpp" line="1182"/>
         <source>Compiled on: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Скомпилировано: %1</translation>
     </message>
     <message>
         <location filename="qtbleditor.cpp" line="1183"/>
         <source>&lt;i&gt;Author:&lt;/i&gt; Filipenkov Andrey (&lt;b&gt;kambala&lt;/b&gt;)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;i&gt;Автор:&lt;/i&gt; Филипенков Андрей (&lt;b&gt;kambala&lt;/b&gt;)</translation>
     </message>
     <message>
         <source>%1 %2
@@ -610,7 +610,7 @@ Probably file is corrupted.</source>
     <message>
         <location filename="qtbleditor.cpp" line="365"/>
         <source>Error</source>
-        <translation type="unfinished">Ошибка</translation>
+        <translation>Ошибка</translation>
     </message>
     <message numerus="yes">
         <location filename="qtbleditor.cpp" line="499"/>
@@ -769,7 +769,7 @@ Author: Filipenkov Andrey (kambala)</oldsource>
     <message>
         <location filename="qtbleditor.ui" line="125"/>
         <source>Row numbering starts with</source>
-        <translation type="unfinished"></translation>
+        <translation>Номера строк начинаются с</translation>
     </message>
     <message>
         <location filename="qtbleditor.ui" line="143"/>
@@ -946,68 +946,62 @@ Author: Filipenkov Andrey (kambala)</oldsource>
     <message>
         <location filename="qtbleditor.ui" line="713"/>
         <source>Same strings</source>
-        <translation type="unfinished"></translation>
+        <translation>Одинаковый текст</translation>
     </message>
     <message>
         <location filename="qtbleditor.ui" line="716"/>
         <source>Show rows that have same strings</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать строки с одинаковым текстом</translation>
     </message>
     <message>
         <location filename="qtbleditor.ui" line="724"/>
         <source>0</source>
-        <translation type="unfinished">0</translation>
+        <translation>0</translation>
     </message>
     <message>
         <location filename="qtbleditor.ui" line="735"/>
         <source>1</source>
-        <translation type="unfinished">1</translation>
+        <translation>1</translation>
     </message>
     <message>
         <location filename="qtbleditor.ui" line="743"/>
         <source>Show hex values in row numbers</source>
-        <translation type="unfinished"></translation>
+        <translation>Показывать шестнадцатеричные номера строк</translation>
     </message>
     <message>
         <location filename="qtbleditor.ui" line="751"/>
         <source>Sync scrolling and selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Синхронизировать прокрутку и выделение</translation>
     </message>
     <message>
         <location filename="qtbleditor.ui" line="754"/>
         <source>Sync scrolling</source>
-        <translation type="unfinished"></translation>
+        <translation>Синхронизировать прокрутку</translation>
     </message>
     <message>
         <location filename="qtbleditor.ui" line="765"/>
         <source>Send to server...</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправить на сервер...</translation>
     </message>
     <message>
         <location filename="qtbleditor.ui" line="773"/>
         <source>Save .txt together with .tbl</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранять .txt вместе с .tbl</translation>
     </message>
     <message>
         <location filename="qtbleditor.ui" line="776"/>
         <source>When saving a .tbl, also save respective .txt automatically</source>
-        <translation type="unfinished"></translation>
+        <translation>При сохранении .tbl автоматически сохранять соответствующий .txt</translation>
     </message>
     <message>
         <location filename="qtbleditor.ui" line="784"/>
         <source>Hide the Key column</source>
-        <translation type="unfinished"></translation>
+        <translation>Скрыть колонку Ключ</translation>
     </message>
     <message>
         <location filename="qtbleditor.ui" line="787"/>
         <source>Hide Key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qtbleditor.ui" line="339"/>
-        <source>Ctrl+F</source>
-        <oldsource>Ctrl+G</oldsource>
-        <translation type="unfinished">Ctrl+G</translation>
+        <translation>Скрыть Ключ</translation>
     </message>
     <message>
         <location filename="qtbleditor.ui" line="369"/>
@@ -1367,22 +1361,22 @@ Author: Filipenkov Andrey (kambala)</oldsource>
     <message utf8="true">
         <location filename="tablesdifferenceswidget.ui" line="42"/>
         <source>Replace →</source>
-        <translation type="unfinished"></translation>
+        <translation>Заменить →</translation>
     </message>
     <message utf8="true">
         <location filename="tablesdifferenceswidget.ui" line="49"/>
         <source>Replace ←</source>
-        <translation type="unfinished"></translation>
+        <translation>Заменить ←</translation>
     </message>
     <message utf8="true">
         <location filename="tablesdifferenceswidget.ui" line="56"/>
         <source>Append →</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить →</translation>
     </message>
     <message utf8="true">
         <location filename="tablesdifferenceswidget.ui" line="63"/>
         <source>Append ←</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить ←</translation>
     </message>
     <message>
         <location filename="tablesdifferenceswidget.cpp" line="14"/>
@@ -1402,7 +1396,7 @@ Author: Filipenkov Andrey (kambala)</oldsource>
     <message>
         <location filename="tablesdifferenceswidget.cpp" line="23"/>
         <source>Same strings</source>
-        <translation type="unfinished"></translation>
+        <translation>Одинаковые строки</translation>
     </message>
 </context>
 </TS>
