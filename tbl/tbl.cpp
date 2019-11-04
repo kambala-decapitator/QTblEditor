@@ -10,6 +10,8 @@ namespace
 template <typename T>
 void readBinaryData(ifstream& in, T& data)
 {
+    if (!in.good())
+        throw TblReadException{};
     // TODO: big-endian
     in.read(reinterpret_cast<char*>(&data), sizeof(T));
 }
