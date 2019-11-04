@@ -9,7 +9,7 @@ class GoToRowDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit GoToRowDialog(QWidget *parent, int rowCount);
+    explicit GoToRowDialog(QWidget *parent, int rowCount, bool rowsStartFromZero);
 
     int row();
 
@@ -22,7 +22,7 @@ private slots:
 
 private:
     Ui::GoToRowDialog ui;
-    int _maxRow;
+    int _minRow, _maxRow;
 };
 
 #endif // GOTOROWDIALOG_H

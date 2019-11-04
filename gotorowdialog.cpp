@@ -5,12 +5,18 @@
 #include <QSettings>
 
 
-GoToRowDialog::GoToRowDialog(QWidget *parent, int rowCount) : QDialog(parent), _maxRow(rowCount)
+GoToRowDialog::GoToRowDialog(QWidget *parent, int rowCount, bool rowsStartFromZero) : QDialog(parent), _minRow(1), _maxRow(rowCount)
 {
     ui.setupUi(this);
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     setFixedSize(sizeHint());
-    setWindowTitle(tr("Go to row [1-%1 (0x%2)]").arg(rowCount).arg(rowCount, 0, 16));
+
+    if (rowsStartFromZero)
+    {
+        --_minRow;
+        --_maxRow;
+    }
+    setWindowTitle(tr("Go to row [%1-%2 (0x%3)]").arg(_minRow).arg(_maxRow).arg(_maxRow, 0, 16));
 
     ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 
@@ -32,7 +38,7 @@ void GoToRowDialog::changeMode(bool isHex)
 void GoToRowDialog::enableOkButton()
 {
     int value = row();
-    ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(value >= 1 && value <= _maxRow);
+    ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(value >= _minRow && value <= _maxRow);
 }
 
 void GoToRowDialog::accept()
