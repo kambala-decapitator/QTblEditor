@@ -11,4 +11,4 @@ HEADERS += \
     filesystem.h \
     tbl.h
 
-INCLUDEPATH += $$PWD/../filesystem/include
+INCLUDEPATH += $$PWD/../3rdparty/filesystem/filesystem/include

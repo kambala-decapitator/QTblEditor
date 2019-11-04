@@ -9,7 +9,7 @@ SOURCES += \
 DEPENDPATH += $$PWD/../tbl
 INCLUDEPATH += \
   $$PWD/../tbl \
-  $$PWD/../filesystem/include
+  $$PWD/../3rdparty/filesystem/filesystem/include
 
 
 win32:!g++ {

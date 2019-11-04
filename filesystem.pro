@@ -1,2 +1,2 @@
 TEMPLATE = subdirs
-HEADERS += filesystem/include/ghc/*
+HEADERS += 3rdparty/filesystem/filesystem/include/ghc/*
