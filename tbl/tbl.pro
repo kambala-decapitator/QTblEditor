@@ -1,5 +1,8 @@
 TEMPLATE = lib
 
+include(libtarget.pri)
+TARGET = $$libTarget
+
 CONFIG -= qt
 CONFIG += staticlib c++17
 
@@ -8,7 +11,6 @@ SOURCES += \
 
 HEADERS += \
     exceptions.h \
-    filesystem.h \
     tbl.h
 
-INCLUDEPATH += $$PWD/../3rdparty/filesystem/filesystem/include
+include(../3rdparty/filesystem/filesystem.pri)
