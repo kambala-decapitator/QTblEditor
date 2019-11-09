@@ -1,9 +1,6 @@
 #include "tbl.h"
 #include "exceptions.h"
 
-#include <iostream>
-#include <args.hxx>
-
 using namespace std;
 
 int main(int argc, const char* argv[])

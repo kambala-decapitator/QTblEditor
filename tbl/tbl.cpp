@@ -1,10 +1,6 @@
 #include "tbl.h"
 #include "exceptions.h"
 
-#include <fstream>
-#include <iostream>
-#include <memory>
-
 namespace
 {
 template <typename T>

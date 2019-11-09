@@ -4,7 +4,9 @@ include(libtarget.pri)
 TARGET = $$libTarget
 
 CONFIG -= qt
-CONFIG += staticlib c++17
+CONFIG += staticlib c++17 precompile_header
+
+PRECOMPILED_HEADER = ../common.pch
 
 SOURCES += \
     tbl.cpp

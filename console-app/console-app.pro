@@ -1,7 +1,10 @@
 TEMPLATE = app
 
 CONFIG -= qt
-CONFIG += cmdline c++17
+CONFIG += cmdline c++17 precompile_header
+
+PRECOMPILED_HEADER = console-app.pch
+PRECOMPILED_DIR = pch
 
 SOURCES += \
   main.cpp
