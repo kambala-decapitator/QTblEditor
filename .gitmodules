@@ -4,3 +4,6 @@
 [submodule "Catch2"]
 	path = 3rdparty/catch/Catch2
 	url = https://github.com/catchorg/Catch2.git
+[submodule "args"]
+	path = 3rdparty/args/args
+	url = https://github.com/Taywee/args.git
