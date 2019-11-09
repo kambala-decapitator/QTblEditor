@@ -8,6 +8,8 @@ int main(int argc, const char* argv[])
     args::ArgumentParser parser("CLI for Diablo 2 string files.");
     args::Group commands(parser, "commands");
     args::Command toPrint(commands, "print", "Print contents of files");
+    args::Group printArgs(toPrint, "arguments");
+    args::Flag rawNewlines(printArgs, "raw-newlines", "Don't convert newlines to " + Tbl::foldedNewline, {"raw-newlines"});
     args::Group arguments(parser, "arguments", args::Group::Validators::DontCare, args::Options::Global);
     args::PositionalList<fs::path> filePaths(arguments, "files", "Input files");
     [[maybe_unused]] args::HelpFlag help(arguments, "help", "Display this help menu", {'h', "help"});
@@ -42,7 +44,7 @@ int main(int argc, const char* argv[])
 
     try
     {
-        Tbl t{files.at(0)};
+        Tbl t{files.at(0), !rawNewlines};
         if (toPrint)
         {
             for (const auto& entry : t)

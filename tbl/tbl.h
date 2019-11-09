@@ -45,8 +45,11 @@ struct TblEntry
 class Tbl
 {
 public:
+    static const std::string foldedNewline;
+
+public:
     Tbl() = default;
-    Tbl(const fs::path& filename);
+    Tbl(const fs::path& filename, bool convertNewlines = true);
 
     using TblEntries = vector<TblEntry>;
     TblEntries::iterator begin() { return m_entries.begin(); }
@@ -58,7 +61,9 @@ private:
     TblHeader readHeader(ifstream& in);
     vector<HashTableIndex> readIndexes(ifstream& in, TblHeader& header);
     vector<TblHashNode> readNodes(ifstream& in, TblHeader& header);
-    void readStringData(const char buf[], TblHeader& header, const vector<HashTableIndex>& indexes, const vector<TblHashNode>& nodes);
+    void readStringData(const char buf[], TblHeader& header, const vector<HashTableIndex>& indexes, const vector<TblHashNode>& nodes, bool convertNewlines);
+
+    static void foldNewlines(std::string& s);
 
 private:
     TblEntries m_entries;

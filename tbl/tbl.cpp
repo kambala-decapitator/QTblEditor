@@ -13,7 +13,9 @@ void readBinaryData(ifstream& in, T& data)
 }
 }
 
-Tbl::Tbl(const fs::path& path)
+const std::string Tbl::foldedNewline{"\\n"};
+
+Tbl::Tbl(const fs::path& path, bool convertNewlines)
 {
     ifstream in{path, std::ios_base::in | std::ios_base::binary};
     if (!in)
@@ -34,7 +36,7 @@ Tbl::Tbl(const fs::path& path)
         in.read(rawBuf, bufSize);
         in.close();
 
-        readStringData(rawBuf, header, indexes, nodes);
+        readStringData(rawBuf, header, indexes, nodes, convertNewlines);
     }
     catch (const std::ios::failure& e)
     {
@@ -87,7 +89,7 @@ vector<TblHashNode> Tbl::readNodes(ifstream& in, TblHeader& header)
     return nodes;
 }
 
-void Tbl::readStringData(const char buf[], TblHeader& header, const vector<HashTableIndex>& indexes, const vector<TblHashNode>& nodes)
+void Tbl::readStringData(const char buf[], TblHeader& header, const vector<HashTableIndex>& indexes, const vector<TblHashNode>& nodes, bool convertNewlines)
 {
     const auto startOffset = header.dataStartOffset;
     auto offset = [startOffset](StringOffset offset) { return offset - startOffset; };
@@ -96,8 +98,27 @@ void Tbl::readStringData(const char buf[], TblHeader& header, const vector<HashT
     for (auto index : indexes)
     {
         const auto& node = nodes.at(index);
-        auto key = buf + offset(node.keyOffset);
+        std::string key{buf + offset(node.keyOffset)};
         std::string value{buf + offset(node.valueOffset), node.valueLength};
+        if (convertNewlines)
+        {
+            foldNewlines(key);
+            foldNewlines(value);
+        }
         m_entries.push_back({key, value, node.isUsed == 1});
+    }
+}
+
+void Tbl::foldNewlines(std::string& s)
+{
+    const std::string newLine{'\n'};
+    std::string::size_type pos = 0;
+    for (;;)
+    {
+        pos = s.find(newLine, pos);
+        if (pos == std::string::npos)
+            return;
+        s.replace(pos, newLine.length(), foldedNewline);
+        pos += foldedNewline.length();
     }
 }
