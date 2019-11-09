@@ -6,8 +6,11 @@ using namespace std;
 int main(int argc, const char* argv[])
 {
     args::ArgumentParser parser("CLI for Diablo 2 string files.");
-    [[maybe_unused]] args::HelpFlag help(parser, "help", "Display this help menu", {'h', "help"});
-    args::PositionalList<fs::path> filePaths(parser, "files", "Input files");
+    args::Group commands(parser, "commands");
+    args::Command toPrint(commands, "print", "Print contents of files");
+    args::Group arguments(parser, "arguments", args::Group::Validators::DontCare, args::Options::Global);
+    args::PositionalList<fs::path> filePaths(arguments, "files", "Input files");
+    [[maybe_unused]] args::HelpFlag help(arguments, "help", "Display this help menu", {'h', "help"});
     try
     {
         parser.ParseCLI(argc, argv);
@@ -31,7 +34,7 @@ int main(int argc, const char* argv[])
     }
 
     auto files = args::get(filePaths);
-    if (files.empty())
+    if (!commands.Matched() || files.empty())
     {
         parser.Help(cout);
         return 0;
@@ -40,7 +43,11 @@ int main(int argc, const char* argv[])
     try
     {
         Tbl t{files.at(0)};
-        cout << "Hello World! " << &t << endl;
+        if (toPrint)
+        {
+            for (const auto& entry : t)
+                std::cout << entry.key << '\t' << entry.value << endl;
+        }
     }
     catch (const NoFileException& e)
     {

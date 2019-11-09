@@ -48,6 +48,12 @@ public:
     Tbl() = default;
     Tbl(const fs::path& filename);
 
+    using TblEntries = vector<TblEntry>;
+    TblEntries::iterator begin() { return m_entries.begin(); }
+    TblEntries::iterator end() { return m_entries.end(); }
+    TblEntries::const_iterator cbegin() { return m_entries.cbegin(); }
+    TblEntries::const_iterator cend() { return m_entries.cend(); }
+
 private:
     TblHeader readHeader(ifstream& in);
     vector<HashTableIndex> readIndexes(ifstream& in, TblHeader& header);
@@ -55,5 +61,5 @@ private:
     void readStringData(const char buf[], TblHeader& header, const vector<HashTableIndex>& indexes, const vector<TblHashNode>& nodes);
 
 private:
-    vector<TblEntry> m_entries;
+    TblEntries m_entries;
 };

@@ -99,6 +99,5 @@ void Tbl::readStringData(const char buf[], TblHeader& header, const vector<HashT
         auto key = buf + offset(node.keyOffset);
         std::string value{buf + offset(node.valueOffset), node.valueLength};
         m_entries.push_back({key, value, node.isUsed == 1});
-        std::cout << key << '\t' << value << std::endl;
     }
 }
