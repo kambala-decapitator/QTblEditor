@@ -1,5 +1,6 @@
 #include "tbl.h"
 #include "exceptions.h"
+#include "d2color.h"
 
 namespace
 {
@@ -15,7 +16,7 @@ void readBinaryData(ifstream& in, T& data)
 
 const std::string Tbl::foldedNewline{"\\n"};
 
-Tbl::Tbl(const fs::path& path, bool convertNewlines)
+Tbl::Tbl(const fs::path& path, bool convertNewlines, bool convertColors)
 {
     ifstream in{path, std::ios_base::in | std::ios_base::binary};
     if (!in)
@@ -36,7 +37,7 @@ Tbl::Tbl(const fs::path& path, bool convertNewlines)
         in.read(rawBuf, bufSize);
         in.close();
 
-        readStringData(rawBuf, header, indexes, nodes, convertNewlines);
+        readStringData(rawBuf, header, indexes, nodes, convertNewlines, convertColors);
     }
     catch (const std::ios::failure& e)
     {
@@ -89,7 +90,7 @@ vector<TblHashNode> Tbl::readNodes(ifstream& in, TblHeader& header)
     return nodes;
 }
 
-void Tbl::readStringData(const char buf[], TblHeader& header, const vector<HashTableIndex>& indexes, const vector<TblHashNode>& nodes, bool convertNewlines)
+void Tbl::readStringData(const char buf[], TblHeader& header, const vector<HashTableIndex>& indexes, const vector<TblHashNode>& nodes, bool convertNewlines, bool convertColors)
 {
     const auto startOffset = header.dataStartOffset;
     auto offset = [startOffset](StringOffset offset) { return offset - startOffset; };
@@ -100,11 +101,15 @@ void Tbl::readStringData(const char buf[], TblHeader& header, const vector<HashT
         const auto& node = nodes.at(index);
         std::string key{buf + offset(node.keyOffset)};
         std::string value{buf + offset(node.valueOffset), node.valueLength};
+
         if (convertNewlines)
         {
             foldNewlines(key);
             foldNewlines(value);
         }
+        if (convertColors)
+            D2Color::convertToReadableColors(value);
+
         m_entries.push_back({key, value, node.isUsed == 1});
     }
 }

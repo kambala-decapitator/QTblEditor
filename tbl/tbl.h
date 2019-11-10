@@ -49,7 +49,7 @@ public:
 
 public:
     Tbl() = default;
-    Tbl(const fs::path& filename, bool convertNewlines = true);
+    Tbl(const fs::path& filename, bool convertNewlines = true, bool convertColors = true);
 
     using TblEntries = vector<TblEntry>;
     TblEntries::iterator begin() { return m_entries.begin(); }
@@ -61,7 +61,7 @@ private:
     TblHeader readHeader(ifstream& in);
     vector<HashTableIndex> readIndexes(ifstream& in, TblHeader& header);
     vector<TblHashNode> readNodes(ifstream& in, TblHeader& header);
-    void readStringData(const char buf[], TblHeader& header, const vector<HashTableIndex>& indexes, const vector<TblHashNode>& nodes, bool convertNewlines);
+    void readStringData(const char buf[], TblHeader& header, const vector<HashTableIndex>& indexes, const vector<TblHashNode>& nodes, bool convertNewlines, bool convertColors);
 
     static void foldNewlines(std::string& s);
 

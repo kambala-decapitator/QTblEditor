@@ -9,9 +9,11 @@ CONFIG += staticlib c++17 precompile_header
 PRECOMPILED_HEADER = ../common.pch
 
 SOURCES += \
+    d2color.cpp \
     tbl.cpp
 
 HEADERS += \
+    d2color.h \
     exceptions.h \
     tbl.h
 
