@@ -47,7 +47,7 @@ Tbl::Tbl(const fs::path& path, bool convertNewlines, bool convertColors)
     }
     catch (const std::ios::failure& e)
     {
-        std::cerr << "error reading tbl file: " << e.what() << std::endl;
+        std::cerr << "error reading tbl file: " << e.what() << '\n';
         throw TblReadException{};
     }
 }

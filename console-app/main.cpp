@@ -28,13 +28,13 @@ int main(int argc, const char* argv[])
     }
     catch (const args::ParseError& e)
     {
-        cerr << e.what() << endl;
+        cerr << e.what() << '\n';
         cerr << parser;
         return 1;
     }
     catch (const args::ValidationError& e)
     {
-        cerr << e.what() << endl;
+        cerr << e.what() << '\n';
         cerr << parser;
         return 1;
     }
@@ -52,20 +52,20 @@ int main(int argc, const char* argv[])
         if (toPrint)
         {
             for (const auto& entry : t)
-                std::cout << entry.key << '\t' << entry.value << endl;
+                cout << entry.key << '\t' << entry.value << '\n';
         }
     }
     catch (const NoFileException& e)
     {
-        cerr << "file doesn't exist" << endl;
+        cerr << "file doesn't exist\n";
     }
     catch (const TblReadException& e)
     {
-        cerr << "couldn't read file" << endl;
+        cerr << "couldn't read file\n";
     }
     catch (const TblTruncatedException& e)
     {
-        cerr << "file size is incorrect: expected " << e.expectedFileSize << " - actual " << e.actualFileSize << endl;
+        cerr << "file size is incorrect: expected " << e.expectedFileSize << " - actual " << e.actualFileSize << '\n';
     }
     return 0;
 }
