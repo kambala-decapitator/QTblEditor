@@ -19,6 +19,6 @@ public:
 class FileWriteException : public TblException
 {
 public:
-    FileWriteException(const std::string& key = {}) : TblException(), lastKey(key) {}
-    std::string lastKey;
+    FileWriteException(const std::string& path_, const std::string& key = {}) : TblException(), path(path_), lastKey(key) {}
+    std::string path, lastKey;
 };

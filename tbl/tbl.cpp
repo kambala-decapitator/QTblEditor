@@ -48,12 +48,12 @@ void Tbl::saveTxt(const fs::path& filename)
 {
     std::ofstream out{filename, std::ios::out | std::ios::trunc};
     if (!out)
-        throw FileWriteException{};
+        throw FileWriteException{filename.native()};
     for (const auto& entry : m_entries)
     {
         out << entry.key << '\t' << entry.value << '\n';
         if (!out.good())
-            throw FileWriteException{entry.key};
+            throw FileWriteException{filename.native(), entry.key};
     }
 }
 

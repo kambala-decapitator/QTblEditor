@@ -77,9 +77,10 @@ int main(int argc, const char* argv[])
     }
     catch (const FileWriteException& e)
     {
-        cerr << "couldn't write file";
-        if (!e.lastKey.empty())
-            cerr << ", last processed key: " << e.lastKey;
+        if (e.lastKey.empty())
+            cerr << "couldn't open file for writing: " << e.path;
+        else
+            cerr << "couldn't write file " << e.path << " to end, last processed key: " << e.lastKey;
         cerr << '\n';
     }
     return 1;
