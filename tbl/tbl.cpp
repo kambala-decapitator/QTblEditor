@@ -92,7 +92,7 @@ vector<TblHashNode> Tbl::readNodes(ifstream& in, TblHeader& header)
     return nodes;
 }
 
-void Tbl::readStringData(const char buf[], TblHeader& header, const vector<HashTableIndex>& indexes, const vector<TblHashNode>& nodes, bool convertNewlines, bool convertColors)
+void Tbl::readStringData(const char buf[], TblHeader& header, const vector<HashTableIndex>& indexes, const vector<TblHashNode>& nodes, bool convertNewlines, bool convertColors) noexcept
 {
     const auto startOffset = header.dataStartOffset;
     auto offset = [startOffset](StringOffset offset) { return offset - startOffset; };
@@ -118,7 +118,7 @@ void Tbl::readStringData(const char buf[], TblHeader& header, const vector<HashT
     }
 }
 
-void Tbl::foldNewlines(std::string& s)
+void Tbl::foldNewlines(std::string& s) noexcept
 {
     const std::string newLine{'\n'};
     std::string::size_type pos = 0;

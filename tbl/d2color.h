@@ -23,5 +23,5 @@ extern const std::string header;
 extern const std::vector<std::pair<ColorCode, std::string>> readableColors;
 
 extern decltype(readableColors)::value_type readableColor(char colorCode);
-extern void convertToReadableColors(std::string& s);
+extern void convertToReadableColors(std::string& s) noexcept;
 }

@@ -52,18 +52,18 @@ public:
     Tbl(const fs::path& filename, bool convertNewlines = true, bool convertColors = true);
 
     using TblEntries = vector<TblEntry>;
-    TblEntries::iterator begin() { return m_entries.begin(); }
-    TblEntries::iterator end() { return m_entries.end(); }
-    TblEntries::const_iterator cbegin() { return m_entries.cbegin(); }
-    TblEntries::const_iterator cend() { return m_entries.cend(); }
+    TblEntries::iterator begin() noexcept { return m_entries.begin(); }
+    TblEntries::iterator end() noexcept { return m_entries.end(); }
+    TblEntries::const_iterator cbegin() noexcept { return m_entries.cbegin(); }
+    TblEntries::const_iterator cend() noexcept { return m_entries.cend(); }
 
 private:
     TblHeader readHeader(ifstream& in);
     vector<HashTableIndex> readIndexes(ifstream& in, TblHeader& header);
     vector<TblHashNode> readNodes(ifstream& in, TblHeader& header);
-    void readStringData(const char buf[], TblHeader& header, const vector<HashTableIndex>& indexes, const vector<TblHashNode>& nodes, bool convertNewlines, bool convertColors);
+    void readStringData(const char buf[], TblHeader& header, const vector<HashTableIndex>& indexes, const vector<TblHashNode>& nodes, bool convertNewlines, bool convertColors) noexcept;
 
-    static void foldNewlines(std::string& s);
+    static void foldNewlines(std::string& s) noexcept;
 
 private:
     TblEntries m_entries;

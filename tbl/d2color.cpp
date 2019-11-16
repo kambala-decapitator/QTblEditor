@@ -24,7 +24,7 @@ decltype(readableColors)::value_type readableColor(char colorCode)
     return readableColors.at(colorCode - White);
 }
 
-void convertToReadableColors(std::string& s)
+void convertToReadableColors(std::string& s) noexcept
 {
     std::string::size_type pos = 0;
     for (;;)
