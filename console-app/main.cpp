@@ -3,6 +3,7 @@
 
 using std::cerr;
 using std::cout;
+using namespace std::string_literals;
 
 int main(int argc, const char* argv[])
 {
@@ -21,6 +22,15 @@ int main(int argc, const char* argv[])
     args::Command toConvert(commands, "convert", "Convert between file types");
     args::Group convertArgs(toConvert, "arguments");
     args::ValueFlag<fs::path> outDir(convertArgs, "directory", "Directory where to save converted files, doesn't have to exist. Defaults to input file's directory.", {'o', "out-dir"});
+
+    const auto wrapperArg = "wrap-str"s;
+    std::string wrapperArgDesc;
+    {
+        auto reversedWrapperArg = wrapperArg;
+        std::reverse(std::begin(reversedWrapperArg), std::end(reversedWrapperArg));
+        wrapperArgDesc = "Wrap keys and values: [" + wrapperArg + "]<key>[" + reversedWrapperArg + "]<tab>[" + wrapperArg + "]<value>[" + reversedWrapperArg + ']';
+    }
+    args::ValueFlag<std::string> keyValueWrapper(convertArgs, wrapperArg, std::move(wrapperArgDesc), {"wrapper"});
 
     try
     {
@@ -71,7 +81,7 @@ int main(int argc, const char* argv[])
             }
             else
                 outPath = file;
-            t.saveTxt(outPath.replace_extension(".txt"));
+            t.saveTxt(outPath.replace_extension(".txt"), args::get(keyValueWrapper));
             cout << "file saved to " << fs::absolute(outPath) << '\n';
         }
 

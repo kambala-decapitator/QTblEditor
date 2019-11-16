@@ -44,14 +44,18 @@ Tbl::Tbl(const fs::path& path, bool convertNewlines, bool convertColors)
     readStringData(rawBuf, header, indexes, nodes, convertNewlines, convertColors);
 }
 
-void Tbl::saveTxt(const fs::path& filename)
+void Tbl::saveTxt(const fs::path& filename, const string& wrapper)
 {
     std::ofstream out{filename, std::ios::out | std::ios::trunc};
     if (!out)
         throw FileWriteException{filename.native()};
+
+    auto reversedWrapper = wrapper;
+    std::reverse(std::begin(reversedWrapper), std::end(reversedWrapper));
+
     for (const auto& entry : m_entries)
     {
-        out << entry.key << '\t' << entry.value << '\n';
+        out << wrapper << entry.key << reversedWrapper << '\t' << wrapper << entry.value << reversedWrapper << '\n';
         if (!out.good())
             throw FileWriteException{filename.native(), entry.key};
     }
