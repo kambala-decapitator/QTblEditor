@@ -1,7 +1,8 @@
 #include "tbl.h"
 #include "exceptions.h"
 
-using namespace std;
+using std::cerr;
+using std::cout;
 
 int main(int argc, const char* argv[])
 {
