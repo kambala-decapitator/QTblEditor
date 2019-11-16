@@ -11,12 +11,12 @@ int main(int argc, const char* argv[])
 
     args::Group globalArgs(parser, "global arguments", args::Group::Validators::DontCare, args::Options::Global);
     args::PositionalList<fs::path> filePaths(globalArgs, "files", "Input files");
-    [[maybe_unused]] args::HelpFlag help(globalArgs, "help", "Display this help menu", {'h', "help"});
+    [[maybe_unused]] args::HelpFlag help(globalArgs, {}, "Display this help menu", {'h', "help"});
 
     args::Command toPrint(commands, "print", "Print contents of files");
     args::Group printArgs(toPrint, "arguments");
-    args::Flag rawNewlines(printArgs, "raw-newlines", "Don't convert newlines to " + Tbl::foldedNewline, {"raw-newlines"});
-    args::Flag rawColors(printArgs, "raw-colors", "Don't convert colors to human-readable strings", {"raw-colors"});
+    args::Flag rawNewlines(printArgs, {}, "Don't convert newlines to " + Tbl::foldedNewline, {"raw-newlines"});
+    args::Flag rawColors(printArgs, {}, "Don't convert colors to human-readable strings", {"raw-colors"});
 
     args::Command toConvert(commands, "convert", "Convert between file types");
     args::Group convertArgs(toConvert, "arguments");
