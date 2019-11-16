@@ -5,6 +5,7 @@
 #include <cassert>
 
 using std::ifstream;
+using std::string;
 using std::vector;
 
 namespace
@@ -19,7 +20,7 @@ void readBinaryData(ifstream& in, T& data)
 }
 }
 
-const std::string Tbl::foldedNewline{"\\n"};
+const string Tbl::foldedNewline{"\\n"};
 
 Tbl::Tbl(const fs::path& path, bool convertNewlines, bool convertColors)
 {
@@ -106,8 +107,8 @@ void Tbl::readStringData(const char buf[], TblHeader& header, const vector<HashT
         const auto& node = nodes.at(index);
         assert(node.valueLength > 0);
 
-        std::string key{buf + offset(node.keyOffset)};
-        std::string value{buf + offset(node.valueOffset), static_cast<std::string::size_type>(node.valueLength - 1)};
+        string key{buf + offset(node.keyOffset)};
+        string value{buf + offset(node.valueOffset), static_cast<string::size_type>(node.valueLength - 1)};
 
         if (convertNewlines)
         {
@@ -121,14 +122,14 @@ void Tbl::readStringData(const char buf[], TblHeader& header, const vector<HashT
     }
 }
 
-void Tbl::foldNewlines(std::string& s) noexcept
+void Tbl::foldNewlines(string& s) noexcept
 {
-    const std::string newLine{'\n'};
-    std::string::size_type pos = 0;
+    const string newLine{'\n'};
+    string::size_type pos = 0;
     for (;;)
     {
         pos = s.find(newLine, pos);
-        if (pos == std::string::npos)
+        if (pos == string::npos)
             return;
         s.replace(pos, newLine.length(), foldedNewline);
         pos += foldedNewline.length();
