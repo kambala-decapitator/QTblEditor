@@ -24,32 +24,24 @@ const string Tbl::foldedNewline{"\\n"};
 
 Tbl::Tbl(const fs::path& path, bool convertNewlines, bool convertColors)
 {
-    ifstream in{path, std::ios_base::in | std::ios_base::binary};
+    ifstream in{path, std::ios::in | std::ios::binary};
     if (!in)
         throw NoFileException{};
 
-    try
-    {
-        auto header = readHeader(in);
-        if (auto fileSize = fs::file_size(path); header.fileSize != fileSize)
-            throw TblTruncatedException{header.fileSize, fileSize};
+    auto header = readHeader(in);
+    if (auto fileSize = fs::file_size(path); header.fileSize != fileSize)
+        throw TblTruncatedException{header.fileSize, fileSize};
 
-        auto indexes = readIndexes(in, header);
-        auto nodes = readNodes(in, header);
+    auto indexes = readIndexes(in, header);
+    auto nodes = readNodes(in, header);
 
-        auto bufSize = header.fileSize - header.dataStartOffset;
-        std::unique_ptr<char[]> buf{new char[bufSize]}; // TODO: std::byte / GSL
-        auto rawBuf = buf.get();
-        in.read(rawBuf, bufSize);
-        in.close();
+    auto bufSize = header.fileSize - header.dataStartOffset;
+    std::unique_ptr<char[]> buf{new char[bufSize]}; // TODO: std::byte / GSL
+    auto rawBuf = buf.get();
+    in.read(rawBuf, bufSize);
+    in.close();
 
-        readStringData(rawBuf, header, indexes, nodes, convertNewlines, convertColors);
-    }
-    catch (const std::ios::failure& e)
-    {
-        std::cerr << "error reading tbl file: " << e.what() << '\n';
-        throw TblReadException{};
-    }
+    readStringData(rawBuf, header, indexes, nodes, convertNewlines, convertColors);
 }
 
 TblHeader Tbl::readHeader(ifstream& in)
