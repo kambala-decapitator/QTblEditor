@@ -19,6 +19,8 @@ int main(int argc, const char* argv[])
     args::Flag rawColors(printArgs, "raw-colors", "Don't convert colors to human-readable strings", {"raw-colors"});
 
     args::Command toConvert(commands, "convert", "Convert between file types");
+    args::Group convertArgs(toConvert, "arguments");
+    args::ValueFlag<fs::path> outDir(convertArgs, "directory", "Directory where to save converted files, doesn't have to exist. Defaults to input file's directory.", {'o', "out-dir"});
 
     try
     {
@@ -59,7 +61,19 @@ int main(int argc, const char* argv[])
                 cout << entry.key << '\t' << entry.value << '\n';
         }
         if (toConvert)
-            t.saveTxt(file.replace_extension(".txt"));
+        {
+            fs::path outPath;
+            if (outDir)
+            {
+                outPath = args::get(outDir);
+                fs::create_directories(outPath);
+                outPath /= file.filename();
+            }
+            else
+                outPath = file;
+            t.saveTxt(outPath.replace_extension(".txt"));
+            cout << "file saved to " << fs::absolute(outPath) << '\n';
+        }
 
         return 0;
     }
@@ -74,6 +88,10 @@ int main(int argc, const char* argv[])
     catch (const TblTruncatedException& e)
     {
         cerr << "file size is incorrect: expected " << e.expectedFileSize << " - actual " << e.actualFileSize << '\n';
+    }
+    catch (const fs::filesystem_error& e)
+    {
+        cerr << "filesystem error: " << e.what() << '\n';
     }
     catch (const FileWriteException& e)
     {
