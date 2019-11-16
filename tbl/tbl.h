@@ -2,9 +2,6 @@
 
 #include "filesystem.h"
 
-using std::ifstream;
-using std::vector;
-
 using HashTableIndex = uint16_t;
 using StringOffset = uint32_t;
 
@@ -51,17 +48,17 @@ public:
     Tbl() = default;
     Tbl(const fs::path& filename, bool convertNewlines = true, bool convertColors = true);
 
-    using TblEntries = vector<TblEntry>;
+    using TblEntries = std::vector<TblEntry>;
     TblEntries::iterator begin() noexcept { return m_entries.begin(); }
     TblEntries::iterator end() noexcept { return m_entries.end(); }
     TblEntries::const_iterator cbegin() noexcept { return m_entries.cbegin(); }
     TblEntries::const_iterator cend() noexcept { return m_entries.cend(); }
 
 private:
-    TblHeader readHeader(ifstream& in);
-    vector<HashTableIndex> readIndexes(ifstream& in, TblHeader& header);
-    vector<TblHashNode> readNodes(ifstream& in, TblHeader& header);
-    void readStringData(const char buf[], TblHeader& header, const vector<HashTableIndex>& indexes, const vector<TblHashNode>& nodes, bool convertNewlines, bool convertColors) noexcept;
+    TblHeader readHeader(std::ifstream& in);
+    std::vector<HashTableIndex> readIndexes(std::ifstream& in, TblHeader& header);
+    std::vector<TblHashNode> readNodes(std::ifstream& in, TblHeader& header);
+    void readStringData(const char buf[], TblHeader& header, const std::vector<HashTableIndex>& indexes, const std::vector<TblHashNode>& nodes, bool convertNewlines, bool convertColors) noexcept;
 
     static void foldNewlines(std::string& s) noexcept;
 

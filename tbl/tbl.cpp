@@ -4,6 +4,9 @@
 
 #include <cassert>
 
+using std::ifstream;
+using std::vector;
+
 namespace
 {
 template <typename T>
