@@ -48,6 +48,8 @@ public:
     Tbl() = default;
     Tbl(const fs::path& filename, bool convertNewlines = true, bool convertColors = true);
 
+    void saveTxt(const fs::path& filename);
+
     using TblEntries = std::vector<TblEntry>;
     TblEntries::iterator begin() noexcept { return m_entries.begin(); }
     TblEntries::iterator end() noexcept { return m_entries.end(); }

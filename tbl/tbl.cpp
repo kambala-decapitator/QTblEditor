@@ -44,6 +44,19 @@ Tbl::Tbl(const fs::path& path, bool convertNewlines, bool convertColors)
     readStringData(rawBuf, header, indexes, nodes, convertNewlines, convertColors);
 }
 
+void Tbl::saveTxt(const fs::path& filename)
+{
+    std::ofstream out{filename, std::ios::out | std::ios::trunc};
+    if (!out)
+        throw FileWriteException{};
+    for (const auto& entry : m_entries)
+    {
+        out << entry.key << '\t' << entry.value << '\n';
+        if (!out.good())
+            throw FileWriteException{entry.key};
+    }
+}
+
 TblHeader Tbl::readHeader(ifstream& in)
 {
     TblHeader header;

@@ -14,3 +14,11 @@ public:
     TblTruncatedException(uintmax_t expected, uintmax_t actual) : TblException(), expectedFileSize(expected), actualFileSize(actual) {}
     uintmax_t expectedFileSize, actualFileSize;
 };
+
+
+class FileWriteException : public TblException
+{
+public:
+    FileWriteException(const std::string& key = {}) : TblException(), lastKey(key) {}
+    std::string lastKey;
+};

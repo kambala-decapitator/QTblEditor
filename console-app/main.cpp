@@ -18,6 +18,8 @@ int main(int argc, const char* argv[])
     args::Flag rawNewlines(printArgs, "raw-newlines", "Don't convert newlines to " + Tbl::foldedNewline, {"raw-newlines"});
     args::Flag rawColors(printArgs, "raw-colors", "Don't convert colors to human-readable strings", {"raw-colors"});
 
+    args::Command toConvert(commands, "convert", "Convert between file types");
+
     try
     {
         parser.ParseCLI(argc, argv);
@@ -49,12 +51,17 @@ int main(int argc, const char* argv[])
 
     try
     {
-        Tbl t{files.at(0), !rawNewlines, !rawColors};
+        auto file = files.at(0);
+        Tbl t{file, !rawNewlines, !rawColors};
         if (toPrint)
         {
             for (const auto& entry : t)
                 cout << entry.key << '\t' << entry.value << '\n';
         }
+        if (toConvert)
+            t.saveTxt(file.replace_extension(".txt"));
+
+        return 0;
     }
     catch (const NoFileException& e)
     {
@@ -68,5 +75,12 @@ int main(int argc, const char* argv[])
     {
         cerr << "file size is incorrect: expected " << e.expectedFileSize << " - actual " << e.actualFileSize << '\n';
     }
-    return 0;
+    catch (const FileWriteException& e)
+    {
+        cerr << "couldn't write file";
+        if (!e.lastKey.empty())
+            cerr << ", last processed key: " << e.lastKey;
+        cerr << '\n';
+    }
+    return 1;
 }
