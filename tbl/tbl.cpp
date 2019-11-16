@@ -2,6 +2,8 @@
 #include "exceptions.h"
 #include "d2color.h"
 
+#include <cassert>
+
 namespace
 {
 template <typename T>
@@ -99,8 +101,10 @@ void Tbl::readStringData(const char buf[], TblHeader& header, const vector<HashT
     for (auto index : indexes)
     {
         const auto& node = nodes.at(index);
+        assert(node.valueLength > 0);
+
         std::string key{buf + offset(node.keyOffset)};
-        std::string value{buf + offset(node.valueOffset), node.valueLength};
+        std::string value{buf + offset(node.valueOffset), static_cast<std::string::size_type>(node.valueLength - 1)};
 
         if (convertNewlines)
         {

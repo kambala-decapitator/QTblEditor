@@ -18,3 +18,5 @@ HEADERS += \
     tbl.h
 
 include(../3rdparty/filesystem/filesystem.pri)
+
+CONFIG(release, debug|release): DEFINES += NDEBUG
