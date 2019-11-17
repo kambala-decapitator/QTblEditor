@@ -1,5 +1,5 @@
-win32:!g++: libFilename = $${libTarget}.lib
-else:       libFilename = lib$${libTarget}.a
+win32:!win32-g++: libFilename = $${libTarget}.lib
+else:             libFilename = lib$${libTarget}.a
 
 win32 {
   CONFIG(debug, debug|release): outLibDir = $${libTarget}/debug
