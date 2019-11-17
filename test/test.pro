@@ -25,3 +25,5 @@ win32:isEmpty(MINGW_IN_SHELL) {
 else {
     QMAKE_POST_LINK += [ -L $$testDataOutDir ] || ln -s $$testDataInDir $$testDataOutDir
 }
+
+win32-msvc*: DEFINES += _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING

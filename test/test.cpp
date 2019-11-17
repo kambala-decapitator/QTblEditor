@@ -11,6 +11,22 @@
 
 using namespace std::string_literals;
 
+// https://stackoverflow.com/a/35103224
+#if defined(_MSC_VER) && _MSC_VER >= 1900 // TODO: check with Visual Studio 2019 release
+std::string utf16_to_utf8(std::u16string utf16_string)
+{
+    std::wstring_convert<std::codecvt_utf8_utf16<int16_t>, int16_t> convert;
+    auto p = reinterpret_cast<const int16_t *>(utf16_string.data());
+    return convert.to_bytes(p, p + utf16_string.size());
+}
+#else
+std::string utf16_to_utf8(std::u16string utf16_string)
+{
+    std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> convert;
+    return convert.to_bytes(utf16_string);
+}
+#endif
+
 TEST_CASE("constructors", "[tbl]")
 {
     auto testFilePath = [](const std::string& fileName){
@@ -29,8 +45,8 @@ TEST_CASE("colors", "[D2Color]")
 {
     using namespace D2Color;
 
-    CHECK(header == std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t>{}.to_bytes(u"\u00FF\u0063"));
-    CHECK(header == u8"ÿc");
+    CHECK(header == utf16_to_utf8(u"\u00FF\u0063"));
+    CHECK(header == "\xC3\xBF\x63");
 
     CHECK(readableColors.size() == Purple - White + 1);
 

@@ -48,7 +48,7 @@ void Tbl::saveTxt(const fs::path& filename, const string& wrapper)
 {
     std::ofstream out{filename, std::ios::out | std::ios::trunc};
     if (!out)
-        throw FileWriteException{filename.native()};
+        throw FileWriteException{filename.string()};
 
     auto reversedWrapper = wrapper;
     std::reverse(std::begin(reversedWrapper), std::end(reversedWrapper));
@@ -57,7 +57,7 @@ void Tbl::saveTxt(const fs::path& filename, const string& wrapper)
     {
         out << wrapper << entry.key << reversedWrapper << '\t' << wrapper << entry.value << reversedWrapper << '\n';
         if (!out.good())
-            throw FileWriteException{filename.native(), entry.key};
+            throw FileWriteException{filename.string(), entry.key};
     }
 }
 
