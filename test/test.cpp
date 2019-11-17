@@ -1,6 +1,6 @@
 #undef TWOBLUECUBES_SINGLE_INCLUDE_CATCH_HPP_INCLUDED
 #define CATCH_CONFIG_IMPL_ONLY
-#define CATCH_CONFIG_MAIN
+#define CATCH_CONFIG_RUNNER
 #include <catch2/catch.hpp>
 
 #include "tbl.h"
@@ -47,4 +47,9 @@ TEST_CASE("colors", "[D2Color]")
     s = "asd" + header + "qwe" + rawColor(Blue);
     convertToReadableColors(s);
     CHECK(s == "asd" + header + "qwe" + readableColor(Blue).second);
+}
+
+int main(int argc, const char* argv[])
+{
+    return Catch::Session().run(argc, argv);
 }
