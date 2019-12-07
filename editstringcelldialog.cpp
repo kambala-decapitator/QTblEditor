@@ -19,7 +19,7 @@ protected:
 };
 
 
-EditStringCellDialog::EditStringCellDialog(QWidget *parent, KeyValueItemsPair leftItemsPairToEdit, KeyValueItemsPair rightItemsPairToEdit) : QDialog(parent), _wasStringLengthWarningShown(false)
+EditStringCellDialog::EditStringCellDialog(QWidget *parent, KeyValueItemsPair leftItemsPairToEdit, bool renderGreyAsWhite, KeyValueItemsPair rightItemsPairToEdit) : QDialog(parent), _wasStringLengthWarningShown(false)
 {
     ui.setupUi(this);
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
@@ -38,11 +38,11 @@ EditStringCellDialog::EditStringCellDialog(QWidget *parent, KeyValueItemsPair le
 
     _editorsSplitter = new EditorsSplitter(Qt::Horizontal, this);
     _editorsSplitter->setChildrenCollapsible(false);
-    _leftEditor = new EditStringCell(this, leftItemsPairToEdit);
+    _leftEditor = new EditStringCell(this, leftItemsPairToEdit, renderGreyAsWhite);
     _editorsSplitter->addWidget(_leftEditor);
     if (rightItemsPairToEdit != kEmptyKeyValuePair)
     {
-        _rightEditor = new EditStringCell(this, rightItemsPairToEdit);
+        _rightEditor = new EditStringCell(this, rightItemsPairToEdit, renderGreyAsWhite);
         _editorsSplitter->addWidget(_rightEditor);
 
         EditorsSplitterHandle *splitterHandle = _editorsSplitter->customHandle();

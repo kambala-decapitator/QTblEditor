@@ -15,7 +15,7 @@ class EditStringCellDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit EditStringCellDialog(QWidget *parent, KeyValueItemsPair leftItemsPairToEdit, KeyValueItemsPair rightItemsPairToEdit = kEmptyKeyValuePair);
+    explicit EditStringCellDialog(QWidget *parent, KeyValueItemsPair leftItemsPairToEdit, bool renderGreyAsWhite, KeyValueItemsPair rightItemsPairToEdit = kEmptyKeyValuePair);
 
 public slots:
     void done(int r);

@@ -68,6 +68,8 @@ QTblEditor::QTblEditor(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(par
     ui.setupUi(this);
     ui.mainToolBar->setWindowTitle(tr("Toolbar"));
 
+    ui.actionRenderGreyAsWhite->setText(tr("Render %1 as white", "Arg is grey's color code").arg(colorStrings.at(2)));
+
 #ifdef Q_OS_MAC
     ui.actionInsertAfterCurrent->setShortcut(QKeySequence("+"));
     ui.actionAppendEntry->setShortcut(QKeySequence("Ctrl++"));
@@ -930,17 +932,18 @@ void QTblEditor::editString(QTableWidgetItem *itemToEdit)
     else // key selected
         itemsPair = KeyValueItemsPair(itemToEdit, itemToEdit->tableWidget()->item(row, 1));
 
+    bool renderGreyAsWhite = ui.actionRenderGreyAsWhite->isChecked();
     EditStringCellDialog *editStringCellDlg = 0;
     if (_openedTables == 1 || row >= inactiveTableWidget(_currentTableWidget)->rowCount() || !ui.actionSyncScrolling->isChecked())
-        editStringCellDlg = new EditStringCellDialog(this, itemsPair);
+        editStringCellDlg = new EditStringCellDialog(this, itemsPair, renderGreyAsWhite);
     else
     {
         QTableWidget *w = inactiveTableWidget(itemToEdit->tableWidget());
         KeyValueItemsPair otherItemsPair(w->item(row, 0), w->item(row, 1));
         if (_currentTableWidget == _leftTableWidget)
-            editStringCellDlg = new EditStringCellDialog(this, itemsPair, otherItemsPair);
+            editStringCellDlg = new EditStringCellDialog(this, itemsPair, renderGreyAsWhite, otherItemsPair);
         else
-            editStringCellDlg = new EditStringCellDialog(this, otherItemsPair, itemsPair);
+            editStringCellDlg = new EditStringCellDialog(this, otherItemsPair, renderGreyAsWhite, itemsPair);
     }
 
     connect(editStringCellDlg, SIGNAL(editorClosedAt(int)), _currentTableWidget, SLOT(changeCurrentCell(int)));
@@ -1048,6 +1051,7 @@ void QTblEditor::writeSettings()
     settings.setValue("showHexInRows", ui.actionShowHexInRow->isChecked());
     settings.setValue("startNumberingFrom", _startNumberingGroup->checkedAction()->text());
 	settings.setValue("saveTxtWithTbl", ui.actionSaveTxtWithTbl->isChecked());
+    settings.setValue("renderGreyAsWhite", ui.actionRenderGreyAsWhite->isChecked());
     settings.endGroup();
 
     settings.beginGroup("recentItems");
@@ -1111,6 +1115,7 @@ void QTblEditor::readSettings()
     ui.actionShowHexInRow->setChecked(settings.value("showHexInRows").toBool());
     (settings.value("startNumberingFrom").toString() == "0" ? ui.actionStartNumberingFrom0 : ui.actionStartNumberingFrom1)->setChecked(true);
 	ui.actionSaveTxtWithTbl->setChecked(settings.value("saveTxtWithTbl").toBool());
+    ui.actionRenderGreyAsWhite->setChecked(settings.value("renderGreyAsWhite").toBool());
     settings.endGroup();
 
     settings.beginGroup("recentItems");

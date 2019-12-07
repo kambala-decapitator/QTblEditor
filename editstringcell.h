@@ -17,7 +17,7 @@ class EditStringCell : public QWidget
     Q_OBJECT
 
 public:
-    EditStringCell(QWidget *parent, const KeyValueItemsPair &keyValueItemsPairToEdit);
+    EditStringCell(QWidget *parent, const KeyValueItemsPair &keyValueItemsPairToEdit, bool renderGreyAsWhite);
 
     void saveChanges();
     KeyValueItemsPair itemsPair() const { return _keyValueItemsPair; }
@@ -45,9 +45,15 @@ private slots:
     void showEditColorsDialog();
 
 private:
+    QString colorHexFromColorString(const QString &colorString);
+    QString textWithHtmlColor(const QString &text, const QString &colorString);
+    QColor colorAt(int i);
+
+private:
     Ui::EditStringCellClass ui;
     QMenu *_colorMenu;
     KeyValueItemsPair _keyValueItemsPair;
+    bool _renderGreyAsWhite;
 };
 
 #endif // EDITSTRINGCELL_H

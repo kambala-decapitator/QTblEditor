@@ -137,6 +137,7 @@
     <addaction name="separator"/>
     <addaction name="actionSaveTxtWithTbl"/>
     <addaction name="actionHideKeyColumn"/>
+    <addaction name="actionRenderGreyAsWhite"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -785,6 +786,14 @@
    </property>
    <property name="iconText">
     <string>Hide Key</string>
+   </property>
+  </action>
+  <action name="actionRenderGreyAsWhite">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true"/>
    </property>
   </action>
  </widget>

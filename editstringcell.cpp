@@ -22,16 +22,6 @@ extern QStringList colorStrings;
 extern QList<QColor> colors;
 extern int colorsNum;
 
-QString colorHexFromColorString(const QString &colorString)
-{
-    return colorHexString(colors.at(colorStrings.indexOf(colorString) - 1));
-}
-
-QString textWithHtmlColor(const QString &text, const QString &colorString)
-{
-    return QString("<font color = \"%1\">%2</font>").arg(colorHexFromColorString(colorString), text);
-}
-
 QString colorsRegexPattern()
 {
     QStringList realColorStrings = colorStrings.mid(1);
@@ -43,7 +33,7 @@ QString colorsRegexPattern()
 
 static const QString kGenderNumberMenuName("GenderNumberMenu");
 
-EditStringCell::EditStringCell(QWidget *parent, const KeyValueItemsPair &keyValueItemsPairToEdit) : QWidget(parent)
+EditStringCell::EditStringCell(QWidget *parent, const KeyValueItemsPair &keyValueItemsPairToEdit, bool renderGreyAsWhite) : QWidget(parent), _renderGreyAsWhite(renderGreyAsWhite)
 {
     ui.setupUi(this);
 
@@ -193,7 +183,7 @@ void EditStringCell::setPreviewText()
     else
     {
         for (int i = 0; i < colors.size(); i++) // replace color codes with their hex values for HTML
-            text.replace(colorStrings.at(i + 1), QString("</font><font color = \"%1\">").arg(colorHexString(colors.at(i))));
+            text.replace(colorStrings.at(i + 1), QString("</font><font color = \"%1\">").arg(colorHexString(colorAt(i))));
         ui.stringPreview->setHtml(QString("<body style='color: %1' %3>%2</body>").arg(colorHexFromColorString(defaultColor), text.replace('\n', "<br>"),
                                                                                       shouldCenterAlign ? QLatin1String("align=\"center\"") : QString()));
     }
@@ -245,7 +235,7 @@ void EditStringCell::updateColorsMenu()
     QPixmap pix(24, 24);
     for (int i = 0; i < colors.size(); i++)
     {
-        pix.fill(colors.at(i));
+        pix.fill(colorAt(i));
         if (i == colorsNum)
             _colorMenu->addSeparator();
         _colorMenu->addAction(QIcon(pix), colorStrings.at(i + 1), this, SLOT(insertText()))->setIconVisibleInMenu(true);
@@ -254,4 +244,21 @@ void EditStringCell::updateColorsMenu()
     _colorMenu->addAction(tr("Edit..."), this, SLOT(showEditColorsDialog()));
 
     setPreviewText();
+}
+
+QString EditStringCell::colorHexFromColorString(const QString &colorString)
+{
+    return colorHexString(colorAt(colorStrings.indexOf(colorString) - 1));
+}
+
+QString EditStringCell::textWithHtmlColor(const QString &text, const QString &colorString)
+{
+    return QString("<font color = \"%1\">%2</font>").arg(colorHexFromColorString(colorString), text);
+}
+
+QColor EditStringCell::colorAt(int i)
+{
+    if (i == 1 && _renderGreyAsWhite)
+        i = 0;
+    return colors.at(i);
 }
