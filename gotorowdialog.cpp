@@ -1,6 +1,7 @@
 #include "gotorowdialog.h"
 
 #include <QPushButton>
+#include <QRegExpValidator>
 
 #include <QSettings>
 

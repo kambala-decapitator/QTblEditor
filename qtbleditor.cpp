@@ -21,7 +21,14 @@
 #include <QFileInfo>
 #include <QMimeData>
 #include <QDateTime>
+
+#ifdef Q_OS_MAC
+#ifdef IS_QT5
+#include <QStandardPaths>
+#else
 #include <QDesktopServices>
+#endif
+#endif
 
 #include <QNetworkReply>
 
@@ -1381,9 +1388,19 @@ QString QTblEditor::restoreNewlines(const QString &s)
 QString QTblEditor::customColorsFilePath() const
 {
 #ifdef Q_OS_MAC
+#ifdef IS_QT5
+    QString basePath = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+#else
     QString basePath = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+#endif
     if (basePath.isEmpty())
+    {
+#ifdef IS_QT5
+        basePath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+#else
         basePath = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+#endif
+    }
     QDir::current().mkpath(basePath);
 #else
     QString basePath = qApp->applicationDirPath();
