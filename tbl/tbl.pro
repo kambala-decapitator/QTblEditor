@@ -6,7 +6,7 @@ TARGET = $$libTarget
 CONFIG -= qt
 CONFIG += staticlib c++17 precompile_header
 
-PRECOMPILED_HEADER = ../common.pch
+PRECOMPILED_HEADER = ../common/common.pch
 
 SOURCES += \
     d2color.cpp \

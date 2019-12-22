@@ -1,4 +1,4 @@
-#include "../common.pch"
+#include "../common/common.pch"
 
 #ifdef __cplusplus
 #define CATCH_CONFIG_ALL_PARTS
