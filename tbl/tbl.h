@@ -1,5 +1,6 @@
 #pragma once
 
+#include "common/tbl.h"
 #include "filesystem.h"
 
 using HashTableIndex = uint16_t;
@@ -32,14 +33,14 @@ struct TblHashNode
 };
 
 
-struct TblEntry
+struct TBL_EXPORT TblEntry
 {
     std::string key;
     std::string value;
     bool isUsed;
 };
 
-class Tbl
+class TBL_EXPORT Tbl
 {
 public:
     static const std::string foldedNewline;

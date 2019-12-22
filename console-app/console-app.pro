@@ -11,4 +11,10 @@ SOURCES += \
 
 include(../3rdparty/args/args.pri)
 include(../3rdparty/filesystem/filesystem.pri)
-include(../tbl/tbl-static.pri)
+
+CONFIG(debug, debug|release) {
+    include(../tbl/shared/tbl.pri)
+}
+else {
+    include(../tbl/static/tbl.pri)
+}

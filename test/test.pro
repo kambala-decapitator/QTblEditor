@@ -11,7 +11,7 @@ SOURCES += \
 
 include(../3rdparty/catch/catch.pri)
 include(../3rdparty/filesystem/filesystem.pri)
-include(../tbl/tbl-static.pri)
+include(../tbl/shared/tbl.pri)
 
 
 testDataDirName = data
