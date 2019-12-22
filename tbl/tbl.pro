@@ -1,6 +1,6 @@
 TEMPLATE = lib
 
-include(libtarget.pri)
+include(common/libtarget.pri)
 TARGET = $$libTarget
 
 CONFIG -= qt
