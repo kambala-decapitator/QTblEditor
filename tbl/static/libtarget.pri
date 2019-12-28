@@ -1,1 +1,0 @@
-libTarget = tbl-static

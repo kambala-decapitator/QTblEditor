@@ -30,7 +30,7 @@ std::string utf16_to_utf8(std::u16string utf16_string)
 TEST_CASE("constructors", "[tbl]")
 {
     auto testFilePath = [](const std::string& fileName){
-        return fs::path{"data"} / fileName;
+        return fs::path{DATA_PATH} / fileName;
     };
     CHECK_NOTHROW(Tbl{});
     CHECK_THROWS_AS(Tbl{testFilePath("foo.tbl")}, NoFileException);
