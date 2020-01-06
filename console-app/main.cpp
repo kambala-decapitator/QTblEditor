@@ -16,6 +16,10 @@ int main(int argc, const char* argv[])
 
     args::Command toPrint(commands, "print", "Print contents of files");
     args::Group printArgs(toPrint, "arguments");
+    args::Group printModeArgs{printArgs, "mode", args::Group::Validators::Xor};
+        args::Flag keysOnly{printModeArgs, {}, "Print only keys", {'k', "keys"}};
+        args::Flag valuesOnly{printModeArgs, {}, "Print only values", {'v', "values"}};
+        [[maybe_unused]] args::Flag keysValues{printModeArgs, {}, "Print keys and values (default)", {'a', "all"}};
     args::Flag rawNewlines(printArgs, {}, "Don't convert newlines to " + Tbl::foldedNewline, {"raw-newlines"});
     args::Flag rawColors(printArgs, {}, "Don't convert colors to human-readable strings", {"raw-colors"});
 
@@ -68,7 +72,15 @@ int main(int argc, const char* argv[])
         if (toPrint)
         {
             for (const auto& entry : t)
-                cout << entry.key << '\t' << entry.value << '\n';
+            {
+                if (keysOnly)
+                    cout << entry.key;
+                else if (valuesOnly)
+                    cout << entry.value;
+                else
+                    cout << entry.key << '\t' << entry.value;
+                cout << '\n';
+            }
         }
         if (toConvert)
         {
