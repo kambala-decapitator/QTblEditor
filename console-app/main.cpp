@@ -7,25 +7,25 @@ using namespace std::string_literals;
 
 int main(int argc, const char* argv[])
 {
-    args::ArgumentParser parser("CLI for Diablo 2 string files.");
-    args::Group commands(parser, "commands");
+    args::ArgumentParser parser{"CLI for Diablo 2 string files."};
+    args::Group commands{parser, "commands"};
 
-    args::Group globalArgs(parser, "global arguments", args::Group::Validators::DontCare, args::Options::Global);
-    args::PositionalList<fs::path> filePaths(globalArgs, "files", "Input files");
-    [[maybe_unused]] args::HelpFlag help(globalArgs, {}, "Display this help menu", {'h', "help"});
+    args::Group globalArgs{parser, "global arguments", args::Group::Validators::DontCare, args::Options::Global};
+    args::PositionalList<fs::path> filePaths{globalArgs, "files", "Input files"};
+    [[maybe_unused]] args::HelpFlag help{globalArgs, {}, "Display this help menu", {'h', "help"}};
 
-    args::Command toPrint(commands, "print", "Print contents of files");
-    args::Group printArgs(toPrint, "arguments");
+    args::Command toPrint{commands, "print", "Print contents of files."};
+    args::Group printArgs{toPrint, {}};
     args::Group printModeArgs{printArgs, "mode", args::Group::Validators::Xor};
         args::Flag keysOnly{printModeArgs, {}, "Print only keys", {'k', "keys"}};
         args::Flag valuesOnly{printModeArgs, {}, "Print only values", {'v', "values"}};
         [[maybe_unused]] args::Flag keysValues{printModeArgs, {}, "Print keys and values (default)", {'a', "all"}};
-    args::Flag rawNewlines(printArgs, {}, "Don't convert newlines to " + Tbl::foldedNewline, {"raw-newlines"});
-    args::Flag rawColors(printArgs, {}, "Don't convert colors to human-readable strings", {"raw-colors"});
+    args::Flag rawNewlines{printArgs, {}, "Don't convert newlines to " + Tbl::foldedNewline, {"raw-newlines"}};
+    args::Flag rawColors{printArgs, {}, "Don't convert colors to human-readable strings", {"raw-colors"}};
 
-    args::Command toConvert(commands, "convert", "Convert between file types");
-    args::Group convertArgs(toConvert, "arguments");
-    args::ValueFlag<fs::path> outDir(convertArgs, "directory", "Directory where to save converted files, doesn't have to exist. Defaults to input file's directory.", {'o', "out-dir"});
+    args::Command toConvert{commands, "convert", "Convert between file types."};
+    args::Group convertArgs{toConvert, {}};
+    args::ValueFlag<fs::path> outDir{convertArgs, "directory", "Directory where to save converted files, doesn't have to exist. Defaults to input file's directory.", {'o', "out-dir"}};
 
     const auto wrapperArg = "wrap-str"s;
     std::string wrapperArgDesc;
@@ -34,7 +34,7 @@ int main(int argc, const char* argv[])
         std::reverse(std::begin(reversedWrapperArg), std::end(reversedWrapperArg));
         wrapperArgDesc = "Wrap keys and values: [" + wrapperArg + "]<key>[" + reversedWrapperArg + "]<tab>[" + wrapperArg + "]<value>[" + reversedWrapperArg + ']';
     }
-    args::ValueFlag<std::string> keyValueWrapper(convertArgs, wrapperArg, std::move(wrapperArgDesc), {"wrapper"});
+    args::ValueFlag<std::string> keyValueWrapper{convertArgs, wrapperArg, std::move(wrapperArgDesc), {"wrapper"}};
 
     try
     {
