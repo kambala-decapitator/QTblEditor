@@ -27,13 +27,8 @@ int main(int argc, const char* argv[])
     args::Group convertArgs{toConvert, {}};
     args::ValueFlag<fs::path> outDir{convertArgs, "directory", "Directory where to save converted files, doesn't have to exist. Defaults to input file's directory.", {'o', "out-dir"}};
 
-    const auto wrapperArg = "wrap-str"s;
-    std::string wrapperArgDesc;
-    {
-        auto reversedWrapperArg = wrapperArg;
-        std::reverse(std::begin(reversedWrapperArg), std::end(reversedWrapperArg));
-        wrapperArgDesc = "Wrap keys and values: [" + wrapperArg + "]<key>[" + reversedWrapperArg + "]<tab>[" + wrapperArg + "]<value>[" + reversedWrapperArg + ']';
-    }
+    const auto wrapperArg = "wrap-char"s;
+    std::string wrapperArgDesc{"Wrap keys and values: [" + wrapperArg + "]<key>[" + wrapperArg + "]<tab>[" + wrapperArg + "]<value>[" + wrapperArg + ']'};
     args::ValueFlag<std::string> keyValueWrapper{convertArgs, wrapperArg, std::move(wrapperArgDesc), {"wrapper"}};
 
     try
@@ -93,7 +88,19 @@ int main(int argc, const char* argv[])
             }
             else
                 outPath = file;
-            t.saveTxt(outPath.replace_extension(".txt"), args::get(keyValueWrapper));
+
+            std::string wrapper;
+            if (keyValueWrapper)
+            {
+                wrapper = args::get(keyValueWrapper);
+                if (wrapper.size() > 1)
+                {
+                    cerr << "only single-character wrappers are supported\n";
+                    return 1;
+                }
+            }
+
+            t.saveTxt(outPath.replace_extension(".txt"), wrapper);
             cout << "file saved to " << fs::absolute(outPath) << '\n';
         }
 

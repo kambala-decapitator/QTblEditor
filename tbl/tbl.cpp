@@ -50,12 +50,9 @@ void Tbl::saveTxt(const fs::path& filename, const string& wrapper)
     if (!out)
         throw FileWriteException{filename.string()};
 
-    auto reversedWrapper = wrapper;
-    std::reverse(std::begin(reversedWrapper), std::end(reversedWrapper));
-
     for (const auto& entry : m_entries)
     {
-        out << wrapper << entry.key << reversedWrapper << '\t' << wrapper << entry.value << reversedWrapper << '\n';
+        out << wrapper << entry.key << wrapper << '\t' << wrapper << entry.value << wrapper << '\n';
         if (!out.good())
             throw FileWriteException{filename.string(), entry.key};
     }
