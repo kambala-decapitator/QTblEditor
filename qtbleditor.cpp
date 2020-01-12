@@ -926,8 +926,11 @@ void QTblEditor::findNextString(const QString &query, bool isCaseSensitive, bool
 void QTblEditor::goTo()
 {
     GoToRowDialog dlg(this, _currentTableWidget->rowCount(), ui.actionStartNumberingFrom0->isChecked(), ui.actionShowHexInRow->isChecked());
-    if (dlg.exec())
-        _currentTableWidget->setCurrentCell(dlg.row() - 1, 1);
+    if (!dlg.exec())
+        return;
+    int row = dlg.row() - 1, col = 1;
+    _currentTableWidget->setCurrentCell(row, col);
+    _currentTableWidget->scrollTo(_currentTableWidget->model()->index(row, col), QAbstractItemView::PositionAtCenter);
 }
 
 void QTblEditor::editString(QTableWidgetItem *itemToEdit)
