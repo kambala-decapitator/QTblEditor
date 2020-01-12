@@ -831,10 +831,10 @@ DWORD QTblEditor::writeAsTbl(QByteArray &bytesToWrite)
     }
 
     bytesToWrite.fill(0, TblHeader::size); // header will be filled in the end, so we reserve bytes for it
-    QDataStream out(&bytesToWrite, QIODevice::WriteOnly);
+    QDataStream out(&bytesToWrite, QIODevice::Append);
     out.setByteOrder(QDataStream::LittleEndian);
 
-    out.skipRawData(TblHeader::size); // current offset for writing = 0x15
+    // current offset for writing = 0x15
     for (WORD i = 0; i < entriesNumber; i++)
         out << indices[i];
 
