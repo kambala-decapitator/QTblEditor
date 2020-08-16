@@ -17,7 +17,6 @@ CppApplication {
     cpp.defines: outer.concat("_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING")
   }
 
-  Depends { name: "args" }
   Depends { name: "catch" }
   Depends { name: "tbl" }
 }
