@@ -12,7 +12,7 @@
 using namespace std::string_literals;
 
 // https://stackoverflow.com/a/35103224
-#if defined(_MSC_VER) && _MSC_VER >= 1900 // TODO: check with Visual Studio 2019 release
+#if defined(_MSC_VER) && _MSC_VER >= 1900 && _MSC_VER < 1927
 std::string utf16_to_utf8(std::u16string utf16_string)
 {
     std::wstring_convert<std::codecvt_utf8_utf16<int16_t>, int16_t> convert;
