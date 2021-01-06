@@ -51,6 +51,8 @@ EditStringCell::EditStringCell(QWidget *parent, const KeyValueItemsPair &keyValu
     updateColorsMenu();
     ui.colorButton->setMenu(_colorMenu);
 
+    ui.stringPreview->viewport()->setStyleSheet("background-color: black;");
+
     connect(ui.wrapCheckBox, SIGNAL(toggled(bool)), SLOT(wrapModeChanged(bool)));
     connect(ui.keyLineEdit, SIGNAL(textChanged(QString)), SLOT(calculateKeyHashValue()));
     connect(ui.stringEdit, SIGNAL(textChanged()), SLOT(updateCharsEditCounter()));
