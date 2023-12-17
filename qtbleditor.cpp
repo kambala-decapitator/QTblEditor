@@ -2,6 +2,7 @@
 #include "gotorowdialog.h"
 #include "tablepanelwidget.h"
 #include "findreplacedialog.h"
+#include "qtcompat.h"
 
 #include <QMainWindow>
 #include <QCloseEvent>
@@ -15,6 +16,7 @@
 #include <QScrollBar>
 #include <QClipboard>
 #include <QListWidget>
+#include <QActionGroup>
 
 #include <QTextStream>
 #include <QSettings>
@@ -491,10 +493,10 @@ bool QTblEditor::processTblFile(QFile *inputFile)
         int maxKeyWidth = 0;
         for (WORD i = 0; i < rowCount; i++)
         {
-            QPair<QString, QString> currentDataStrings = tbl.dataStrings(i); // reading pair <key, value>
+            std::pair<QString, QString> currentDataStrings = tbl.dataStrings(i); // reading pair <key, value>
             _currentTableWidget->createNewEntry(i, currentDataStrings.first, currentDataStrings.second);
 
-            int currentKeyWidth = QFontMetrics(_currentTableWidget->item(i, 0)->font()).width(currentDataStrings.first);
+            int currentKeyWidth = qtcompat::fontMetricsHorizontalAdvance(_currentTableWidget->item(i, 0)->font(), currentDataStrings.first);
             if (maxKeyWidth < currentKeyWidth)
                 maxKeyWidth = currentKeyWidth;
         }
@@ -582,7 +584,7 @@ bool QTblEditor::processTxtOrCsvFile(QFile *inputFile)
         QString key = restoreNewlines(TblStructure::decodeKey(currentLine.left(separatorIndex)));
         _currentTableWidget->createNewEntry(i, key, restoreNewlines(QString::fromUtf8(currentLine.mid(separatorIndex + keyValueSeparator.length()))));
 
-        int currentKeyWidth = QFontMetrics(_currentTableWidget->item(i, 0)->font()).width(key);
+        int currentKeyWidth = qtcompat::fontMetricsHorizontalAdvance(_currentTableWidget->item(i, 0)->font(), key);
         if (maxKeyWidth < currentKeyWidth)
             maxKeyWidth = currentKeyWidth;
     }
@@ -686,7 +688,7 @@ void QTblEditor::save()
 void QTblEditor::saveAs()
 {
     QString fileName = currentTablePanelWidget()->absoluteFileName();
-#ifdef Q_OS_WIN32
+#if defined(Q_OS_WIN32) && !defined(IS_QT6)
     if (QSysInfo::WindowsVersion <= QSysInfo::WV_XP) // workaround for XP and earlier Windows versions
     {
         QFileInfo info(fileName);
@@ -1098,8 +1100,15 @@ void QTblEditor::writeSettings()
         QTextStream out(&f);
         out << tr("# You can place comments anywhere in the file\n# Format: name[tab]hex code[tab]hex RGB\n");
         for (int i = colorsNum; i < colors.size(); i++)
+        {
             out << colorStrings.at(i + 1) << '\t' << QString("0x%1").arg(colorCodes.at(i).unicode(), 0, 16)
-            << '\t' << colorHexString(colors.at(i)) << endl;
+                << '\t' << colorHexString(colors.at(i))
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+                << Qt::endl;
+#else
+                << endl;
+#endif
+        }
     }
     else
         QMessageBox::critical(this, qApp->applicationName(),

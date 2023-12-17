@@ -1,4 +1,5 @@
 #include "editcolorsdialog.h"
+#include "qtcompat.h"
 
 #include <QColorDialog>
 
@@ -9,7 +10,7 @@ EditColorsDialog::EditColorsDialog(QWidget *parent, const QStringList &colorStri
     : QDialog(parent)
 {
     ui.setupUi(this);
-    ui.hexCodeLineEdit->setValidator(new QRegExpValidator(QRegExp("[\\da-fA-F]+"), ui.hexCodeLineEdit));
+    qtcompat::setRegexValidator(QLatin1String("[\\da-fA-F]+"), ui.hexCodeLineEdit);
 
     for (int i = colorsNum; i < colors.size(); i++)
     {
@@ -139,7 +140,7 @@ void EditColorsDialog::changeRgbNumbersDisplay(bool isDec)
         if (isDec)
             rgbLineEdit->setValidator(new QIntValidator(0, 255, rgbLineEdit));
         else
-            rgbLineEdit->setValidator(new QRegExpValidator(QRegExp("[\\da-fA-F]{,2}"), rgbLineEdit));
+            qtcompat::setRegexValidator(QLatin1String("[\\da-fA-F]{,2}"), rgbLineEdit);
     }
 }
 

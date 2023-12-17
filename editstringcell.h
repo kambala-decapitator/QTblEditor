@@ -5,11 +5,13 @@
 
 #include <QTableWidgetItem>
 
+#include <utility>
+
 
 QString colorHexString(const QColor &c);
 
 
-typedef QPair<QTableWidgetItem *, QTableWidgetItem *> KeyValueItemsPair; // <keyItem, valueItem>
+typedef std::pair<QTableWidgetItem *, QTableWidgetItem *> KeyValueItemsPair; // <keyItem, valueItem>
 static const KeyValueItemsPair kEmptyKeyValuePair(0, 0);
 
 class EditStringCell : public QWidget

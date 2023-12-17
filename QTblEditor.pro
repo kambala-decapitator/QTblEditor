@@ -14,6 +14,10 @@ greaterThan(QT_MAJOR_VERSION, 4): {
     QT += widgets
     *-clang*: cache()
 }
+greaterThan(QT_MAJOR_VERSION, 5) {
+    DEFINES += IS_QT6
+    QT += core5compat
+}
 
 CONFIG(release, debug|release): {
     IS_RELEASE_BUILD = 1
@@ -24,6 +28,7 @@ CONFIG(release, debug|release): {
 # Input
 HEADERS += editstringcell.h \
            qtbleditor.h \
+           qtcompat.h \
            tblstructure.h \
            editstringcelldialog.h \
            findreplacedialog.h \
@@ -46,6 +51,7 @@ FORMS += editstringcell.ui \
 SOURCES += editstringcell.cpp \
            main.cpp \
            qtbleditor.cpp \
+           qtcompat.cpp \
            tblstructure.cpp \
            editstringcelldialog.cpp \
            findreplacedialog.cpp \

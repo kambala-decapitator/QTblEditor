@@ -1,8 +1,11 @@
 #include "tblstructure.h"
 
+#include <QIODevice>
 #include <QStringList>
 #include <QTextCodec>
 #include <QtAlgorithms>
+
+#include <algorithm>
 
 
 //global auxiliary functions
@@ -79,7 +82,7 @@ void TblStructure::getStringTable(QDataStream &in)
         DWORD keyOffset = hashNodes.at(i).StringKeyOffset - _header.DataStartOffset;
         _data += DataNode(keyOffset, TblStructure::decodeKey(buf + keyOffset), val);
     }
-    qSort(_data.begin(), _data.end(), DataNodeLessThan);
+    std::sort(_data.begin(), _data.end(), DataNodeLessThan);
     for (WORD i = 0; i < _header.NodesNumber; i++)
         _data[i].Index = i;
 }

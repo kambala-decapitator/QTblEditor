@@ -84,8 +84,8 @@ void D2StringTableWidget::deleteItems(bool isClear)
 
                 int row = range.topRow() - rowShift;
                 removeRow(row);
-                _editedItems.remove(qMakePair<int, int>(row, 0));
-                _editedItems.remove(qMakePair<int, int>(row, 1));
+                _editedItems.remove(std::pair<int, int>(row, 0));
+                _editedItems.remove(std::pair<int, int>(row, 1));
             }
             rowShift += range.rowCount();
             emit currentCellChanged(currentRow(), 0, 0, 0);

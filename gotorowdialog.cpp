@@ -1,7 +1,7 @@
 #include "gotorowdialog.h"
+#include "qtcompat.h"
 
 #include <QPushButton>
-#include <QRegExpValidator>
 
 #include <QSettings>
 
@@ -30,7 +30,7 @@ GoToRowDialog::GoToRowDialog(QWidget *parent, int rowCount, bool rowsStartFromZe
 
 void GoToRowDialog::changeMode(bool isHex)
 {
-    ui.lineEditValue->setValidator(new QRegExpValidator(isHex ? QRegExp("[\\da-fA-F]+") : QRegExp("\\d+"), ui.lineEditValue));
+    qtcompat::setRegexValidator(QLatin1String(isHex ? "[\\da-fA-F]+" : "\\d+"), ui.lineEditValue);
 	ui.lineEditValue->setFocus();
 }
 

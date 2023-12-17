@@ -2,9 +2,10 @@
 #define TBLSTRUCTURE_H
 
 #include <QList>
-#include <QPair>
 #include <QString>
 #include <QDataStream>
+
+#include <utility>
 
 
 // 'classic' typedefs
@@ -70,7 +71,7 @@ class TblStructure
 {
 public:
     const TblHeader &header() const { return _header; }
-    QPair<QString, QString> dataStrings(WORD i) const { return QPair<QString, QString>(_data.at(i).Key, _data.at(i).Val); }
+    std::pair<QString, QString> dataStrings(WORD i) const { return std::pair<QString, QString>(_data.at(i).Key, _data.at(i).Val); }
 
     void fillHeader(QDataStream &in) { in >> _header; }
     void getStringTable(QDataStream &in);

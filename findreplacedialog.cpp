@@ -1,5 +1,4 @@
 #include "findreplacedialog.h"
-#include "tablepanelwidget.h"
 
 #include <QMessageBox>
 #include <QDialog>
@@ -9,7 +8,7 @@
 #include <QSettings>
 
 
-FindReplaceDialog::FindReplaceDialog(QWidget *parent) : QDialog(parent)
+FindReplaceDialog::FindReplaceDialog(QWidget *parent) : QDialog(parent), _currentStringIterator(_foundTableItems.end())
 {
     ui.setupUi(this);
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
@@ -167,7 +166,7 @@ void FindReplaceDialog::getFoundStrings(const QList<QTableWidgetItem *> &foundIt
 
 void FindReplaceDialog::replaceNext()
 {
-    bool notSearched = !_currentStringIterator.i;
+    bool notSearched = _currentStringIterator == _foundTableItems.end();
     if (notSearched)
         findNext();
     if (!_searchFailed)

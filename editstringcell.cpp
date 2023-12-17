@@ -1,12 +1,15 @@
 #include "editstringcell.h"
 #include "tblstructure.h"
 #include "editcolorsdialog.h"
+#include "qtcompat.h"
 
 #include <QMenu>
 
 #include <QStack>
 #include <QQueue>
 #include <QTextCodec>
+
+#include <utility>
 
 
 // convenience function
@@ -26,7 +29,7 @@ QString colorsRegexPattern()
 {
     QStringList realColorStrings = colorStrings.mid(1);
     for (int i = 0; i < realColorStrings.size(); ++i)
-        realColorStrings[i] = QRegExp::escape(realColorStrings[i]);
+        realColorStrings[i] = qtcompat::regexEscape(realColorStrings[i]);
     return QString("(?:%1)").arg(realColorStrings.join(QChar('|')));
 }
 
@@ -116,13 +119,27 @@ void EditStringCell::setPreviewText()
 
     // stupid HTML
     QString text = ui.stringEdit->toPlainText().replace('<', "&lt;").replace('>', "&gt;");
+
+    const QString nonBlankSpace("&nbsp;");
+#if IS_QT5
+    QRegularExpression emptyRe(" {2,}");
+    do
+    {
+        QRegularExpressionMatch match = emptyRe.match(text);
+        if (!match.hasMatch())
+            break;
+        int matchedLength = match.capturedLength();
+        text.replace(match.capturedStart(), matchedLength, nonBlankSpace.repeated(matchedLength));
+    } while (true);
+#else
     int emptyMatchIndex;
     QRegExp emptyRe(" {2,}");
     while ((emptyMatchIndex = emptyRe.indexIn(text)) != -1)
     {
         int matchedLength = emptyRe.matchedLength();
-        text.replace(emptyMatchIndex, matchedLength, QString("&nbsp;").repeated(matchedLength));
+        text.replace(emptyMatchIndex, matchedLength, nonBlankSpace.repeated(matchedLength));
     }
+#endif
 
     bool shouldCenterAlign = ui.centerPreviewTextCheckBox->isChecked();
     const QString defaultColor = colorStrings.at(1); // text is white by default
@@ -131,11 +148,15 @@ void EditStringCell::setPreviewText()
         // text and colors flow top-to-bottom, but D2 renders text bottom-to-top
         // HTML renders top-to-bottom
 
+#if IS_QT5
+        static QRegularExpression colorRegex(colorsRegexPattern()); // one of the colors
+#else
         static QRegExp colorRegex(colorsRegexPattern()); // one of the colors
+#endif
         QString currentGlobalColor = defaultColor;
         QStringList lines = text.split('\n');
 
-        typedef QPair<QString, QString> ColoredText; // first - text, second - color
+        typedef std::pair<QString, QString> ColoredText; // first - text, second - color
         typedef QQueue<ColoredText> LineColoredQueue;
 
         QStack<LineColoredQueue> lineStack;
@@ -147,18 +168,28 @@ void EditStringCell::setPreviewText()
             int nextColorStart = 0, previousColorEnd = 0;
             do
             {
+#if IS_QT5
+                QRegularExpressionMatch match = colorRegex.match(line, nextColorStart);
+                nextColorStart = match.capturedStart();
+#else
                 nextColorStart = colorRegex.indexIn(line, nextColorStart);
+#endif
 
                 int textLength = nextColorStart;
                 if (textLength != -1)
                     textLength -= previousColorEnd;
-                lineQueue.enqueue(qMakePair(line.mid(previousColorEnd, textLength), currentGlobalColor));
+                lineQueue.enqueue(ColoredText(line.mid(previousColorEnd, textLength), currentGlobalColor));
 
                 if (nextColorStart == -1)
                     break;
 
+#if IS_QT5
+                currentGlobalColor = match.captured();
+                nextColorStart += match.capturedLength();
+#else
                 currentGlobalColor = colorRegex.cap();
                 nextColorStart += colorRegex.matchedLength();
+#endif
                 previousColorEnd = nextColorStart;
             } while (true);
 

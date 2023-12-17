@@ -4,6 +4,7 @@
 #include <QTableWidget>
 #include <QHeaderView>
 
+#include <utility>
 
 class QKeyEvent;
 class QMouseEvent;
@@ -20,7 +21,7 @@ public:
 
     void deleteItems(bool isClear);
     void createRowAt(int row);
-    void addEditedItem(QTableWidgetItem *editedItem) { _editedItems[qMakePair<int, int>(editedItem->row(), editedItem->column())] = editedItem; }
+    void addEditedItem(QTableWidgetItem *editedItem) { _editedItems[std::pair<int, int>(editedItem->row(), editedItem->column())] = editedItem; }
     void clearBackground();
     void createNewEntry(int row, const QString &key, const QString &val);
     void clearContents() { QTableWidget::clearContents(); _editedItems.clear(); }
@@ -44,7 +45,7 @@ protected:
     void dropEvent(QDropEvent *event);
 
 private:
-    QMap<QPair<int, int>, QTableWidgetItem *> _editedItems;
+    QMap<std::pair<int, int>, QTableWidgetItem *> _editedItems;
     bool _displayRowHex, _addToRowValue;
 
     void editInPlace() { editItem(currentItem()); };
