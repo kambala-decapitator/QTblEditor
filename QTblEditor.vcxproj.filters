@@ -1,41 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;cxx;c;def</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h</Extensions>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
     </Filter>
     <Filter Include="Form Files">
       <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
       <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
       <Extensions>qrc;*</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
-    <Filter Include="Generated Files">
-      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
-      <Extensions>moc;h;cpp</Extensions>
-      <SourceControlFiles>False</SourceControlFiles>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
     </Filter>
-    <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{cc236ba4-b92c-478b-b05d-e50ecd089423}</UniqueIdentifier>
-      <Extensions>cpp;moc</Extensions>
-      <SourceControlFiles>False</SourceControlFiles>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{142bb641-196a-4892-bc14-96b82298e06e}</UniqueIdentifier>
-      <Extensions>cpp;moc</Extensions>
-      <SourceControlFiles>False</SourceControlFiles>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Translation Files">
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
-      <Extensions>ts</Extensions>
+      <Extensions>ts;xlf</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts;xlf</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
   </ItemGroup>
@@ -47,6 +64,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="editcolorsdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="editorssplitterhandle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="editstringcell.cpp">
@@ -67,6 +87,9 @@
     <ClCompile Include="qtbleditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="qtcompat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="tablepanelwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -76,98 +99,52 @@
     <ClCompile Include="tblstructure.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="debug\qrc_qtbleditor.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_d2stringtablewidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_editcolorsdialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_editstringcell.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_editstringcelldialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_findreplacedialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_gotorowdialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qtbleditor.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_tablepanelwidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_tablesdifferenceswidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_d2stringtablewidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_editcolorsdialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_editstringcell.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_editstringcelldialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_findreplacedialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_gotorowdialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qtbleditor.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_tablepanelwidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_tablesdifferenceswidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="editorssplitterhandle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="tblstructure.h">
+    <QtMoc Include="d2stringtablewidget.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_editcolorsdialog.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_editstringcell.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_editstringcelldialog.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_findreplacedialog.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_gotorowdialog.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_qtbleditor.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_tablepanelwidget.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_tablesdifferenceswidget.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
+    </QtMoc>
+    <QtMoc Include="editcolorsdialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
     <ClInclude Include="editorssplitterhandle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <QtMoc Include="editstringcell.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="editstringcelldialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="findreplacedialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="gotorowdialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="qtbleditor.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="qtcompat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="tablepanelwidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="tablesdifferenceswidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="tblstructure.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="debug\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="release\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <None Include="qtbleditor_ru.ts">
@@ -178,67 +155,85 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="qtbleditor.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
+    <QtUic Include="editcolorsdialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="editstringcell.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="editstringcelldialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="findreplacedialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="gotorowdialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="qtbleditor.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="tablepanelwidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="tablesdifferenceswidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="d2stringtablewidget.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="editcolorsdialog.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="editstringcell.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="editstringcelldialog.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="findreplacedialog.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="gotorowdialog.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="qtbleditor.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="tablepanelwidget.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="tablesdifferenceswidget.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="editcolorsdialog.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="editstringcell.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="editstringcelldialog.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="findreplacedialog.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="gotorowdialog.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="qtbleditor.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="tablepanelwidget.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="tablesdifferenceswidget.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="qtbleditor.qrc">
+    <None Include="Resources\Add.png">
       <Filter>Resource Files</Filter>
-    </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="TODO.txt" />
+    </None>
+    <None Include="Resources\Baal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\Close.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\Copy.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\Down.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\Erase.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\Goto.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\Modify.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\New document.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\Open.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\Paste.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\Qt.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\Remove.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\Save.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\Search.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\Swap.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\Up.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <QtRcc Include="qtbleditor.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
   </ItemGroup>
 </Project>
