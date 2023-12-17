@@ -1401,7 +1401,7 @@ QString QTblEditor::customColorsFilePath() const
 {
 #ifdef Q_OS_MAC
 #ifdef IS_QT5
-    QString basePath = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+    QString basePath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
 #else
     QString basePath = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
 #endif
