@@ -93,3 +93,6 @@ macx {
         }
     }
 }
+win32 {
+    RC_FILE = qtbleditor.rc
+}
