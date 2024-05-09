@@ -418,7 +418,7 @@
     <string>Change text in the current cell</string>
    </property>
    <property name="shortcut">
-    <string>Enter</string>
+    <string>Return</string>
    </property>
   </action>
   <action name="actionAppendEntry">
