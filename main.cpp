@@ -3,6 +3,7 @@
 #include <QTranslator>
 
 #include "qtbleditor.h"
+#include "qtcompat.h"
 
 int main(int argc, char *argv[])
 {
@@ -10,13 +11,13 @@ int main(int argc, char *argv[])
     app.setOrganizationName("kambala");
     app.setApplicationName("QTblEditor");
     app.setApplicationVersion("1.5");
-#ifdef Q_OS_MAC
+#ifdef OS_MACOS
     app.setAttribute(Qt::AA_DontShowIconsInMenus);
 #endif
 
 
     QString locale = QLocale::system().name(), translationsPath =
-#ifdef Q_OS_MAC
+#ifdef OS_MACOS
                      qApp->applicationDirPath() + "/../Resources/" +
 #endif
                      "Translations/" + locale;

@@ -24,7 +24,7 @@
 #include <QMimeData>
 #include <QDateTime>
 
-#ifdef Q_OS_MAC
+#ifdef OS_MACOS
 #ifdef IS_QT5
 #include <QStandardPaths>
 #else
@@ -79,7 +79,7 @@ QTblEditor::QTblEditor(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(par
 
     ui.actionRenderGreyAsWhite->setText(tr("Render %1 as white", "Arg is grey's color code").arg(colorStrings.at(2)));
 
-#ifdef Q_OS_MAC
+#ifdef OS_MACOS
     ui.actionInsertAfterCurrent->setShortcut(QKeySequence("+"));
     ui.actionAppendEntry->setShortcut(QKeySequence("Ctrl++"));
     ui.actionGoTo->setShortcut(QKeySequence("Ctrl+L"));
@@ -109,7 +109,7 @@ QTblEditor::QTblEditor(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(par
     _keyHashLabel->setMinimumSize(_keyHashLabel->sizeHint());
     _keyHashLabel->clear();
 
-#ifndef Q_OS_MAC
+#ifndef OS_MACOS
     ui.statusBar->addWidget(new QLabel, 1);
 #endif
     ui.statusBar->addPermanentWidget(_keyHashLabel);
@@ -238,7 +238,7 @@ int QTblEditor::openTableMsgBoxResult()
     openOptsDlg.setEscapeButton(openOptsDlg.addButton(QMessageBox::Cancel));
     openOptsDlg.addButton(tr("Replace active"), QMessageBox::NoRole);
     openOptsDlg.setText(tr("How do you want to open the table?"));
-#ifdef Q_OS_MAC
+#ifdef OS_MACOS
     openOptsDlg.setWindowModality(Qt::WindowModal);
 #endif
     return openOptsDlg.exec();
@@ -989,7 +989,7 @@ bool QTblEditor::isDialogQuestionConfirmed(const QString &text)
 {
     QMessageBox confirmationDialog(QMessageBox::Question, qApp->applicationName(), text, QMessageBox::Yes | QMessageBox::No, this);
     confirmationDialog.setDefaultButton(QMessageBox::Yes);
-#ifdef Q_OS_MAC
+#ifdef OS_MACOS
     confirmationDialog.setWindowModality(Qt::WindowModal);
 #endif
     return confirmationDialog.exec() == QMessageBox::Yes;
@@ -1162,7 +1162,7 @@ void QTblEditor::readSettings()
 
     // read custom colors from file
     QFile f(customColorsFilePath());
-#ifndef Q_OS_MAC
+#ifndef OS_MACOS
     if (!f.exists()) // fallback for older versions
         f.setFileName(kCustomColorsFileName);
 #endif
@@ -1399,7 +1399,7 @@ QString QTblEditor::restoreNewlines(const QString &s)
 
 QString QTblEditor::customColorsFilePath() const
 {
-#ifdef Q_OS_MAC
+#ifdef OS_MACOS
 #ifdef IS_QT5
     QString basePath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
 #else

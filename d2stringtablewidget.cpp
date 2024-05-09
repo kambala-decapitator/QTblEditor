@@ -1,4 +1,5 @@
 #include "d2stringtablewidget.h"
+#include "qtcompat.h"
 
 #include <QProgressDialog>
 #include <QKeyEvent>
@@ -26,7 +27,7 @@ void D2StringTableWidget::keyPressEvent(QKeyEvent *keyEvent)
 {
     switch (keyEvent->key())
     {
-#ifndef Q_OS_MAC
+#ifndef OS_MACOS
         case Qt::Key_Enter:  // Return (usual Enter) or Enter (on the numpad)
 #endif
         case Qt::Key_Return: // starts editing of the current selected cell
@@ -34,7 +35,7 @@ void D2StringTableWidget::keyPressEvent(QKeyEvent *keyEvent)
                 emit itemDoubleClicked(currentItem());
             break;
         // in-place edit
-#ifdef Q_OS_MAC
+#ifdef OS_MACOS
         case Qt::Key_Enter:
 #endif
         case Qt::Key_F2:
@@ -178,7 +179,7 @@ void D2StringTableWidget::changeRowHeaderDisplay()
         QString rowText = QString::number(row);
         if (_displayRowHex)
             rowText += QString(" (0x%2)").arg(row, 0, 16);
-#ifdef Q_OS_MAC
+#ifdef OS_MACOS
         rowText += "  "; // fixes slight text truncation
 #endif
         rowLabels += rowText;

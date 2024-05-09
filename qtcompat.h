@@ -3,6 +3,16 @@
 
 #include <QLatin1String>
 
+#if IS_QT5
+# ifdef Q_OS_MACOS
+#  define OS_MACOS
+# endif
+#else
+# ifdef Q_OS_MAC
+#  define OS_MACOS
+# endif
+#endif // IS_QT5
+
 class QFont;
 class QLineEdit;
 
