@@ -36,9 +36,8 @@ void D2StringTableWidget::keyPressEvent(QKeyEvent *keyEvent)
         // in-place edit
 #ifdef Q_OS_MAC
         case Qt::Key_Enter:
-#else
-        case Qt::Key_F2:
 #endif
+        case Qt::Key_F2:
             editInPlace();
             break;
         case Qt::Key_Home: // Home or Ctrl+Home goes to the first cell
