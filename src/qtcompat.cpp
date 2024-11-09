@@ -1,5 +1,6 @@
 #include "qtcompat.h"
 
+#include <QDropEvent>
 #include <QFont>
 #include <QFontMetrics>
 #include <QLineEdit>
@@ -40,4 +41,14 @@ QString regexEscape(QString pattern)
     return QRegExp::escape(pattern);
 #endif
 }
+
+QPoint dropEventPos(QDropEvent *e)
+{
+#if IS_QT6
+    return e->position().toPoint();
+#else
+    return e->pos();
+#endif
+}
+
 }

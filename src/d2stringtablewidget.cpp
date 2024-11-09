@@ -134,7 +134,7 @@ void D2StringTableWidget::clearBackground()
 
 void D2StringTableWidget::dropEvent(QDropEvent *event)
 {
-    QTableWidgetItem *firstDroppedItem = itemAt(event->pos());
+    QTableWidgetItem *firstDroppedItem = itemAt(qtcompat::dropEventPos(event));
     QList<QTableWidgetItem *> droppedItems;
     QStringList oldTexts;
     QTableWidgetSelectionRange range = qobject_cast<QTableWidget *>(event->source())->selectedRanges().at(0);

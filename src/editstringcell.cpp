@@ -76,7 +76,7 @@ void EditStringCell::wrapModeChanged(bool state)
 void EditStringCell::insertText()
 {
     QAction *menuItem = qobject_cast<QAction *>(sender());
-    if (menuItem->parentWidget()->objectName() == kGenderNumberMenuName)
+    if (qobject_cast<QWidget *>(menuItem->parent())->objectName() == kGenderNumberMenuName)
         ui.stringEdit->insertPlainText(menuItem->text().left(4));
     else
         ui.stringEdit->insertPlainText(menuItem->text());
