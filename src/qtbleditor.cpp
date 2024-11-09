@@ -32,7 +32,9 @@
 #endif
 #endif
 
+#ifndef NO_NETWORK
 #include <QNetworkReply>
+#endif
 
 #ifndef QT_NO_DEBUG
 #include <QDebug>
@@ -346,6 +348,9 @@ void QTblEditor::reopen()
 
 void QTblEditor::sendToServer()
 {
+#ifdef NO_NETWORK
+    QMessageBox::critical(this, QString(), "App was built without network module");
+#else
     QSettings settings;
     QString url = settings.value("serverUrl").toString();
     if (url.isEmpty())
@@ -377,6 +382,7 @@ void QTblEditor::sendToServer()
     else
         QMessageBox::information(this, tr("Success"), tr("Response:") + "\n" + reply->readAll());
     reply->deleteLater();
+#endif
 }
 
 bool QTblEditor::loadFile(const QString &fileName, bool shouldShowOpenOptions)

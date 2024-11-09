@@ -5,7 +5,8 @@
 TEMPLATE = app
 TARGET = QTblEditor
 
-QT += network
+CONFIG(NO_NETWORK): DEFINES += NO_NETWORK
+else: QT += network
 
 greaterThan(QT_MAJOR_VERSION, 4): {
     DEFINES += IS_QT5
