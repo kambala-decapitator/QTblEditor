@@ -42,3 +42,4 @@ ui_*
 *.VC.*
 .vs
 .qmake.stash
+/build/

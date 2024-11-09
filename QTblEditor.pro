@@ -26,47 +26,49 @@ CONFIG(release, debug|release): {
 }
 
 # Input
-HEADERS += editstringcell.h \
-           qtbleditor.h \
-           qtcompat.h \
-           tblstructure.h \
-           editstringcelldialog.h \
-           findreplacedialog.h \
-           gotorowdialog.h \
-           tablepanelwidget.h \
-           d2stringtablewidget.h \
-           tablesdifferenceswidget.h \
-           editcolorsdialog.h \
-           editorssplitterhandle.h
+HEADERS += src/editstringcell.h \
+           src/qtbleditor.h \
+           src/qtcompat.h \
+           src/tblstructure.h \
+           src/editstringcelldialog.h \
+           src/findreplacedialog.h \
+           src/gotorowdialog.h \
+           src/tablepanelwidget.h \
+           src/d2stringtablewidget.h \
+           src/tablesdifferenceswidget.h \
+           src/editcolorsdialog.h \
+           src/editorssplitterhandle.h \
 
-FORMS += editstringcell.ui \
-         qtbleditor.ui \
-         editstringcelldialog.ui \
-         findreplacedialog.ui \
-         gotorowdialog.ui \
-         tablepanelwidget.ui \
-         tablesdifferenceswidget.ui \
-         editcolorsdialog.ui
+FORMS += src/editstringcell.ui \
+         src/qtbleditor.ui \
+         src/editstringcelldialog.ui \
+         src/findreplacedialog.ui \
+         src/gotorowdialog.ui \
+         src/tablepanelwidget.ui \
+         src/tablesdifferenceswidget.ui \
+         src/editcolorsdialog.ui \
 
-SOURCES += editstringcell.cpp \
-           main.cpp \
-           qtbleditor.cpp \
-           qtcompat.cpp \
-           tblstructure.cpp \
-           editstringcelldialog.cpp \
-           findreplacedialog.cpp \
-           gotorowdialog.cpp \
-           tablepanelwidget.cpp \
-           d2stringtablewidget.cpp \
-           tablesdifferenceswidget.cpp \
-           editcolorsdialog.cpp \
-           colors.cpp \
-           editorssplitterhandle.cpp
+SOURCES += src/editstringcell.cpp \
+           src/main.cpp \
+           src/qtbleditor.cpp \
+           src/qtcompat.cpp \
+           src/tblstructure.cpp \
+           src/editstringcelldialog.cpp \
+           src/findreplacedialog.cpp \
+           src/gotorowdialog.cpp \
+           src/tablepanelwidget.cpp \
+           src/d2stringtablewidget.cpp \
+           src/tablesdifferenceswidget.cpp \
+           src/editcolorsdialog.cpp \
+           src/colors.cpp \
+           src/editorssplitterhandle.cpp \
 
-RESOURCES += qtbleditor.qrc
+INCLUDEPATH += src
 
-TRANSLATIONS += qtbleditor_ru.ts \
-                qtbleditor_zh.ts
+RESOURCES += src/qtbleditor.qrc
+
+TRANSLATIONS += src/qtbleditor_ru.ts \
+                src/qtbleditor_zh.ts \
 
 OTHER_FILES += TODO.txt
 
@@ -94,5 +96,5 @@ macx {
     }
 }
 win32 {
-    RC_FILE = qtbleditor.rc
+    RC_FILE = src/qtbleditor.rc
 }

@@ -6,22 +6,9 @@
       <Extensions>ui</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
-    <Filter Include="Form Files">
-      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
-      <Extensions>ui</Extensions>
-      <ParseFiles>false</ParseFiles>
-    </Filter>
     <Filter Include="Generated Files">
       <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
-    </Filter>
-    <Filter Include="Generated Files">
-      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
-      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
@@ -32,15 +19,6 @@
       <Extensions>qrc;*</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
-      <Extensions>qrc;*</Extensions>
-      <ParseFiles>false</ParseFiles>
-    </Filter>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
@@ -50,91 +28,86 @@
       <Extensions>ts;xlf</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
-    <Filter Include="Translation Files">
-      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
-      <Extensions>ts;xlf</Extensions>
-      <ParseFiles>false</ParseFiles>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="colors.cpp">
+    <ClCompile Include="src\colors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="d2stringtablewidget.cpp">
+    <ClCompile Include="src\d2stringtablewidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="editcolorsdialog.cpp">
+    <ClCompile Include="src\editcolorsdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="editorssplitterhandle.cpp">
+    <ClCompile Include="src\editorssplitterhandle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="editstringcell.cpp">
+    <ClCompile Include="src\editstringcell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="editstringcelldialog.cpp">
+    <ClCompile Include="src\editstringcelldialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="findreplacedialog.cpp">
+    <ClCompile Include="src\findreplacedialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gotorowdialog.cpp">
+    <ClCompile Include="src\gotorowdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qtbleditor.cpp">
+    <ClCompile Include="src\qtbleditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qtcompat.cpp">
+    <ClCompile Include="src\qtcompat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tablepanelwidget.cpp">
+    <ClCompile Include="src\tablepanelwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tablesdifferenceswidget.cpp">
+    <ClCompile Include="src\tablesdifferenceswidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tblstructure.cpp">
+    <ClCompile Include="src\tblstructure.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="d2stringtablewidget.h">
+    <QtMoc Include="src\d2stringtablewidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="editcolorsdialog.h">
+    <QtMoc Include="src\editcolorsdialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <ClInclude Include="editorssplitterhandle.h">
+    <ClInclude Include="src\editorssplitterhandle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <QtMoc Include="editstringcell.h">
+    <QtMoc Include="src\editstringcell.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="editstringcelldialog.h">
+    <QtMoc Include="src\editstringcelldialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="findreplacedialog.h">
+    <QtMoc Include="src\findreplacedialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="gotorowdialog.h">
+    <QtMoc Include="src\gotorowdialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="qtbleditor.h">
+    <QtMoc Include="src\qtbleditor.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <ClInclude Include="qtcompat.h">
+    <ClInclude Include="src\qtcompat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <QtMoc Include="tablepanelwidget.h">
+    <QtMoc Include="src\tablepanelwidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="tablesdifferenceswidget.h">
+    <QtMoc Include="src\tablesdifferenceswidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <ClInclude Include="tblstructure.h">
+    <ClInclude Include="src\tblstructure.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -147,92 +120,92 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <None Include="qtbleditor_ru.ts">
+    <None Include="src\qtbleditor_ru.ts">
       <Filter>Translation Files</Filter>
     </None>
-    <None Include="qtbleditor_zh.ts">
+    <None Include="src\qtbleditor_zh.ts">
       <Filter>Translation Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="editcolorsdialog.ui">
+    <QtUic Include="src\editcolorsdialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="editstringcell.ui">
+    <QtUic Include="src\editstringcell.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="editstringcelldialog.ui">
+    <QtUic Include="src\editstringcelldialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="findreplacedialog.ui">
+    <QtUic Include="src\findreplacedialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="gotorowdialog.ui">
+    <QtUic Include="src\gotorowdialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="qtbleditor.ui">
+    <QtUic Include="src\qtbleditor.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="tablepanelwidget.ui">
+    <QtUic Include="src\tablepanelwidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="tablesdifferenceswidget.ui">
+    <QtUic Include="src\tablesdifferenceswidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Add.png">
+    <None Include="src\Resources\Add.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\Baal.png">
+    <None Include="src\Resources\Baal.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\Close.png">
+    <None Include="src\Resources\Close.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\Copy.png">
+    <None Include="src\Resources\Copy.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\Down.png">
+    <None Include="src\Resources\Down.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\Erase.png">
+    <None Include="src\Resources\Erase.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\Goto.png">
+    <None Include="src\Resources\Goto.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\Modify.png">
+    <None Include="src\Resources\Modify.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\New document.png">
+    <None Include="src\Resources\New document.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\Open.png">
+    <None Include="src\Resources\Open.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\Paste.png">
+    <None Include="src\Resources\Paste.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\Qt.png">
+    <None Include="src\Resources\Qt.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\Remove.png">
+    <None Include="src\Resources\Remove.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\Save.png">
+    <None Include="src\Resources\Save.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\Search.png">
+    <None Include="src\Resources\Search.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\Swap.png">
+    <None Include="src\Resources\Swap.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\Up.png">
+    <None Include="src\Resources\Up.png">
       <Filter>Resource Files</Filter>
     </None>
-    <QtRcc Include="qtbleditor.qrc">
+    <QtRcc Include="src\qtbleditor.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
   </ItemGroup>

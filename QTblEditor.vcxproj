@@ -193,34 +193,34 @@
     </QtUic>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="colors.cpp" />
-    <ClCompile Include="d2stringtablewidget.cpp" />
-    <ClCompile Include="editcolorsdialog.cpp" />
-    <ClCompile Include="editorssplitterhandle.cpp" />
-    <ClCompile Include="editstringcell.cpp" />
-    <ClCompile Include="editstringcelldialog.cpp" />
-    <ClCompile Include="findreplacedialog.cpp" />
-    <ClCompile Include="gotorowdialog.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="qtbleditor.cpp" />
-    <ClCompile Include="qtcompat.cpp" />
-    <ClCompile Include="tablepanelwidget.cpp" />
-    <ClCompile Include="tablesdifferenceswidget.cpp" />
-    <ClCompile Include="tblstructure.cpp" />
+    <ClCompile Include="src\colors.cpp" />
+    <ClCompile Include="src\d2stringtablewidget.cpp" />
+    <ClCompile Include="src\editcolorsdialog.cpp" />
+    <ClCompile Include="src\editorssplitterhandle.cpp" />
+    <ClCompile Include="src\editstringcell.cpp" />
+    <ClCompile Include="src\editstringcelldialog.cpp" />
+    <ClCompile Include="src\findreplacedialog.cpp" />
+    <ClCompile Include="src\gotorowdialog.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\qtbleditor.cpp" />
+    <ClCompile Include="src\qtcompat.cpp" />
+    <ClCompile Include="src\tablepanelwidget.cpp" />
+    <ClCompile Include="src\tablesdifferenceswidget.cpp" />
+    <ClCompile Include="src\tblstructure.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="d2stringtablewidget.h" />
-    <QtMoc Include="editcolorsdialog.h" />
-    <ClInclude Include="editorssplitterhandle.h" />
-    <QtMoc Include="editstringcell.h" />
-    <QtMoc Include="editstringcelldialog.h" />
-    <QtMoc Include="findreplacedialog.h" />
-    <QtMoc Include="gotorowdialog.h" />
-    <QtMoc Include="qtbleditor.h" />
-    <ClInclude Include="qtcompat.h" />
-    <QtMoc Include="tablepanelwidget.h" />
-    <QtMoc Include="tablesdifferenceswidget.h" />
-    <ClInclude Include="tblstructure.h" />
+    <QtMoc Include="src\d2stringtablewidget.h" />
+    <QtMoc Include="src\editcolorsdialog.h" />
+    <ClInclude Include="src\editorssplitterhandle.h" />
+    <QtMoc Include="src\editstringcell.h" />
+    <QtMoc Include="src\editstringcelldialog.h" />
+    <QtMoc Include="src\findreplacedialog.h" />
+    <QtMoc Include="src\gotorowdialog.h" />
+    <QtMoc Include="src\qtbleditor.h" />
+    <ClInclude Include="src\qtcompat.h" />
+    <QtMoc Include="src\tablepanelwidget.h" />
+    <QtMoc Include="src\tablesdifferenceswidget.h" />
+    <ClInclude Include="src\tblstructure.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -241,38 +241,38 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <None Include="qtbleditor_ru.ts" />
-    <None Include="qtbleditor_zh.ts" />
+    <None Include="src\qtbleditor_ru.ts" />
+    <None Include="src\qtbleditor_zh.ts" />
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="editcolorsdialog.ui" />
-    <QtUic Include="editstringcell.ui" />
-    <QtUic Include="editstringcelldialog.ui" />
-    <QtUic Include="findreplacedialog.ui" />
-    <QtUic Include="gotorowdialog.ui" />
-    <QtUic Include="qtbleditor.ui" />
-    <QtUic Include="tablepanelwidget.ui" />
-    <QtUic Include="tablesdifferenceswidget.ui" />
+    <QtUic Include="src\editcolorsdialog.ui" />
+    <QtUic Include="src\editstringcell.ui" />
+    <QtUic Include="src\editstringcelldialog.ui" />
+    <QtUic Include="src\findreplacedialog.ui" />
+    <QtUic Include="src\gotorowdialog.ui" />
+    <QtUic Include="src\qtbleditor.ui" />
+    <QtUic Include="src\tablepanelwidget.ui" />
+    <QtUic Include="src\tablesdifferenceswidget.ui" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Add.png" />
-    <None Include="Resources\Baal.png" />
-    <None Include="Resources\Close.png" />
-    <None Include="Resources\Copy.png" />
-    <None Include="Resources\Down.png" />
-    <None Include="Resources\Erase.png" />
-    <None Include="Resources\Goto.png" />
-    <None Include="Resources\Modify.png" />
-    <None Include="Resources\New document.png" />
-    <None Include="Resources\Open.png" />
-    <None Include="Resources\Paste.png" />
-    <None Include="Resources\Qt.png" />
-    <None Include="Resources\Remove.png" />
-    <None Include="Resources\Save.png" />
-    <None Include="Resources\Search.png" />
-    <None Include="Resources\Swap.png" />
-    <None Include="Resources\Up.png" />
-    <QtRcc Include="qtbleditor.qrc" />
+    <None Include="src\Resources\Add.png" />
+    <None Include="src\Resources\Baal.png" />
+    <None Include="src\Resources\Close.png" />
+    <None Include="src\Resources\Copy.png" />
+    <None Include="src\Resources\Down.png" />
+    <None Include="src\Resources\Erase.png" />
+    <None Include="src\Resources\Goto.png" />
+    <None Include="src\Resources\Modify.png" />
+    <None Include="src\Resources\New document.png" />
+    <None Include="src\Resources\Open.png" />
+    <None Include="src\Resources\Paste.png" />
+    <None Include="src\Resources\Qt.png" />
+    <None Include="src\Resources\Remove.png" />
+    <None Include="src\Resources\Save.png" />
+    <None Include="src\Resources\Search.png" />
+    <None Include="src\Resources\Swap.png" />
+    <None Include="src\Resources\Up.png" />
+    <QtRcc Include="src\qtbleditor.qrc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <Import Project="$(QtMsBuild)\qt.targets" Condition="Exists('$(QtMsBuild)\qt.targets')" />
