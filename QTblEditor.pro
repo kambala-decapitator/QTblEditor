@@ -74,7 +74,7 @@ TRANSLATIONS += src/qtbleditor_ru.ts \
 OTHER_FILES += TODO.txt
 
 macx {
-    ICON = File_icons/Baal.icns
+    ICON = src/File_icons/Baal.icns
 
     !isEmpty(IS_QT5) {
         QMAKE_MAC_SDK = macosx
