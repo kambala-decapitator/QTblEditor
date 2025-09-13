@@ -714,7 +714,7 @@ void QTblEditor::saveAs()
     }
 #endif // Q_OS_WIN32
     QString fileNameToSave = QFileDialog::getSaveFileName(this, tr("Save table"), fileName,
-                                                          tr("Tbl files (*.tbl);;Tab-delimited text files (*.txt);;CSV files (*.csv);;All files (*)"));
+                                                          tr("Tbl files (*.tbl);;Tab-delimited text files (*.txt);;CSV files (*.csv);;YAML files (*.yml);;All files (*)"));
     if (!fileNameToSave.isEmpty() && saveFile(fileNameToSave))
     {
         // change opened file path only if saving with the same extension
@@ -753,6 +753,8 @@ bool QTblEditor::saveFile(const QString &fileName)
 	}
     else if (extension == "txt" || isCsv)
         fileSize = writeAsText(bytesToWrite, isCsv);
+    else if (extension == "yml")
+        fileSize = writeAsYaml(bytesToWrite);
     else // any file
     {
         QMessageBox msgbox(this);
@@ -761,6 +763,7 @@ bool QTblEditor::saveFile(const QString &fileName)
         msgbox.addButton("tbl", QMessageBox::AcceptRole);
         msgbox.addButton("txt", QMessageBox::AcceptRole);
         msgbox.addButton("csv", QMessageBox::AcceptRole);
+        msgbox.addButton("yaml", QMessageBox::AcceptRole);
         msgbox.setWindowModality(Qt::WindowModal);
 
         switch (msgbox.exec())
@@ -775,6 +778,9 @@ bool QTblEditor::saveFile(const QString &fileName)
         case 2: // csv
             fileSize = writeAsText(bytesToWrite, true);
             break;
+        case 3: // yaml
+            fileSize = writeAsYaml(bytesToWrite);
+            break;
         }
     }
 
@@ -784,15 +790,22 @@ bool QTblEditor::saveFile(const QString &fileName)
         if (output.write(bytesToWrite) == fileSize)
         {
             _currentTableWidget->clearBackground();
-            _lastPath = QFileInfo(fileName).canonicalPath();
+            _lastPath = fi.canonicalPath();
             if (_openedTables == 1 || !inactiveNamedTableWidget(currentTablePanelWidget())->tableWidget()->isWindowModified())
                 ui.actionSaveAll->setDisabled(true);
 
             updateWindow(false);
             ui.statusBar->showMessage(tr("File \"%1\" successfully saved").arg(QDir::toNativeSeparators(fileName)), 3000);
 
-			if (savedAsTbl && ui.actionSaveTxtWithTbl->isChecked())
-				saveFile(QFileInfo(QDir(fi.absolutePath()), fi.completeBaseName() + ".txt").filePath());
+            if (savedAsTbl)
+            {
+                const QDir savedFileDir(fi.absolutePath());
+                const QString savedFileName = fi.completeBaseName();
+                if (ui.actionSaveTxtWithTbl->isChecked())
+                    saveFile(QFileInfo(savedFileDir, savedFileName + ".txt").filePath());
+                if (ui.actionSaveYamlWithTbl->isChecked())
+                    saveFile(QFileInfo(savedFileDir, savedFileName + ".yml").filePath());
+            }
 
             return true;
         }
@@ -910,6 +923,43 @@ DWORD QTblEditor::writeAsText(QByteArray &bytesToWrite, bool isCsv)
 
         out << static_cast<quint8>('\n');
     }
+    return bytesToWrite.size();
+}
+
+DWORD QTblEditor::writeAsYaml(QByteArray &bytesToWrite)
+{
+    const int indentSize = 1;
+    const QLatin1String indent(" "); // indentSize spaces
+    // multiline string, avoid line break after last line
+    const QString blockScalarHeader = LATIN1_STRING_ARGS("|-%1").arg(QString::number(indentSize));
+
+    typedef std::pair<QLatin1String, int> YamlEntry;
+
+    QTextStream out(&bytesToWrite, QIODevice::WriteOnly);
+#ifndef IS_QT6
+    out.setCodec("UTF-8");
+#endif
+    for (WORD i = 0, n = _currentTableWidget->rowCount(); i < n; ++i)
+    {
+        out << LATIN1_STRING_ARGS("- # %1\n").arg(QString::number(i + 1));
+
+        const QList<YamlEntry> keyValue = QList<YamlEntry>()
+            << std::make_pair(QLatin1String("k"), 0)
+            << std::make_pair(QLatin1String("v"), 1)
+            ;
+        foreach (const YamlEntry &entry, keyValue)
+        {
+            out << indent;
+            out << entry.first << QLatin1String(": ") << blockScalarHeader << '\n';
+            foreach (QString line, _currentTableWidget->item(i, entry.second)->text().split('\n'))
+                out << indent << indent << line << '\n';
+        }
+
+        if (i != n - 1)
+            out << '\n';
+    }
+    out.flush();
+
     return bytesToWrite.size();
 }
 

@@ -101,6 +101,7 @@ private:
     bool saveFile(const QString &fileName);
     DWORD writeAsTbl(QByteArray &bytesToWrite);
     DWORD writeAsText(QByteArray &bytesToWrite, bool isCsv);
+    DWORD writeAsYaml(QByteArray &bytesToWrite);
 
     void writeSettings();
     void readSettings();

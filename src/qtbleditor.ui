@@ -30,7 +30,7 @@
      <x>0</x>
      <y>0</y>
      <width>714</width>
-     <height>22</height>
+     <height>37</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -136,6 +136,8 @@
     <addaction name="actionShowHexInRow"/>
     <addaction name="separator"/>
     <addaction name="actionSaveTxtWithTbl"/>
+    <addaction name="actionSaveYamlWithTbl"/>
+    <addaction name="separator"/>
     <addaction name="actionHideKeyColumn"/>
     <addaction name="actionRenderGreyAsWhite"/>
    </widget>
@@ -794,6 +796,17 @@
    </property>
    <property name="text">
     <string notr="true"/>
+   </property>
+  </action>
+  <action name="actionSaveYamlWithTbl">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Save .yml together with .tbl</string>
+   </property>
+   <property name="statusTip">
+    <string>When saving a .tbl, also save respective .yml automatically</string>
    </property>
   </action>
  </widget>

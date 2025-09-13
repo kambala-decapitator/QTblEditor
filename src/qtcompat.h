@@ -14,6 +14,12 @@
 # endif
 #endif // IS_QT5
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+# define LATIN1_STRING_ARGS(s) QLatin1String(s)
+#else
+# define LATIN1_STRING_ARGS(s) QString(QLatin1String(s))
+#endif
+
 class QDropEvent;
 class QFont;
 class QLineEdit;
