@@ -26,6 +26,10 @@ CONFIG(release, debug|release): {
                QT_NO_WARNING_OUTPUT
 }
 
+equals(QT_MAJOR_VERSION, 6): greaterThan(QT_MINOR_VERSION, 4): DEPRECATION_MACRO = QT_DISABLE_DEPRECATED_UP_TO
+else: DEPRECATION_MACRO = QT_DISABLE_DEPRECATED_BEFORE
+DEFINES += $$DEPRECATION_MACRO=0x070000
+
 # Input
 HEADERS += src/editstringcell.h \
            src/qtbleditor.h \

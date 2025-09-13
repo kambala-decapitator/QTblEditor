@@ -32,6 +32,13 @@
 #endif
 #endif
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)
+#define HAS_QOPERATINGSYSTEMVERSION 1
+#include <QOperatingSystemVersion>
+#else
+#include <QSysInfo>
+#endif
+
 #ifndef NO_NETWORK
 #include <QNetworkReply>
 #endif
@@ -694,13 +701,18 @@ void QTblEditor::save()
 void QTblEditor::saveAs()
 {
     QString fileName = currentTablePanelWidget()->absoluteFileName();
-#if defined(Q_OS_WIN32) && !defined(IS_QT6)
-    if (QSysInfo::WindowsVersion <= QSysInfo::WV_XP) // workaround for XP and earlier Windows versions
+#ifdef Q_OS_WIN32
+    // workaround for XP and earlier Windows versions
+#if HAS_QOPERATINGSYSTEMVERSION
+    if (QOperatingSystemVersion::current() <= QOperatingSystemVersion(QOperatingSystemVersion::Windows, 5, 2))
+#else
+    if (QSysInfo::WindowsVersion <= QSysInfo::WV_XP)
+#endif
     {
         QFileInfo info(fileName);
         fileName = info.canonicalPath() + '/' + info.baseName(); // removing extension
     }
-#endif
+#endif // Q_OS_WIN32
     QString fileNameToSave = QFileDialog::getSaveFileName(this, tr("Save table"), fileName,
                                                           tr("Tbl files (*.tbl);;Tab-delimited text files (*.txt);;CSV files (*.csv);;All files (*)"));
     if (!fileNameToSave.isEmpty() && saveFile(fileNameToSave))
@@ -1107,7 +1119,7 @@ void QTblEditor::writeSettings()
         out << tr("# You can place comments anywhere in the file\n# Format: name[tab]hex code[tab]hex RGB\n");
         for (int i = colorsNum; i < colors.size(); i++)
         {
-            out << colorStrings.at(i + 1) << '\t' << QString("0x%1").arg(colorCodes.at(i).unicode(), 0, 16)
+            out << colorStrings.at(i + 1) << '\t' << QString("0x%1").arg(static_cast<ushort>(colorCodes.at(i).unicode()), 0, 16)
                 << '\t' << colorHexString(colors.at(i))
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
                 << Qt::endl;
