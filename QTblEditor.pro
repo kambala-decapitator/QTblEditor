@@ -5,6 +5,11 @@
 TEMPLATE = app
 TARGET = QTblEditor
 
+MOC_DIR = moc
+OBJECTS_DIR = obj
+RCC_DIR = rcc
+UI_DIR = ui
+
 CONFIG(NO_NETWORK): DEFINES += NO_NETWORK
 else: QT += network
 
