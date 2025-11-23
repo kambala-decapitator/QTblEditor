@@ -1131,6 +1131,7 @@ void QTblEditor::writeSettings()
     settings.setValue("showHexInRows", ui.actionShowHexInRow->isChecked());
     settings.setValue("startNumberingFrom", _startNumberingGroup->checkedAction()->text());
 	settings.setValue("saveTxtWithTbl", ui.actionSaveTxtWithTbl->isChecked());
+    settings.setValue("saveYamlWithTbl", ui.actionSaveYamlWithTbl->isChecked());
     settings.setValue("renderGreyAsWhite", ui.actionRenderGreyAsWhite->isChecked());
     settings.endGroup();
 
@@ -1202,6 +1203,7 @@ void QTblEditor::readSettings()
     ui.actionShowHexInRow->setChecked(settings.value("showHexInRows").toBool());
     (settings.value("startNumberingFrom").toString() == "0" ? ui.actionStartNumberingFrom0 : ui.actionStartNumberingFrom1)->setChecked(true);
 	ui.actionSaveTxtWithTbl->setChecked(settings.value("saveTxtWithTbl").toBool());
+    ui.actionSaveYamlWithTbl->setChecked(settings.value("saveYamlWithTbl").toBool());
     ui.actionRenderGreyAsWhite->setChecked(settings.value("renderGreyAsWhite").toBool());
     settings.endGroup();
 
