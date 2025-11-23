@@ -350,6 +350,7 @@ void QTblEditor::reopen()
         updateWindow(false);
         setWindowModified(_leftTableWidget->isWindowModified() && _rightTableWidget->isWindowModified());
         updateLocationLabel(_currentTableWidget->currentRow());
+        _currentTableWidget->clearBackground();
     }
 }
 
