@@ -224,14 +224,17 @@ void EditStringCell::setPreviewText()
     int length = ui.stringPreview->toPlainText().length();
     ui.charsPreviewCountLabel->setText(QString::number(length));
 
+    const int kMaxLengthPatch110 = 255; // TODO: in Median XL Sigma it's 355
+    const bool isTextOverLimit = length > kMaxLengthPatch110;
+    ui.charsPreviewCountLabel->setStyleSheet(isTextOverLimit ? LATIN1_STRING_ARGS("color: %1; border: 1px solid %1;").arg(QLatin1String("red")) : QString());
+
     // show warning only once
     static bool showWarning = true;
     if (showWarning)
     {
         showWarning = false;
 
-        const int kMaxLengthPatch110 = 255;
-        if (length > kMaxLengthPatch110)
+        if (isTextOverLimit)
             emit maxLengthExceededFor110(tr("Patch 1.10 has limitation of %1 characters per string").arg(kMaxLengthPatch110));
     }
 }
