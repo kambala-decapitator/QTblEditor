@@ -1,4 +1,5 @@
 int colorHeaderSize = 2; // const
+int colorSize = colorHeaderSize + 1; // const
 int colorsNum = 13; // const
 
 #include <QColor>

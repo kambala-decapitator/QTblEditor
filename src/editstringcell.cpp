@@ -24,6 +24,7 @@ extern QList<QChar> colorCodes;
 extern QStringList colorStrings;
 extern QList<QColor> colors;
 extern int colorsNum;
+extern int colorSize;
 
 QString colorsRegexPattern()
 {
@@ -141,6 +142,13 @@ void EditStringCell::setPreviewText()
     }
 #endif
 
+#if IS_QT5
+    static QRegularExpression colorRegex(colorsRegexPattern()); // one of the colors
+#else
+    static QRegExp colorRegex(colorsRegexPattern()); // one of the colors
+#endif
+    const int textColorsCount = text.count(colorRegex);
+
     bool shouldCenterAlign = ui.centerPreviewTextCheckBox->isChecked();
     const QString defaultColor = colorStrings.at(1); // text is white by default
     if (ui.reversePreviewTextCheckBox->isChecked())
@@ -148,11 +156,6 @@ void EditStringCell::setPreviewText()
         // text and colors flow top-to-bottom, but D2 renders text bottom-to-top
         // HTML renders top-to-bottom
 
-#if IS_QT5
-        static QRegularExpression colorRegex(colorsRegexPattern()); // one of the colors
-#else
-        static QRegExp colorRegex(colorsRegexPattern()); // one of the colors
-#endif
         QString currentGlobalColor = defaultColor;
         QStringList lines = text.split('\n');
 
@@ -221,7 +224,7 @@ void EditStringCell::setPreviewText()
                                                                                       shouldCenterAlign ? QLatin1String("align=\"center\"") : QString()));
     }
 
-    int length = ui.stringPreview->toPlainText().length();
+    const int length = ui.stringPreview->toPlainText().length() + textColorsCount * colorSize;
     ui.charsPreviewCountLabel->setText(QString::number(length));
 
     const int kMaxLengthPatch110 = 255; // TODO: in Median XL Sigma it's 355
