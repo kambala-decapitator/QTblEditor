@@ -769,28 +769,28 @@ bool QTblEditor::saveFile(const QString &fileName)
         QMessageBox msgbox(this);
         msgbox.setWindowTitle(qApp->applicationName());
         msgbox.setText(tr("Choose file format"));
-        msgbox.addButton("tbl", QMessageBox::AcceptRole);
-        msgbox.addButton("txt", QMessageBox::AcceptRole);
-        msgbox.addButton("csv", QMessageBox::AcceptRole);
-        msgbox.addButton("yaml", QMessageBox::AcceptRole);
-        msgbox.setWindowModality(Qt::WindowModal);
+		msgbox.setWindowModality(Qt::WindowModal);
+		msgbox.setEscapeButton(msgbox.addButton(QMessageBox::Cancel));
 
-        switch (msgbox.exec())
-        {
-        case 0: // tbl
-            fileSize = writeAsTbl(bytesToWrite);
+		QPushButton *tblButton = msgbox.addButton("tbl", QMessageBox::AcceptRole);
+		QPushButton *txtButton = msgbox.addButton("txt", QMessageBox::AcceptRole);
+		QPushButton *csvButton = msgbox.addButton("csv", QMessageBox::AcceptRole);
+		QPushButton *yamlButton = msgbox.addButton("yaml", QMessageBox::AcceptRole);
+
+		msgbox.exec();
+		if (msgbox.clickedButton() == tblButton)
+		{
+			fileSize = writeAsTbl(bytesToWrite);
 			savedAsTbl = true;
-            break;
-        case 1: // txt
-            fileSize = writeAsText(bytesToWrite, false);
-            break;
-        case 2: // csv
-            fileSize = writeAsText(bytesToWrite, true);
-            break;
-        case 3: // yaml
-            fileSize = writeAsYaml(bytesToWrite);
-            break;
-        }
+		}
+		else if (msgbox.clickedButton() == txtButton)
+			fileSize = writeAsText(bytesToWrite, false);
+		else if (msgbox.clickedButton() == csvButton)
+			fileSize = writeAsText(bytesToWrite, true);
+		else if (msgbox.clickedButton() == yamlButton)
+			fileSize = writeAsYaml(bytesToWrite);
+		else
+			return false;
     }
 
     QFile output(fileName);
