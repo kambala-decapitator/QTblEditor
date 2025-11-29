@@ -242,15 +242,23 @@ void QTblEditor::updateRecentFilesActions()
 int QTblEditor::openTableMsgBoxResult()
 {
     QMessageBox openOptsDlg(this);
-    openOptsDlg.setIcon(QMessageBox::Question);
-    openOptsDlg.setDefaultButton(openOptsDlg.addButton(tr("Open one more"), QMessageBox::AcceptRole));
-    openOptsDlg.setEscapeButton(openOptsDlg.addButton(QMessageBox::Cancel));
-    openOptsDlg.addButton(tr("Replace active"), QMessageBox::NoRole);
-    openOptsDlg.setText(tr("How do you want to open the table?"));
+	openOptsDlg.setIcon(QMessageBox::Question);
+	openOptsDlg.setText(tr("How do you want to open the table?"));
+	openOptsDlg.setEscapeButton(openOptsDlg.addButton(QMessageBox::Cancel));
 #ifdef OS_MACOS
     openOptsDlg.setWindowModality(Qt::WindowModal);
 #endif
-    return openOptsDlg.exec();
+
+	QPushButton *openOneMoreButton = openOptsDlg.addButton(tr("Open one more"), QMessageBox::AcceptRole);
+	QPushButton *replaceActiveButton = openOptsDlg.addButton(tr("Replace active"), QMessageBox::NoRole);
+	openOptsDlg.setDefaultButton(openOneMoreButton);
+
+	openOptsDlg.exec();
+	if (openOptsDlg.clickedButton() == openOneMoreButton)
+		return 0;
+	if (openOptsDlg.clickedButton() == replaceActiveButton)
+		return 1;
+	return 2;
 }
 
 void QTblEditor::tableMenuSetEnabled(bool isEnabled)
