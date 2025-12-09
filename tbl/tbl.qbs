@@ -29,7 +29,7 @@ NativeBinary {
     Depends { name: "cpp" }
     Depends { name: "filesystem" }
 
-    cpp.defines: product.exportedDefines
-    cpp.includePaths: product.sourceDirectory
+    cpp.defines: exportingProduct.exportedDefines
+    cpp.includePaths: exportingProduct.sourceDirectory
   }
 }
