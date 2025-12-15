@@ -27,17 +27,9 @@ void D2StringTableWidget::keyPressEvent(QKeyEvent *keyEvent)
 {
     switch (keyEvent->key())
     {
-#ifndef OS_MACOS
-        case Qt::Key_Enter:  // Return (usual Enter) or Enter (on the numpad)
-#endif
-        case Qt::Key_Return: // starts editing of the current selected cell
-            if (state() != QAbstractItemView::EditingState)
-                emit itemDoubleClicked(currentItem());
+        case Qt::Key_Return:
+            edit();
             break;
-        // in-place edit
-#ifdef OS_MACOS
-        case Qt::Key_Enter:
-#endif
         case Qt::Key_F2:
             editInPlace();
             break;
@@ -48,6 +40,14 @@ void D2StringTableWidget::keyPressEvent(QKeyEvent *keyEvent)
         case Qt::Key_End: // End or Ctrl+End goes to the last cell
             if (keyEvent->modifiers() == Qt::NoModifier || keyEvent->modifiers() == Qt::ControlModifier)
                 setCurrentCell(rowCount() - 1, 1, QItemSelectionModel::ClearAndSelect);
+            break;
+        case Qt::Key_Enter:
+#ifdef OS_MACOS
+            if (keyEvent->modifiers() == Qt::KeypadModifier)
+                editInPlace();
+            else
+#endif
+            edit();
             break;
         default:
             QTableWidget::keyPressEvent(keyEvent);
@@ -185,4 +185,10 @@ void D2StringTableWidget::changeRowHeaderDisplay()
         rowLabels += rowText;
     }
     setVerticalHeaderLabels(rowLabels);
+}
+
+void D2StringTableWidget::edit()
+{
+    if (state() != QAbstractItemView::EditingState)
+        emit itemDoubleClicked(currentItem());
 }

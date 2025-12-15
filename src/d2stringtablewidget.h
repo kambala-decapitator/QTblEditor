@@ -48,6 +48,7 @@ private:
     QMap<std::pair<int, int>, QTableWidgetItem *> _editedItems;
     bool _displayRowHex, _addToRowValue;
 
+    void edit();
     void editInPlace() { editItem(currentItem()); };
 };
 
