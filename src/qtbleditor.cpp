@@ -91,7 +91,7 @@ QTblEditor::QTblEditor(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(par
 #ifdef OS_MACOS
     ui.actionInsertAfterCurrent->setShortcut(QKeySequence("+"));
     ui.actionAppendEntry->setShortcut(QKeySequence("Ctrl++"));
-    ui.actionGoTo->setShortcut(QKeySequence("Ctrl+L"));
+    ui.actionGoTo->setShortcuts(QList<QKeySequence>() << QKeySequence("Ctrl+L") << QKeySequence("Meta+G"));
 #else
     ui.actionGoTo->setShortcut(QKeySequence("Ctrl+G"));
 #endif
